@@ -53,7 +53,6 @@ Fill in the information correctly to save the match information.
 <strong>Click refresh button on top to load the data in case it shows blank.</strong>
 </p>
         
-        
 <label for="form5" class="color-highlight">Select Team A</label>
 <div class="input-style has-borders no-icon mb-4">
       <form id="form1">
@@ -100,33 +99,27 @@ Fill in the information correctly to save the match information.
 <em></em>
 </div>
 
-
-
-
-
-
-  
-
-
-
-
+        <div class="ms-3 me-3 alert alert-small rounded-s shadow-xl bg-green-dark" role="alert" id="sforlina" style="visibility: hidden;">
+        </div>
 <button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-red-light" type="submit" id="savelineupA">Save Lineup A</button>
 
-<label for="form5" class="color-highlight">Select Lineup Team B</label>
 
+<label for="form5" class="color-highlight">Select Lineup Team B</label>   
+<div class="input-style has-borders no-icon mb-4">
+      <form id="form1">
+          
+                  <select multiple="multiple" id="lineupteamB">
+                    
+                  </select>    
+      </form>
+<span><i class="fa fa-chevron-down"></i></span>
+<i class="fa fa-check disabled valid color-green-dark"></i>
+<i class="fa fa-check disabled invalid color-red-dark"></i>
+<em></em>
+</div>
 
-  <div class="form-check" id="lineupteamB">
-                      
-
-  </div>
-
-
-
-
-
-
-
-
+        <div class="ms-3 me-3 alert alert-small rounded-s shadow-xl bg-green-dark" role="alert" id="sforlinb" style="visibility: hidden;">
+        </div>
 <button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-red-light" type="submit" id="savelineupB">Save Lineup B</button>
 
   
@@ -147,7 +140,7 @@ Fill in the information correctly to save the match information.
         </div>
 
         <div class="input-style has-borders has-icon validate-field mb-4">
-        <input type="name" class="form-control validate-name" id="noofovers" placeholder="No of overs">
+        <input type="number" class="form-control validate-name" id="noofovers" placeholder="No of overs">
         <label for="form1" class="color-highlight">Overs</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -350,7 +343,7 @@ schedulematch.addEventListener('click', () =>
 
     document.getElementById("successformatchadd").style.visibility="visible";
 
-             document.getElementById("successforteamadd").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
+             document.getElementById("successformatchadd").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
                 <strong class="color-white">Match created successfully!</strong>
                 <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
 
@@ -443,14 +436,9 @@ buttonsaveteam.addEventListener('click', () =>
     {
       const issue = snap.val();
 
-      document.getElementById("lineupteamB").innerHTML += 
-      `
-      <form id="playeraform">
-        <input type="checkbox" class="checkbox" value="${issue}" name="teamplayerB">
-        <label for="flexCheckChecked">${issue}</label>
-          <br>
-       </form>
-      ` 
+      document.getElementById("lineupteamB").innerHTML += `
+            <option value="${issue}">${issue}</option>
+             </form>` 
     })
   })
 });
@@ -462,15 +450,28 @@ var teamb = [];
 buttonsavelineupA.addEventListener('click', () => 
 {
 
-  var checkboxes = document.getElementsByName('teamplayerA');
+  /* var checkboxes = document.getElementsByName('teamplayerA');
 
-  for (var i=0;i<checkboxes.length;i++)
+   for (var i=0;i<checkboxes.length;i++)
   {
     if (checkboxes[i].checked==true)
     {
         teama.push(checkboxes[i].value);
     }
-  }
+  } */
+
+  for (var option of document.getElementById('lineupteamA').options)
+    {
+        if (option.selected) {
+            teama.push(option.value);
+        }
+    }
+
+    document.getElementById("sforlina").style.visibility="visible";
+
+             document.getElementById("sforlina").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
+                <strong class="color-white">Team A lineup stored!</strong>
+                <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
 
 });
 
@@ -478,15 +479,28 @@ buttonsavelineupA.addEventListener('click', () =>
 buttonsavelineupB.addEventListener('click', () => 
 {
 
-  var checkboxes = document.getElementsByName('teamplayerB');
+  /* var checkboxes = document.getElementsByName('teamplayerB'); */
 
-  for (var i=0;i<checkboxes.length;i++)
+  /*for (var i=0;i<checkboxes.length;i++)
   {
     if (checkboxes[i].checked==true)
     {
         teamb.push(checkboxes[i].value);
     }
-  }
+  } */
+
+  for (var option of document.getElementById('lineupteamB').options)
+    {
+        if (option.selected) {
+            teamb.push(option.value);
+        }
+    }
+
+    document.getElementById("sforlinb").style.visibility="visible";
+
+             document.getElementById("sforlinb").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
+                <strong class="color-white">Team B lineup stored!</strong>
+                <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
 
 });
 
