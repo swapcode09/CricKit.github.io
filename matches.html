@@ -24,11 +24,12 @@
 <a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-light"><i class="fas fa-moon"></i></a>
 </div>
 <div id="footer-bar" class="footer-bar-6">
-<a href="index-components.html" class="active-nav"><i class="fa fa-layer-group"></i><span>Features</span></a>
-<a href="index-pages.html"><i class="fa fa-file"></i><span>Pages</span></a>
-<a href="index.html" class="circle-nav"><i class="fa fa-home"></i><span>Welcome</span></a>
-<a href="index-projects.html"><i class="fa fa-camera"></i><span>Projects</span></a>
-<a href="#" data-menu="menu-main"><i class="fa fa-bars"></i><span>Menu</span></a>
+<a href="oldmatches.html"><i class="fa fa-layer-group"></i><span>History</span></a>
+<a href="viewmatches.html"><i class="fa fa-file"></i><span>View Matches</span></a>
+<a href="menu.html" class="circle-nav active-nav"><i class="fa fa-home"></i><span>Welcome</span></a>
+<a href="matches.html">⚾︎<span>Add Matches</span></a>
+<a href="teams.html" data-menu="menu-main">✿<span>Add Team</span></a>
+<!-- <a href="viewteams.html" data-menu="menu-main">✿<span>View Teams</span></a> -->
 </div>
 <div class="page-title page-title-fixed">
 <h1>Create Match</h1>
@@ -347,6 +348,8 @@ schedulematch.addEventListener('click', () =>
                 <strong class="color-white">Match created successfully!</strong>
                 <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
 
+        location.replace("viewmatches.html");
+
 });
 
 
@@ -382,7 +385,10 @@ buttonsaveteam.addEventListener('click', () =>
 
   teamaselected = document.getElementById("teamaplayerdisplay").value;
 
-  localStorage.setItem("teamaselected",teamaselected);
+  document.getElementById("lineupteamA").innerHTML="";
+  document.getElementById("lineupteamB").innerHTML="";
+
+   localStorage.setItem("teamaselected",teamaselected);
 
   teambselected = document.getElementById("teambplayerdisplay").value;
 
@@ -450,15 +456,7 @@ var teamb = [];
 buttonsavelineupA.addEventListener('click', () => 
 {
 
-  /* var checkboxes = document.getElementsByName('teamplayerA');
-
-   for (var i=0;i<checkboxes.length;i++)
-  {
-    if (checkboxes[i].checked==true)
-    {
-        teama.push(checkboxes[i].value);
-    }
-  } */
+  
 
   for (var option of document.getElementById('lineupteamA').options)
     {
@@ -478,16 +476,6 @@ buttonsavelineupA.addEventListener('click', () =>
 
 buttonsavelineupB.addEventListener('click', () => 
 {
-
-  /* var checkboxes = document.getElementsByName('teamplayerB'); */
-
-  /*for (var i=0;i<checkboxes.length;i++)
-  {
-    if (checkboxes[i].checked==true)
-    {
-        teamb.push(checkboxes[i].value);
-    }
-  } */
 
   for (var option of document.getElementById('lineupteamB').options)
     {
