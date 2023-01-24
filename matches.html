@@ -80,23 +80,53 @@ Fill in the information correctly to save the match information.
 </div>
 
 
-<button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-yellow-light" type="submit">Save Teams</button>
+<button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-yellow-light" type="submit" id="buttonsaveteams">Save Teams</button>
 
 
 <label for="form5" class="color-highlight">Select Lineup Team A</label>
-<div class="form-check" id="lineupteamA">
+<div class="input-style has-borders no-icon mb-4">
+      <form id="form1">
+          
+                  <select multiple="multiple" id="lineupteamA">
                     
-
+                  </select>    
+      </form>
+<span><i class="fa fa-chevron-down"></i></span>
+<i class="fa fa-check disabled valid color-green-dark"></i>
+<i class="fa fa-check disabled invalid color-red-dark"></i>
+<em></em>
 </div>
+
+
+
+
+
+
+  
+
+
+
+
 <button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-red-light" type="submit" id="savelineupA">Save Lineup A</button>
 
 <label for="form5" class="color-highlight">Select Lineup Team B</label>
-<div class="form-check" id="lineupteamB">
-                            
-</div>
+
+
+  <div class="form-check" id="lineupteamB">
+                      
+
+  </div>
+
+
+
+
+
+
+
+
 <button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-red-light" type="submit" id="savelineupB">Save Lineup B</button>
 
-
+  
         <div class="input-style has-borders has-icon validate-field mb-4">
         <input type="name" class="form-control validate-name" id="matchname" placeholder="Match name">
         <label for="form1" class="color-highlight">Match Name</label>
@@ -133,14 +163,11 @@ Fill in the information correctly to save the match information.
 
 </div>
 
+<div class="ms-3 me-3 alert alert-small rounded-s shadow-xl bg-green-dark" role="alert" id="successformatchadd" style="visibility: hidden;">
+
+</div>
+
 <center><button class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-dark-dark" type="submit" id="schedulematch">Schedule Match</button></center>
-
-
-
-
-
-
-
 
 
 
@@ -163,6 +190,25 @@ Fill in the information correctly to save the match information.
   
 </script>
 
+
+<script>
+const form1 = document.getElementById('form1');
+const form2 = document.getElementById('form2');
+
+const lineupteamA = document.getElementById('lineupteamA');
+const lineupteamB = document.getElementById('lineupteamB');
+
+/* const otherdetsform = document.getElementById('otherdetsform'); */
+
+const buttonsaveteam = document.getElementById('buttonsaveteams');
+
+const buttonsavelineupA = document.getElementById('savelineupA'); 
+const buttonsavelineupB = document.getElementById('savelineupB'); 
+
+const creatematch = document.getElementById('creatematch'); 
+const schedulematch = document.getElementById('schedulematch'); 
+</script>
+
 <script type="module">
   
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
@@ -183,6 +229,266 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
           
           const app = initializeApp(firebaseConfig);
           const database = getDatabase(app);
+
+
+
+var tbody = document.getElementById('tbody1');
+
+var toss;
+
+var optedto;
+
+
+schedulematch.addEventListener('click', () => 
+{
+
+  var groundname = document.getElementById("groundname").value;
+  var noofovers = document.getElementById("noofovers").value;
+  var matchname = document.getElementById("matchname").value;
+
+  localStorage.setItem("TotalOvers",noofovers);
+                
+
+  var ele = document.getElementsByName("teamtoss");
+
+  var con = document.getElementsByName("playchoice");
+
+  var battingfirstteam;
+  var bowlingfirstteam;
+
+  for(var i = 0; i < ele.length; i++) 
+  {
+                if(ele[i].checked)
+                toss = ele[i].value;
+                localStorage.setItem("Toss",toss);
+                
+  }
+
+   for(var j = 0; j < con.length; j++) 
+  {
+                if(con[j].checked)
+                optedto = con[j].value;
+                localStorage.setItem("optedto",optedto);
+                
+  }
+
+              if (toss == teamaselected && optedto == "Bat")
+               {
+                    battingfirstteam = teamaselected;
+                    bowlingfirstteam = teambselected;
+               }
+
+               if (toss == teamaselected && optedto == "Bowl")
+               {
+                    battingfirstteam = teambselected;
+                    bowlingfirstteam = teamaselected;
+               }
+
+               if (toss == teambselected && optedto == "Bat")
+               {
+                    battingfirstteam = teambselected;
+                    bowlingfirstteam = teamaselected;
+               }
+
+               if (toss == teambselected && optedto == "Bowl")
+               {
+                    battingfirstteam = teamaselected;
+                    bowlingfirstteam = teambselected;
+               }
+
+
+         localStorage.setItem("battingfirst",teamaselected);
+         localStorage.setItem("bowlingfirst",teambselected);
+
+  /* console.log("Team A is"+teamaselected);
+  console.log("Team B is"+teambselected);
+
+  console.log("Team A playesr"+teama);
+  console.log("Team B playesr"+teamb);
+
+  console.log("Match Name"+matchname);
+  console.log("Ground name"+groundname);
+  console.log("Overs"+noofovers);
+  console.log("Toss"+toss);
+  console.log("Opted to"+optedto); */
+
+
+
+               set (ref(database,'Matches/'+matchname) , {
+                                    MatchID : matchname,
+                                    Team1 : teamaselected,
+                                    Team2 : teambselected,
+                                    teamaselected : teama,
+                                    teambselected : teamb,
+                                    Overs : noofovers,
+                                    Ground : groundname,
+                                    Toss : toss,
+                                    OptedTo : optedto,
+                                    teambattingfirst : battingfirstteam,
+                                    teambowlingfirst : bowlingfirstteam
+                                  });
+
+
+                              set (ref(database,matchname+"/"+"Data/") , {
+                                    MatchID : matchname,
+                                    Team1 : teamaselected,
+                                    Team2 : teambselected,
+                                    teamaselected : teama,
+                                    teambselected : teamb,
+                                    Overs : noofovers,
+                                    Ground : groundname,
+                                    Toss : toss,
+                                    OptedTo : optedto,
+                                    teambattingfirst : battingfirstteam,
+                                    teambowlingfirst : bowlingfirstteam
+                                  });
+
+    document.getElementById("successformatchadd").style.visibility="visible";
+
+             document.getElementById("successforteamadd").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
+                <strong class="color-white">Match created successfully!</strong>
+                <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
+
+});
+
+
+const playeref = ref(database,"Teams/");
+const matchref = ref(database,"Matches/");
+
+function readteamsandmatches() 
+{
+  
+  onValue(playeref,(snapshot)=>
+  {
+    snapshot.forEach(snap => 
+    {
+      const issue = snap.val();
+
+      document.getElementById("teamaplayerdisplay").innerHTML += `
+      <option value="${issue.Team}">${issue.Team}</option>
+      `
+  
+      document.getElementById("teambplayerdisplay").innerHTML += `
+      <option value="${issue.Team}">${issue.Team}</option>`
+
+
+    })
+  })
+}
+
+
+  var teamaselected;
+
+  var teambselected;
+
+buttonsaveteam.addEventListener('click', () => 
+{
+
+  teamaselected = document.getElementById("teamaplayerdisplay").value;
+
+  localStorage.setItem("teamaselected",teamaselected);
+
+  teambselected = document.getElementById("teambplayerdisplay").value;
+
+  localStorage.setItem("teambselected",teambselected);
+
+  const getteamaplayers = ref(database,'Teams/'+teamaselected);
+
+  const gettebmaplayers = ref(database,'Teams/'+teambselected);
+
+  const opt1 = "Bat";
+  const opt2 = "Bowl";
+
+       document.getElementById("displaytwoteams").innerHTML += 
+      `<input class="form-check-input" type="radio" name="teamtoss" id="${teamaselected}" value="${teamaselected}">
+                              <label class="form-check-label" for="flexRadioDefault2">${teamaselected}</label>
+
+                              <br>
+      <input class="form-check-input" type="radio" name="teamtoss" id="${teambselected}" value="${teambselected}">
+                              <label class="form-check-label" for="flexRadioDefault2">${teambselected}</label>
+
+                          <br><br>`
+
+
+
+        document.getElementById("displaychoice").innerHTML += 
+      `<input class="form-check-input" type="radio" name="playchoice" id="${opt1}" value="${opt1}">
+                              <label class="form-check-label" for="flexRadioDefault2">${opt1}</label>
+
+                              <br>
+      <input class="form-check-input" type="radio" name="playchoice" id="${opt2}" value="${opt2}">
+                              <label class="form-check-label" for="flexRadioDefault2">${opt2}</label>
+
+                          <br><br>`
+  
+
+  onValue(getteamaplayers,(snapshot)=>
+  {
+    snapshot.forEach(snap => 
+    {
+      const issue = snap.val();
+
+      document.getElementById("lineupteamA").innerHTML += `
+            <option value="${issue}">${issue}</option>
+             </form> `
+    })
+  })
+
+  onValue(gettebmaplayers,(snapshot)=>
+  {
+    snapshot.forEach(snap => 
+    {
+      const issue = snap.val();
+
+      document.getElementById("lineupteamB").innerHTML += 
+      `
+      <form id="playeraform">
+        <input type="checkbox" class="checkbox" value="${issue}" name="teamplayerB">
+        <label for="flexCheckChecked">${issue}</label>
+          <br>
+       </form>
+      ` 
+    })
+  })
+});
+
+
+var teama = [];
+var teamb = [];
+
+buttonsavelineupA.addEventListener('click', () => 
+{
+
+  var checkboxes = document.getElementsByName('teamplayerA');
+
+  for (var i=0;i<checkboxes.length;i++)
+  {
+    if (checkboxes[i].checked==true)
+    {
+        teama.push(checkboxes[i].value);
+    }
+  }
+
+});
+
+
+buttonsavelineupB.addEventListener('click', () => 
+{
+
+  var checkboxes = document.getElementsByName('teamplayerB');
+
+  for (var i=0;i<checkboxes.length;i++)
+  {
+    if (checkboxes[i].checked==true)
+    {
+        teamb.push(checkboxes[i].value);
+    }
+  }
+
+});
+
+
+window.onload=readteamsandmatches;
 
 
 
@@ -250,6 +556,43 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
  /*  window.onload=readteams; */
 
 
+</script>
+
+
+<script>
+   function cr7(ele) 
+   {
+      var btnValue = ele.value;
+      var initial_ui_opened = 0;
+      localStorage.setItem("selectedmatch",btnValue);
+      localStorage.setItem("initial_ui_opened",initial_ui_opened);
+  
+      /* if (toss == teamaselected && optedto == "Bat")
+      {
+         localStorage.setItem("battingfirst",teamaselected);
+         localStorage.setItem("bowlingfirst",teambselected);
+      }
+
+      if (toss == teamaselected && optedto == "Bowl")
+      {
+         localStorage.setItem("battingfirst",teambselected);
+         localStorage.setItem("bowlingfirst",teamaselected);
+      }
+
+      if (toss == teambselected && optedto == "Bat")
+      {
+         localStorage.setItem("battingfirst",teambselected);
+         localStorage.setItem("bowlingfirst",teamaselected);
+      }
+
+      if (toss == teambselected && optedto == "Bowl")
+      {
+         localStorage.setItem("battingfirst",teamaselected);
+         localStorage.setItem("bowlingfirst",teambselected);
+      } */
+      
+      return false;
+  }
 </script>
 
 
