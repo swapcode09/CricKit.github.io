@@ -32,8 +32,11 @@
 </div>
 <div class="page-title page-title-fixed">
 <h1>Create Match</h1>
-<a href="#" class="page-title-icon shadow-xl bg-theme color-theme" data-menu="menu-share"><i class="fa fa-share-alt"></i></a>
+
+<button class="page-title-icon shadow-xl bg-theme color-theme" data-menu="menu-share" onClick="window.location.reload();">&#x21bb;</button>
+
 <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-light" data-toggle-theme><i class="fa fa-moon"></i></a>
+
 <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-lightbulb color-yellow-dark"></i></a>
 <a href="#" class="page-title-icon shadow-xl bg-theme color-theme" data-menu="menu-main"><i class="fa fa-bars"></i></a>
 </div>
@@ -47,7 +50,7 @@
 Fill in the information correctly to save the match information.
 </p>
 <p>
-<strong>You can add more players to the team later as well.</strong>
+<strong>Click refresh button on top to load the data in case it shows blank.</strong>
 </p>
         
         
@@ -207,6 +210,8 @@ const buttonsavelineupB = document.getElementById('savelineupB');
 
 const creatematch = document.getElementById('creatematch'); 
 const schedulematch = document.getElementById('schedulematch'); 
+
+
 </script>
 
 <script type="module">
@@ -490,69 +495,6 @@ window.onload=readteamsandmatches;
 
 </script>
 
-
-
-
-
-// THIS PART WILL BE PRESENT ON NEW TEAM DISPLAY PAGE
-
-/* const playeref = ref(database,"Teams/"); */
-
-
-/* function readteams() 
-{
-  
-
-  onValue(playeref,(snapshot)=>
-  {
-    snapshot.forEach(snap => {
-      const issue = snap.val();
-
-      document.getElementById("teamlistdisplay").innerHTML += `
-
-<div class="col-lg-6 mb-4" id="teamlistdisplay">
-      <div class="bg-light p-4 rounded">
-              <div class="widget-body">
-                  <div class="widget-vs">
-                    <div class="d-flex align-items-center justify-content-around justify-content-between w-100">
-                      <div class="team-1 text-center">
-                        <img src="images/logo_1.png" alt="Image">
-                        <h3>${issue.Team}</h3>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-center widget-vs-contents mb-4">
- 
-                  <p class="mb-5">
-                    <span class="d-block">${issue.Player1}</span>
-                    <span class="d-block">${issue.Player2}</span>
-                    <span class="d-block">${issue.Player3}</span>
-                    <span class="d-block">${issue.Player4}</span>
-                    <span class="d-block">${issue.Player5}</span>
-                    <span class="d-block">${issue.Player6}</span>
-                    <span class="d-block">${issue.Player7}</span>
-                    <span class="d-block">${issue.Player8}</span>
-                    <span class="d-block">${issue.Player9}</span>
-                    <span class="d-block">${issue.Player10}</span>
-                    <span class="d-block">${issue.Player11}</span>
-                    <span class="d-block">${issue.Player12}</span>
-                    <span class="d-block">${issue.Player13}</span>
-                  </p>
-
-                </div>
-              
-            </div>
-</div>
-  
-      `
-    })
-  }
-)} */
-
- /*  window.onload=readteams; */
 
 <script>
    function cr7(ele) 
