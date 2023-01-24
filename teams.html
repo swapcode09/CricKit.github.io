@@ -51,9 +51,6 @@ Fill in the information correctly to save the team information for 11 players no
 </p>
         
         
-<div class="ms-3 me-3 alert alert-small rounded-s shadow-xl bg-green-dark" role="alert" id="successforteamadd">
-
-</div>
 
         <div class="input-style has-borders has-icon validate-field mb-4">
         <i class="fa fa-user"></i>
@@ -151,6 +148,10 @@ Fill in the information correctly to save the team information for 11 players no
         <i class="fa fa-check disabled valid color-green-dark"></i>
         <em>(required)</em>
         </div>
+
+        <div class="ms-3 me-3 alert alert-small rounded-s shadow-xl bg-green-dark" role="alert" id="successforteamadd" style="visibility: hidden;">
+
+        </div>
         
         <center><button id="saveteambutton" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-orange-light"
         type="submit">Save Team</button></center>
@@ -169,7 +170,7 @@ Fill in the information correctly to save the team information for 11 players no
 
 <script>
 
-const btn = document.getElementById('addteam');
+
 const saveteam = document.getElementById('saveteambutton');
 
 let teemname=document.getElementById('teemname');
@@ -202,21 +203,9 @@ var p11n = "";
 var p12n = "";
 var p13n = "";
 
-var teamlistdisplay = document.getElementById("teamlistdisplay");
+/* var teamlistdisplay = document.getElementById("teamlistdisplay"); */
 
-btn.addEventListener('click', () => 
-{
-
-  if (form1.style.visibility === 'hidden') 
-  {
-    form1.style.visibility = 'visible';
-  } 
-  else 
-  {
-    form1.style.visibility = 'hidden';
-
-  }
-});  
+  
 
 
 </script>
@@ -258,8 +247,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
             p9n = p9input.value;
             p10n = p10input.value;
             p11n = p11input.value;
-            p12n = p12input.value;
-            p13n = p13input.value;
             /* const teamnameroot = push(child(ref(database),'teams')); */
 
              set (ref(database,'Teams/'+tname) , {
@@ -274,16 +261,30 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
                                     Player8 : p8n,
                                     Player9 : p9n,
                                     Player10 : p10n,
-                                    Player11 : p11n,
-                                    Player12 : p12n,
-                                    Player13 : p13n
-                                  
-                                    document.getElementById("successforteamadd").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
-                <strong class="color-white">Everything's okay here!</strong>
-                <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
-
+                                    Player11 : p11n
                                   });
-          }); 
+
+             document.getElementById("successforteamadd").style.visibility="visible";
+
+             document.getElementById("successforteamadd").innerHTML = `<span><i class="fa fa-check color-white"></i></span>
+                <strong class="color-white">Team sucessfully added!</strong>
+                <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">&times;</button>`
+          });
+
+
+document.getElementById("teemname").innerHTML="";
+document.getElementById("p1input").innerHTML="";
+document.getElementById("p2input").innerHTML="";
+document.getElementById("p3input").innerHTML="";
+document.getElementById("p4input").innerHTML="";
+document.getElementById("p5input").innerHTML="";
+document.getElementById("p6input").innerHTML="";
+document.getElementById("p7input").innerHTML="";
+document.getElementById("p8input").innerHTML="";
+document.getElementById("p9input").innerHTML="";
+document.getElementById("p10input").innerHTML="";
+document.getElementById("p11input").innerHTML="";
+
 
 // THIS PART WILL BE PRESENT ON NEW TEAM DISPLAY PAGE
 
