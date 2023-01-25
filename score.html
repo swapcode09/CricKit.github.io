@@ -13,8 +13,9 @@
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
 
-<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 
 </head>
 <body class="theme-light">
@@ -49,8 +50,16 @@
 <div class="page-content">
 <div class="card card-style">
 <div class="content mb-0">
+
 <p class="mb-n1 color-highlight font-600">LIVE</p>
 <p>
+<div class="list-group list-custom-small list-icon-0">
+<a href="#" data-menu="initialui">
+<i class="fa fa-sign-in-alt color-green-dark"></i>
+<span>Generate initial batter and bowler</span>
+<i class="fa fa-angle-right"></i>
+</a>
+</div>
 
 </p>
 <div class="d-flex mb-4">
@@ -58,7 +67,7 @@
 <img src="images/food/small/3s.jpg" class="rounded-sm me-3" width="40">
 </div>
 <div class="align-self-center">
-<p class="color-highlight font-11 mb-n2" id="teamAname">Team A</p>
+<p class="color-highlight font-11 mb-n2" id="teamAname"></p>
 <strong class="font-15 color-black mb-4" id="teamascore">0</strong>/<strong id="teamawickets" class="font-15 color-black mb-4">0</strong>  (<strong id="teamaovers" class="font-15 color-black mb-4">0.0</strong>)
 </div>
 <div class="ms-auto ps-3 align-self-center text-center">
@@ -72,7 +81,7 @@
 <img src="images/food/small/7s.jpg" class="rounded-sm me-3" width="40">
 </div>
 <div class="align-self-center">
-<p class="color-highlight font-11 mb-n2" id="teamBname">Team B</p>
+<p class="color-highlight font-11 mb-n2" id="teamBname"></p>
 <strong class="font-15 color-black mb-4" id="teambscore">0</strong>/<strong id="teambwickets" class="font-15 color-black mb-4">0</strong>  (<strong id="teambovers" class="font-15 color-black mb-4">0.0</strong>)
 </div>
 <div class="ms-auto ps-3 align-self-center text-center">
@@ -83,7 +92,8 @@
 
 <div class="d-flex mb-4">
 <div class="align-self-center">
-<h2 class="font-15 line-height-s mt-1 mb-1">Team A needs .... to win</h2>
+<p class="mb-n1 color-red-dark font-600" id="tossdetails"></p>
+<h2 class="font-15 line-height-s mt-1 mb-1" >Team A needs .... to win</h2>
 
 <p>
 
@@ -104,6 +114,236 @@
 </div>
 </div>
 
+<!-- OVER DONE BOWLER DISPLAY MODAL -->
+<div class="card card-style" id="bowlermodal" style="display:none;">
+<div class="content mb-0">
+<div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Over Completed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="dropdown">
+          <select id="selectbowler">
+              <option>Choose new bowler</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" id="savebowler" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- WICKET FALLING NORMAL BALL MODAL -->
+<div class="card card-style" id="onlybatterdisplay" style="display:none">
+<div class="content mb-0">
+<div>
+<div class="menu-title">
+        <h1 class="font-24">Choose new batter</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        </div>
+        <div class="content mb-0 mt-2">
+
+
+        <label for="form5" class="color-highlight">Batter list</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="selectnewbatter">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+        
+        <label for="form5" class="color-highlight">Select wicket type</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="wicketdisplay" onchange="disablecarbrand(this)">
+                    <option value="b" id="bowled">Bowled</option>
+                    <option value="c" id="caught">Caught</option>
+                    <option value="c&b" id="caught&bowled">C&B</option>
+                    <option value="lbw" id="lbw">LBW</option>
+                    <option value="stumped" id="stumped">Stumped</option>
+                    <option value="runout" id="runout">Run Out</option>
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Select catcher name</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="bowlerlistifcaught" disabled="">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Toss won by</label>
+        <div class="form-check" id="runoutradio">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunout" value="strikerro" onchange="throwwhoout(this)">
+            <label class="form-check-label">Striker <strong id="strikername"></strong></label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunout" value="nostrikerro" onchange="throwwhoout(this)">
+                <label class="form-check-label">Non Striker <strong id="nonstrikername"></strong></label>
+        </div>
+
+    <button type="submit" id="savenewbatter" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
+        </div>
+</div>
+</div>
+</div>
+
+<!-- WICKET FALLING LAST BALL OVER -->
+<div class="card card-style" id="batterbowler" style="display:none">
+<div class="content mb-0">
+<div>
+<div class="menu-title">
+        <h1 class="font-24">Choose new batter</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        </div>
+        <div class="content mb-0 mt-2">
+
+
+        <label for="form5" class="color-highlight">Batter list</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="selectnewbatteroverchange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+        
+        <label for="form5" class="color-highlight">Select wicket type</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="wicketdisplayoverchange" onchange="disablecarbrandoverchange(this)">
+                    <option value="b" id="bowled">Bowled</option>
+                    <option value="c" id="caught">Caught</option>
+                    <option value="c&b" id="caught&bowled">C&B</option>
+                    <option value="lbw" id="lbw">LBW</option>
+                    <option value="stumped" id="stumped">Stumped</option>
+                    <option value="runout" id="runout">Run Out</option>
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Select catcher name</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="bowlerlistifcaughtoverchange" disabled="">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Toss won by</label>
+        <div class="form-check" id="runoutradiooverchange">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunoutoverchange" value="strikerro" onchange="throwwhoout(this)">
+            <label class="form-check-label">Striker <strong id="strikernameoverchange"></strong></label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunoutoverchange" value="nostrikerro" onchange="throwwhoout(this)">
+                <label class="form-check-label">Non Striker <strong id="nonstrikernameoverchange"></strong></label>
+        </div>
+
+    <button type="submit" id="savenewbatteroverchange" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
+        </div>
+</div> 
+</div>
+</div>
+
+<!-- WICKET FALLING LAST BALL INNS -->
+<div class="card card-style" id="wicketforlastbatter" style="display:none">
+<div class="content mb-0">
+<div>
+<div class="menu-title">
+        <h1 class="font-24">Choose new batter</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        </div>
+        <div class="content mb-0 mt-2">
+        
+        <label for="form5" class="color-highlight">Select wicket type</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="wicketdisplaylastbatter" onchange="disablecarbrandoverchangelastabatter(this)">
+                    <option value="b" id="bowled">Bowled</option>
+                    <option value="c" id="caught">Caught</option>
+                    <option value="c&b" id="caught&bowled">C&B</option>
+                    <option value="lbw" id="lbw">LBW</option>
+                    <option value="stumped" id="stumped">Stumped</option>
+                    <option value="runout" id="runout">Run Out</option>
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Select catcher name</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="bowlerlistifcaughtoverchangelastbatter" disabled="">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Toss won by</label>
+        <div class="form-check" id="runoutradiolastbatter">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunoutlastbatter" value="strikerro" onchange="throwwhoout(this)">
+            <label class="form-check-label">Striker <strong id="strikernamelastbatter"></strong></label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunoutlastbatter" value="nostrikerro" onchange="throwwhoout(this)">
+                <label class="form-check-label">Non Striker <strong id="nonstrikernamelastbatter"></strong></label>
+        </div>
+
+    <button type="submit" id="wicketforlastbattersave" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
+        </div>
+</div> 
+</div>
+</div>
+
 
 <div class="card card-style bg-theme pb-0">
 <div class="content" id="tab-group-1">
@@ -118,35 +358,6 @@
 
 
 <div data-bs-parent="#tab-group-1" class="collapse show" id="Live">
-
-<!-- LIVE PANEL CODE HERE -->
-
-</div>
-
-<div data-bs-parent="#tab-group-1" class="collapse" id="Scorecard">
-
-
-<!-- SCORECARD CODE COME HERE -->
-
-
-</div>
-
-<div data-bs-parent="#tab-group-1" class="collapse" id="Commentary">
-
-<!-- COMMENTARY CODE HERE -->
-
-</div>
-
-<div data-bs-parent="#tab-group-1" class="collapse" id="Teams">
-    
-<!-- TEAMS CODE HERE -->
-
-</div>
-
-
-
-</div>
-
 
 <div class="card card-style">
 <div class="content mb-2">
@@ -195,7 +406,7 @@
 
                         
                                 <div class="spell-sum-box">
-                        <h5 class="mb-n1 color-highlight font-600">Last Bat: <span id="lastbat"> </span></h5>
+                        <p class="mb-n1 color-highlight font-600">Last Bat: <span id="lastbat"> </span></hp>
                                 </div>
                      
 
@@ -210,10 +421,11 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">In At</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Bowler</th>
+      <th scope="col">O</th>
+      <th scope="col">R</th>
+      <th scope="col">W</th>
+      <th scope="col">Eco</th>
     </tr>
   </thead>
   <tbody>
@@ -235,13 +447,6 @@
 
 </div>
 </div>
-
-
- <div id="popup2">
-        
-       
-</div>
-
 
 <div class="card card-style">
 <div class="content mb-0">
@@ -284,291 +489,246 @@
 </div>
 </div>
 
-<a href="#" data-menu="menu-signin">
-<i class="fa fa-sign-in-alt color-green-dark"></i>
-<span>Login</span>
-<i class="fa fa-angle-right"></i>
-</a>
+</div>
 
-<a href="#" data-menu="menu-success-2">
-<i class="fa fa-check-circle color-green-dark"></i>
-<span>Success Box</span>
-<i class="fa fa-angle-right"></i>
-</a>
+<div data-bs-parent="#tab-group-1" class="collapse" id="Scorecard">
 
-<div id="menu-signin" class="menu menu-box-modal rounded-m" data-menu-height="310" data-menu-width="350">
+
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                        
+                                                                <th scope="col">Batsmen</th>
+                                                                <th scope="col"></th>
+                                                                <th scope="col">R</th>
+                                                                <th scope="col">B</th>
+                                                                <th scope="col">4s</th>
+                                                                <th scope="col">6s</th>
+                                                                <th scope="col">SR</th>
+                                                            </tr>
+                                                        </thead>
+                                                    <tbody id="batterdetailsforteama">
+
+                                                            <tr id="initialstriker">
+
+
+                                                            </tr>
+
+                                                            <tr id="initialnonstriker">
+
+
+                                                            </tr>
+                                                            
+
+                                            
+                                                        </tbody>
+
+                                                        </table>
+
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td><strong>Extras</strong></td>
+                                                                <td>b 0, lb 2, w 0, nb 0, p 0</td>
+                                                                <td class="text-left" colspan="5"><strong>2</strong></td>
+                                                            </tr>
+                                                            
+                                                            <tr class="score-text-bold">
+                                                                <td>Total Score</td>
+                                                                <td>10 wkts, 79.1 Ov</td>
+                                                                <td class="text-left" colspan="5">259</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                         <div class="spell-sum-box px-30 py-20">
+                                                        <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
+                                                        <h5 class="d-sm-flex">
+                                                            Fall of Wickets:
+                                                            <span class="ml-05"
+                                                                >19-1 (Lahiru Thirimanne, 6.4), 51-2 (Oshada Fernando, 18.2), 53-3 (Dimuth Karunaratne, 19.6), 76-4 (Kusal Mendis, 25.4), 90-5 (Niroshan Dickwella,
+                                                                29.2), 133-6 (Dhananjaya de Silva, 38.5), 142-7 (Suranga Lakmal, 40.1), 152-8 (Kusal Perera, 44.3), 184-9 (Kasun Rajitha, 55.3), 191-10 (Lasith
+                                                                Embuldeniya, 59.2)
+                                                            </span>
+                                                        </h5>
+                                                    </div>
+
+                                                    <table class="widget-table table table-striped table-medium no-border">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Bowlers</th>
+                                                                <th scope="col">o</th>
+                                                            
+                                                                <th scope="col">r</th>
+                                                                <th scope="col">w</th>
+                                                                <th scope="col">econ</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="bowlerdetailsforteamb">
+                                                             
+                                              
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+
+                                                    <table class="widget-table table table-striped table-medium no-border">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Batsmen</th>
+                                                                <th scope="col"></th>
+                                                                <th scope="col">r</th>
+                                                                <th scope="col">b</th>
+                                                                <th scope="col">4s</th>
+                                                                <th scope="col">6s</th>
+                                                                <th scope="col">sr</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="batterdetailsforteamb">
+                                                            
+                                                            <tr id="initialstrikerteamb">
+
+
+                                                            </tr>
+
+                                                            <tr id="initialnonstrikerteamb">
+
+
+                                                            </tr>
+
+                                                            
+                                                        </tbody>
+                                                    </table>
+
+                                                     <div class="spell-sum-box px-30 py-20">
+                                                        <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
+                                                        <h5 class="d-sm-flex">
+                                                            Fall of Wickets:
+                                                            <span class="ml-05"
+                                                                >19-1 (Lahiru Thirimanne, 6.4), 51-2 (Oshada Fernando, 18.2), 53-3 (Dimuth Karunaratne, 19.6), 76-4 (Kusal Mendis, 25.4), 90-5 (Niroshan Dickwella,
+                                                                29.2), 133-6 (Dhananjaya de Silva, 38.5), 142-7 (Suranga Lakmal, 40.1), 152-8 (Kusal Perera, 44.3), 184-9 (Kasun Rajitha, 55.3), 191-10 (Lasith
+                                                                Embuldeniya, 59.2)
+                                                            </span>
+                                                        </h5>
+                                                    </div>
+
+                                                     <table class="widget-table table table-striped table-medium no-border">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Bowlers</th>
+                                                                <th scope="col">o</th>
+                                                          
+                                                                <th scope="col">r</th>
+                                                                <th scope="col">w</th>
+                                                                <th scope="col">econ</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="bowlerdetailsforteama">
+                                                             
+                                              
+                                                        </tbody>
+
+
+
+                                                        
+                                                    </table>
+
+
+
+
+
+
+</div>
+
+<div data-bs-parent="#tab-group-1" class="collapse" id="Commentary">
+
+<div class="card card-style">
+<div class="cal-footer" id="addcommentary">
+
+<div class="cal-schedule">
+<em>10:00 AM<br>12:00 AM</em>
+<strong>Welcome Conference Talk</strong>
+<span><i class="fa fa-building"></i>Office, Envato Headquarters</span>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div data-bs-parent="#tab-group-1" class="collapse" id="Teams">
+    
+<!-- TEAMS CODE HERE -->
+
+</div>
+
+
+
+</div>
+
+</div>
+
+<!--  INITIAL UI MODAL -->
+<div id="initialui" class="menu menu-box-modal rounded-m" data-menu-height="400" data-menu-width="350">
 <div class="menu-title">
-<h1 class="font-24">Sign In</h1>
-<a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
-</div>
-<div class="content mb-0 mt-2">
-<div class="input-style no-borders has-icon validate-field mb-4">
-<i class="fa fa-at"></i>
-<input type="email" class="form-control validate-email" id="form1ac" placeholder="Email">
-<label for="form1ac" class="color-highlight font-11 font-500">Email</label>
-<i class="fa fa-times disabled invalid color-red-dark"></i>
-<i class="fa fa-check disabled valid color-green-dark"></i>
-<em>(required)</em>
-</div>
-<div class="input-style no-borders has-icon validate-field mb-4">
-<i class="fa fa-lock"></i>
-<input type="password" class="form-control validate-password" id="form1ad" placeholder="Password">
-<label for="form1ad" class="color-highlight font-11 font-500">Password</label>
-<i class="fa fa-times disabled invalid color-red-dark"></i>
-<i class="fa fa-check disabled valid color-green-dark"></i>
-<em>(required)</em>
-</div>
-<div class="row">
-<div class="col-6">
-<a href="#" data-menu="menu-forgot" class="font-10">Forgot Password?</a>
-</div>
-<div class="col-6">
-<a data-menu="menu-signup" href="#" class="float-end font-10">Create Account</a>
-<div class="clearfix"></div>
-</div>
-</div>
-<a href="#" class="btn btn-full btn-m shadow-l rounded-s font-600 bg-green-dark mt-4">LOGIN</a>
-</div>
-</div>
-
-<div id="menu-success-2" class="menu menu-box-modal bg-green-dark rounded-m" data-menu-height="310" data-menu-width="350">
-<h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
-<h1 class="text-center mt-3 font-700 color-white">All's Good</h1>
-<p class="boxed-text-l color-white opacity-70">
-You can continue with your previous actions.<br> Easy to attach these to success calls.
-</p>
-<a href="#" class="close-menu btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black">Great, Thanks!</a>
-</div>
-
-<!-- <div class="modal fade" id="onlybatterdisplay" role="dialog">
-  <div class="modal-dialog" class="modal-dialog modal-dialog-centered">
-     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Choose new batter</h4>
-      </div>
-      
-      <div class="modal-body">
-        <div class="dropdown">
-          <select id="selectnewbatter">
-              <option>Batter list</option>
-          </select>
+        <h1 class="font-24">Initial Batter Select</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        </div>
+        <div class="content mb-0 mt-2">
 
 
-          <h3>Select wicket type</h3>
-        <select class="form-select" id="wicketdisplay" aria-label="Default select example" onchange="disablecarbrand(this)">    
-            <option value="b" id="bowled">Bowled</option>
-            <option value="c" id="caught">Caught</option>
-            <option value="c&b" id="caught&bowled">C&B</option>
-            <option value="lbw" id="lbw">LBW</option>
-            <option value="stumped" id="stumped">Stumped</option>
-            <option value="runout" id="runout">Run Out</option>
-        </select> 
+        <label for="form5" class="color-highlight">Select Striker</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="strikerlistdisplay">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+        
+        <label for="form5" class="color-highlight">Select Non Striker</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="nonstrikerlistdisplay">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
 
-        <br><br>
-
-
-        <select class="form-select" id="bowlerlistifcaught" aria-label="Default select example" disabled=""> 
-
-
-        </select>
-
-        <br><br> -->
-
-        <!-- RUN OUT FOR NORMAL BALLS -->
-
-         <div class="form-check" id="runoutradio" disabled="">
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunout" value="strikerro" onchange="throwwhoout(this)">
-            <label class="form-check-label">Striker <strong id="strikername"></strong></label>
-                <br>
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunout" value="nostrikerro" onchange="throwwhoout(this)">
-                <label class="form-check-label">Non Striker <strong id="nonstrikername"></strong></label>
+        <label for="form5" class="color-highlight">Select Bowler</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="bowlerlistdisplay">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
         </div>
 
 
+      
+        <button type="submit" id="saveinitplayers" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
         </div>
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="savenewbatter" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
-     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Choose bowler</h4>
-      </div>
-      
-      <div class="modal-body">
-        <div class="dropdown">
-          <select id="selectbowler">
-              <option>Choose new bowler</option>
-          </select>
-        </div>
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="savebowler" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-    <div class="modal fade" id="batterbowler" role="dialog">
-  <div class="modal-dialog" class="modal-dialog modal-dialog-centered">
-     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Choose new batter</h4>
-      </div>
-      
-      <div class="modal-body">
-        <div class="dropdown">
-          <select id="selectnewbatteroverchange">
-              <option>Batter list</option>
-          </select>
-
-
-          <h3>Select wicket type</h3>
-        <select class="form-select" id="wicketdisplayoverchange" aria-label="Default select example" onchange="disablecarbrandoverchange(this)">    
-            <option value="b" id="bowled">Bowled</option>
-            <option value="c" id="caught">Caught</option>
-            <option value="c&b" id="caught&bowled">C&B</option>
-            <option value="lbw" id="lbw">LBW</option>
-            <option value="stumped" id="stumped">Stumped</option>
-            <option value="runout" id="runout">Run Out</option>
-        </select> 
-
-        <br><br>
-
-
-        <select class="form-select" id="bowlerlistifcaughtoverchange" aria-label="Default select example" disabled=""> 
-
-
-        </select>
-
-        <br><br>
-
-            <!-- RUN OUT FOR OVER CHANGE -->
-<div class="form-check" id="runoutradiooverchange" disabled="">
-<input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunoutoverchange" value="strikerro" onchange="throwwhoout(this)">
-                <label class="form-check-label">Striker <strong id="strikernameoverchange"></strong></label>
-                <br>
-<input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunoutoverchange" value="nostrikerro" onchange="throwwhoout(this)">
-                <label class="form-check-label">Non Striker <strong id="nonstrikernameoverchange"></strong></label>
-        </div>
-        <!-- <button type="submit" id="savewickettype" class="btn btn-primary">Save Wicket</button> -->
-
-        </div>
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="savenewbatteroverchange" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-    <div class="modal fade" id="wicketforlastbatter" role="dialog">
-  <div class="modal-dialog" class="modal-dialog modal-dialog-centered">
-     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-      </div>
-      
-      <div class="modal-body">
-        <div class="dropdown">
-   
-
-          <h3>Select wicket type</h3>
-        <select class="form-select" id="wicketdisplaylastbatter" aria-label="Default select example" onchange="disablecarbrandoverchangelastabatter(this)">    
-            <option value="b" id="bowled">Bowled</option>
-            <option value="c" id="caught">Caught</option>
-            <option value="c&b" id="caught&bowled">C&B</option>
-            <option value="lbw" id="lbw">LBW</option>
-            <option value="stumped" id="stumped">Stumped</option>
-            <option value="runout" id="runout">Run Out</option>
-        </select> 
-
-        <br><br>
-
-
-        <select class="form-select" id="bowlerlistifcaughtoverchangelastbatter" aria-label="Default select example" disabled=""> 
-
-
-        </select>
-
-        <br><br>
-
-        <!-- RUN OUT FOR INNS CHANGE CHANGE -->
-
-        <div class="form-check" id="runoutradiolastbatter" disabled="">
-<input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunoutlastbatter" value="strikerro" onchange="throwwhoout(this)">
-                <label class="form-check-label">Striker <strong id="strikernamelastbatter"></strong></label>
-                <br>
-<input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunoutlastbatter" value="nostrikerro" onchange="throwwhoout(this)">
-                <label class="form-check-label">Non Striker <strong id="nonstrikernamelastbatter"></strong></label>
-        </div>
-        <!-- <button type="submit" id="savewickettype" class="btn btn-primary">Save Wicket</button> -->
-
-        </div>
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="wicketforlastbattersave" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  <div class="modal fade" id="extramodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Demo Form</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <form id="extraform">
-      
-              <div class="mb-3">
-                  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                  <textarea class="form-control" id="extraruns" rows="1"></textarea>
-              </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="extramodalsave">Save</button>
-       
-      </div>
-
-
-</div>
-
-</div>
-
-
-</div>
-</div>
-</div>
-
-
-</div>
-
-
+</div> 
 
 
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
@@ -577,10 +737,6 @@ You can continue with your previous actions.<br> Easy to attach these to success
 
 
 <script>
-
-
-
-
             function disablecarbrand(answer)
             {
                 console.log(answer.value);
@@ -677,17 +833,13 @@ You can continue with your previous actions.<br> Easy to attach these to success
                 }
             }
 
-        var whout;
+            var whout;
             
             function throwwhoout(who)
             {
                console.log("who is out"+who.value);
                 whout=who.value;
             }
-
-
- 
-
   </script>
 
 <script type="text/javascript">
@@ -724,8 +876,6 @@ You can continue with your previous actions.<br> Easy to attach these to success
     var savenewbatter = document.getElementById("savenewbatter");
 
     var savenewbatteroverchange = document.getElementById("savenewbatteroverchange");
-
-
 
     let extramodalsave = document.getElementById("extramodalsave");
 
@@ -814,11 +964,7 @@ You can continue with your previous actions.<br> Easy to attach these to success
     var temp_for_inns_switch;
 
     var inat=2;
-
-    
-
 </script>
-
 
 <script type="module"> 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
@@ -956,7 +1102,7 @@ function getdetails()
             openiniup();
     }
 
-        onValue(batterdatafora,(snapshot)=>
+      /*  onValue(batterdatafora,(snapshot)=>
           {
             snapshot.forEach(snap => 
             {
@@ -975,7 +1121,68 @@ function getdetails()
         console.log("Products sorted based on descending order of their prices are:")
         console.log(sortedProducts);         
         
-        });
+        }); */
+
+
+        onValue(matchref,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              console.log(issue);
+
+              /* teamabatter = issue.teamaselected */
+
+
+            
+              document.getElementById("teamAname").innerHTML = `${issue.Team1}`
+              document.getElementById("teamBname").innerHTML = `${issue.Team2}`
+              
+             /* document.getElementById("matchdetails").innerHTML = `<b>${issue.MatchID}</b> at ${issue.Ground}, ${issue.Overs} overs match` */
+              
+              document.getElementById("tossdetails").innerHTML = `${issue.Toss} won the toss and opted to ${issue.OptedTo}` 
+              
+              /* document.getElementById("team1pla").innerHTML = `${issue.Team1}` 
+              document.getElementById("team2pla").innerHTML = `${issue.Team2}`  */
+
+              /* document.getElementById("team1pla11").innerHTML = `
+                        <h5>${issue.teamaselected[0]}</h5>
+                        <h5>${issue.teamaselected[1]}</h5>
+                        <h5>${issue.teamaselected[2]}</h5>
+                        <h5>${issue.teamaselected[3]}</h5>
+                        <h5>${issue.teamaselected[4]}</h5>
+                        <h5>${issue.teamaselected[5]}</h5>
+                        <h5>${issue.teamaselected[6]}</h5>
+                        <h5>${issue.teamaselected[7]}</h5>
+                        <h5>${issue.teamaselected[8]}</h5>
+                        <h5>${issue.teamaselected[9]}</h5>
+                        <h5>${issue.teamaselected[10]}</h5>`
+
+
+
+
+                    document.getElementById("team2pla11").innerHTML = `
+                        <h5>${issue.teambselected[0]}</h5>
+                        <h5>${issue.teambselected[1]}</h5>
+                        <h5>${issue.teambselected[2]}</h5>
+                        <h5>${issue.teambselected[4]}</h5>
+                        <h5>${issue.teambselected[5]}</h5>
+                        <h5>${issue.teambselected[6]}</h5>
+                        <h5>${issue.teambselected[7]}</h5>
+                        <h5>${issue.teambselected[8]}</h5>
+                        <h5>${issue.teambselected[9]}</h5>
+                        <h5>${issue.teambselected[10]}</h5>` */
+
+                        /* document.getElementById("teamainns").innerHTML = teamaselected;
+                        document.getElementById("teambinns").innerHTML = teambselected; */
+
+
+
+
+            })
+          })
 }
 
 
@@ -1145,42 +1352,12 @@ function openiniupinnschange()
                     getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
                 }
 
-
-                
-           
-                document.getElementById("popup2").style.display = "none";
-
-
-
           });
 }
 
 function openiniup()
 {
-        
-
-    document.getElementById('popup').innerHTML=`<div class="auth-form">
-                    <div class="auth-form-header">
-                        <h3>Choose players</h3>
-                    </div>
-
-                     <h3>Select Striker</h3>
-                        <select class="form-select" id="strikerlistdisplay" aria-label="Default select example">
-                        </select> 
-                        
-                     <h3>Select Non striker</h3>
-                        <select class="form-select" id="nonstrikerlistdisplay" aria-label="Default select example">    
-                        </select> 
-
-                     <h3>Select Bowler</h3>
-                        <select class="form-select" id="bowlerlistdisplay" aria-label="Default select example">    
-                        </select> 
-
-                        <button type="submit" id="saveinitplayers" class="cricnotch-btn btn-filled radius-5">Save</button>
-                 
-                </div>`
-
-          onValue(getstrikerslist,(snapshot)=>
+    onValue(getstrikerslist,(snapshot)=>
           {
             snapshot.forEach(snap => 
             {
@@ -1201,7 +1378,7 @@ function openiniup()
             })
         })
 
-        onValue(getbowlerslist,(snapshot)=>
+    onValue(getbowlerslist,(snapshot)=>
           {
             snapshot.forEach(snap => 
             {
@@ -1216,8 +1393,7 @@ function openiniup()
             createelements(bowlersarray);
         })
 
-
-        saveinitplayers.addEventListener('click', () => 
+    saveinitplayers.addEventListener('click', () => 
           {
                 striker = document.getElementById('strikerlistdisplay').value;
 
@@ -1310,13 +1486,9 @@ function openiniup()
 
                 localStorage.setItem("initial_ui_opened",1);
         
-                document.getElementById("popup").style.display = "none";
-
-
+            
           });
-
-    }
-
+}
 
 function addtoscorecard()
 {
@@ -1395,8 +1567,6 @@ function addtoscorecard()
                                                             </tr> `      
                                           }
     }
-
-
 }
 
 function switchteams()
@@ -1524,6 +1694,8 @@ function switchteams()
                         }
 }
 
+
+
 btn0.addEventListener('click', () => 
 {
             
@@ -1547,17 +1719,15 @@ btn0.addEventListener('click', () =>
                 {
             
                   strikerballs = strikerballs + 1;
-                  batter1bowlcount.innerHTML = strikerballs;   
+                  batter1bowlcount.innerHTML = strikerballs;  
 
-                   addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">0</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em>10:00 AM<br>${teamaovers.innerText}</em>
+                                                <strong>Welcome Conference Talk</strong>
+                                                <span><i class="fa fa-building"></i>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}</span>
+                                                </div>` 
+
+                   
 
 
                     document.getElementById("initialstriker").innerHTML =`
@@ -4318,143 +4488,6 @@ btnb.addEventListener('click', () =>
 
 });
 
- 
-/* btnex.addEventListener('click', () => 
-{
-    toadd=0;
-    var currscorea=0;
-    var currscoreb=0;
-
-    score = score + 1;
-
-    var donescore = currentbowlerrunsgiven.innerText;
-
-
-        toadd = document.getElementById("extraruns").value;
-  
-        if (toadd%2!==0)
-        {      
-            console.log("To add are"+toadd);
-
-            if (battingfirst==teamaselected)
-            {
-                    currscorea = 0;
-                    currscorea = document.getElementById("teamascore").innerText;
-                    console.log("current runs are"+parseInt(currscorea));
-
-                    teamascore.innerHTML = parseInt(currscorea)+parseInt(toadd); 
-
-                                        if (strikerstar.innerText=="*")
-                                        {
-                                            strikerstar.innerHTML="";
-                                            nonstrikerstar.innerHTML="*";
-                                        }
-                                        if (nonstrikerstar.innerText=="*")
-                                        {
-                                            strikerstar.innerHTML="*";
-                                            nonstrikerstar.innerHTML="";
-                                        } 
-
-                addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">${toadd}</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
-
-
-
-               ballerruncount = parseInt(donescore)+parseInt(toadd);
-               currentbowlerrunsgiven.innerHTML = ballerruncount;
-
-               $('#extramodal').modal('hide');  
-
-            }
-
-            else 
-            {
-                    currscoreb = 0;
-                    currscoreb = document.getElementById("teambscore").innerText;
-                    console.log("current runs are"+parseInt(currscoreb));
-                    teambscore.innerHTML = parseInt(currscoreb)+parseInt(toadd);
-
-                                        if (strikerstar.innerText=="*")
-                                        {
-                                            strikerstar.innerHTML="";
-                                            nonstrikerstar.innerHTML="*";
-                                        }
-                                        if (nonstrikerstar.innerText=="*")
-                                        {
-                                            strikerstar.innerHTML="*";
-                                            nonstrikerstar.innerHTML="";
-                                        } 
-
-                                        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">${toadd}</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
-                ballerruncount = parseInt(donescore)+toadd;
-               currentbowlerrunsgiven.innerHTML = ballerruncount;
-
-               $('#extramodal').modal('hide');  
-
-            }   
-                           
-        }
-
-        else if (toadd%2==0)
-        {
-            if (battingfirst==teamaselected)
-            {
-                    score = parseInt(teamascore.innerText) + parseInt(toadd);
-                    teamascore.innerHTML = score;
-
-                    ballerruncount = parseInt(donescore)+parseInt(toadd);
-                    currentbowlerrunsgiven.innerHTML = ballerruncount; 
-
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">${toadd}</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
-            }
-            else
-            {
-                    score = parseInt(teambscore.innerText) + parseInt(toadd);
-                    teambscore.innerHTML = score; 
-
-                    ballerruncount = parseInt(donescore)+parseInt(toadd);
-                 currentbowlerrunsgiven.innerHTML = ballerruncount;
-
-                 addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">${toadd}</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
-            }
-
-
-            $('#extramodal').modal('hide');
-        }
-
-
-    });  */
 
 btnex.addEventListener('click', () => 
 {
@@ -4646,7 +4679,7 @@ else
                                     `    <option value="${issue}">${issue}</option> `
                                         })
                                      })
-}
+} 
 
 const getbowlersforb = ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst);
 
@@ -4845,7 +4878,7 @@ btnwicket.addEventListener('click', () =>
 
                     ballerballcount = 0;
 
-                    $('#wicketforlastbatter').modal({show:true});
+                    document.getElementById("wicketforlastbatter").style.display="block";
 
                     wicketforlastbattersave.addEventListener('click', () => 
                     {
@@ -5332,7 +5365,7 @@ btnwicket.addEventListener('click', () =>
 
                     ballerballcount = 0;
 
-                    $('#wicketforlastbatter').modal({show:true});
+                    document.getElementById("wicketforlastbatter").style.display="block";
 
 
                     wicketforlastbattersave.addEventListener('click', () => 
@@ -5691,69 +5724,7 @@ btnwicket.addEventListener('click', () =>
 
 var lastbatterwicketype;
 
-
-
-     
-    if (battingfirst==teamaselected)
-    {
-
-         document.getElementById("initialstriker").innerHTML =
-                    `
-                                                                <td>${batter1namepara.innerText}</td>
-                                                                <td>not out</td>
-                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
-                                                                <td>${batter1bowlcount.innerText}</td>
-                                                                <td>${batter1fourcount.innerText}</td>
-                                                                <td>${batter1sixcount.innerText}</td>
-                                                                <td>${batter1strikeratecount.innerText}</td>
-                    `
-
-
-        document.getElementById("initialnonstriker").innerHTML =
-                    `
-                                                                <td>${batter2namepara.innerText}</td>
-                                                                <td>not out</td>
-                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
-                                                                <td>${batter2bowlcount.innerText}</td>
-                                                                <td>${batter2fourcount.innerText}</td>
-                                                                <td>${batter2sixcount.innerText}</td>
-                                                                <td>${batter2strikeratecount.innerText}</td>
-                    `
-               
-    }
-
-    else if (battingfirst==teambselected)
-    {
-
-        document.getElementById("initialstrikerteamb").innerHTML =
-                    `
-                                                                <td>${batter1namepara.innerText}</td>
-                                                                <td>not out</td>
-                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
-                                                                <td>${batter1bowlcount.innerText}</td>
-                                                                <td>${batter1fourcount.innerText}</td>
-                                                                <td>${batter1sixcount.innerText}</td>
-                                                                <td>${batter1strikeratecount.innerText}</td>
-                    `
-
-
-    document.getElementById("initialnonstrikerteamb").innerHTML =
-                    `
-                                                                <td>${batter2namepara.innerText}</td>
-                                                                <td>not out</td>
-                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
-                                                                <td>${batter2bowlcount.innerText}</td>
-                                                                <td>${batter2fourcount.innerText}</td>
-                                                                <td>${batter2sixcount.innerText}</td>
-                                                                <td>${batter2strikeratecount.innerText}</td>
-                    `
-
-            
-    }
-
-
-
-
+/* scorecard.clik to be added */
 
  var temp="out";
 
@@ -8493,13 +8464,13 @@ savenewbatteroverchange.addEventListener('click', () =>
 function display_only_batsmen_ui()
 {
      
-     $('#onlybatterdisplay').modal({show:true});
+     document.getElementById("onlybatterdisplay").style.display="block";
      createbatters(battersarray); 
 } 
  
 function display_batsmen_bowler_ui()
 {
-    $('#batterbowler').modal({show:true});
+    document.getElementById("batterbowler").style.display="block";
      createbattersoverchange(battersarray);
 }
 
@@ -8555,6 +8526,7 @@ let values=[]
 
 var newbowler;
 
+
 function over_change_ui(bowlersarray)
 {
     newbowler="";
@@ -8570,7 +8542,7 @@ function over_change_ui(bowlersarray)
       delete obj[key];
     }
 
-    $('#myModal').modal({show:true});
+     document.getElementById("bowlermodal").style.display="block";
 
     savebowler.addEventListener('click', () =>
                 {
@@ -8585,8 +8557,8 @@ function over_change_ui(bowlersarray)
                          {
                             setdata(newbowler);
                          } 
-
-                           $('#myModal').modal('hide');
+                        
+                           
                 });
 
 
