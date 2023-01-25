@@ -104,6 +104,7 @@
 </div>
 </div>
 
+
 <div class="card card-style bg-theme pb-0">
 <div class="content" id="tab-group-1">
 <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
@@ -145,6 +146,7 @@
 
 
 </div>
+
 
 <div class="card card-style">
 <div class="content mb-2">
@@ -235,11 +237,6 @@
 </div>
 
 
-<div id="popup">
-        
-       
-</div>
-
  <div id="popup2">
         
        
@@ -287,9 +284,63 @@
 </div>
 </div>
 
+<a href="#" data-menu="menu-signin">
+<i class="fa fa-sign-in-alt color-green-dark"></i>
+<span>Login</span>
+<i class="fa fa-angle-right"></i>
+</a>
 
+<a href="#" data-menu="menu-success-2">
+<i class="fa fa-check-circle color-green-dark"></i>
+<span>Success Box</span>
+<i class="fa fa-angle-right"></i>
+</a>
 
-<div class="modal fade" id="onlybatterdisplay" role="dialog">
+<div id="menu-signin" class="menu menu-box-modal rounded-m" data-menu-height="310" data-menu-width="350">
+<div class="menu-title">
+<h1 class="font-24">Sign In</h1>
+<a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+</div>
+<div class="content mb-0 mt-2">
+<div class="input-style no-borders has-icon validate-field mb-4">
+<i class="fa fa-at"></i>
+<input type="email" class="form-control validate-email" id="form1ac" placeholder="Email">
+<label for="form1ac" class="color-highlight font-11 font-500">Email</label>
+<i class="fa fa-times disabled invalid color-red-dark"></i>
+<i class="fa fa-check disabled valid color-green-dark"></i>
+<em>(required)</em>
+</div>
+<div class="input-style no-borders has-icon validate-field mb-4">
+<i class="fa fa-lock"></i>
+<input type="password" class="form-control validate-password" id="form1ad" placeholder="Password">
+<label for="form1ad" class="color-highlight font-11 font-500">Password</label>
+<i class="fa fa-times disabled invalid color-red-dark"></i>
+<i class="fa fa-check disabled valid color-green-dark"></i>
+<em>(required)</em>
+</div>
+<div class="row">
+<div class="col-6">
+<a href="#" data-menu="menu-forgot" class="font-10">Forgot Password?</a>
+</div>
+<div class="col-6">
+<a data-menu="menu-signup" href="#" class="float-end font-10">Create Account</a>
+<div class="clearfix"></div>
+</div>
+</div>
+<a href="#" class="btn btn-full btn-m shadow-l rounded-s font-600 bg-green-dark mt-4">LOGIN</a>
+</div>
+</div>
+
+<div id="menu-success-2" class="menu menu-box-modal bg-green-dark rounded-m" data-menu-height="310" data-menu-width="350">
+<h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+<h1 class="text-center mt-3 font-700 color-white">All's Good</h1>
+<p class="boxed-text-l color-white opacity-70">
+You can continue with your previous actions.<br> Easy to attach these to success calls.
+</p>
+<a href="#" class="close-menu btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black">Great, Thanks!</a>
+</div>
+
+<!-- <div class="modal fade" id="onlybatterdisplay" role="dialog">
   <div class="modal-dialog" class="modal-dialog modal-dialog-centered">
      <div class="modal-content">
       <div class="modal-header">
@@ -322,7 +373,7 @@
 
         </select>
 
-        <br><br>
+        <br><br> -->
 
         <!-- RUN OUT FOR NORMAL BALLS -->
 
@@ -638,7 +689,6 @@
  
 
   </script>
-
 
 <script type="text/javascript">
 
