@@ -15,7 +15,62 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<style>
+#box
+{
+  --borderWidth: 3px;
+  position: relative;
+  border-radius: var(--borderWidth);
+}
 
+#box2
+{
+    --borderWidth: 3px;
+  position: relative;
+  border-radius: var(--borderWidth);
+}
+
+#box:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+#box2:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+</style>
 
 </head>
 <body class="theme-light">
@@ -53,13 +108,6 @@
 
 <p class="mb-n1 color-highlight font-600">LIVE</p>
 <p>
-<div class="list-group list-custom-small list-icon-0">
-<a href="#" data-menu="initialui">
-<i class="fa fa-sign-in-alt color-green-dark"></i>
-<span>Generate initial batter and bowler</span>
-<i class="fa fa-angle-right"></i>
-</a>
-</div>
 
 </p>
 <div class="d-flex mb-4">
@@ -72,7 +120,7 @@
 </div>
 <div class="ms-auto ps-3 align-self-center text-center">
 <p class="color-highlight font-10 mb-n2">CRR</p>
-<h2 class="font-15 mb-0">0.00</h2>
+<h2 class="font-15 mb-0" id="teamcrr">0.00</h2>
 </div>
 </div>
 
@@ -86,14 +134,14 @@
 </div>
 <div class="ms-auto ps-3 align-self-center text-center">
 <p class="color-highlight font-10 mb-n2">RRR</p>
-<h2 class="font-15 mb-0">0.00</h2>
+<h2 class="font-15 mb-0" id="teamrrr">0.00</h2>
 </div>
 </div>
 
 <div class="d-flex mb-4">
 <div class="align-self-center">
 <p class="mb-n1 color-red-dark font-600" id="tossdetails"></p>
-<h2 class="font-15 line-height-s mt-1 mb-1" >Team A needs .... to win</h2>
+<h2 class="font-15 line-height-s mt-1 mb-1" id="targetdesc"></h2>
 
 <p>
 
@@ -106,8 +154,24 @@
 </div>
 <div class="ms-auto ps-3 align-self-center text-center">
 <p class="color-highlight font-10 mb-n2">Target</p>
-<h2 class="font-15 mb-0">0</h2>
+<h2 class="font-15 mb-0" id="targetholder">0</h2>
 </div>
+</div>
+
+<div class="list-group list-custom-small list-icon-0" id="box" style="display:none">
+<a href="#" data-menu="initialui">
+<i class="fa fa-sign-in-alt color-green-dark"></i>
+<span>Innings 1 : Generate initial batter and bowler</span>
+<i class="fa fa-angle-right"></i>
+</a>
+</div>
+
+<div class="list-group list-custom-small list-icon-0" id="box2" style="display:none">
+<a href="#" data-menu="uiinnschange">
+<i class="fa fa-sign-in-alt color-green-dark"></i>
+<span>Innings 2 : Generate initial batter and bowler</span>
+<i class="fa fa-angle-right"></i>
+</a>
 </div>
 
 
@@ -221,7 +285,7 @@
 <div>
 <div class="menu-title">
         <h1 class="font-24">Choose new batter</h1>
-        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        <a href="#" class="close-menu" id="closemodal"><i class="fa fa-times-circle"></i></a>
         </div>
         <div class="content mb-0 mt-2">
 
@@ -648,13 +712,6 @@
 <div class="card card-style">
 <div class="cal-footer" id="addcommentary">
 
-<div class="cal-schedule">
-<em>10:00 AM<br>12:00 AM</em>
-<strong>Welcome Conference Talk</strong>
-<span><i class="fa fa-building"></i>Office, Envato Headquarters</span>
-</div>
-
-
 
 </div>
 </div>
@@ -729,6 +786,66 @@
         <button type="submit" id="saveinitplayers" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
         </div>
 </div> 
+
+
+
+<div id="uiinnschange" class="menu menu-box-modal rounded-m" data-menu-height="400" data-menu-width="350">
+<div class="menu-title">
+        <h1 class="font-24">Innings over - Select batter</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        </div>
+        <div class="content mb-0 mt-2">
+
+
+        <label for="form5" class="color-highlight">Select Striker</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="strikerlistdisplayinnschange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+        
+        <label for="form5" class="color-highlight">Select Non Striker</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="nonstrikerlistdisplayinnschange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Select Bowler</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="bowlerlistdisplayinnschange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+
+      
+        <button type="submit" id="saveinitplayersinnschange" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
+        </div>
+</div> 
+
+
 
 
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
@@ -946,6 +1063,7 @@
     let currentovertext = document.getElementById('currentovertext');
    
     let teamcrr = document.getElementById('teamcrr');
+    let teamrrr = document.getElementById('teamrrr');
           
     var temp="";
 
@@ -1207,7 +1325,8 @@ var balls= 0;
 
 function openiniupinnschange()
 {
-    
+    document.getElementById("box2").style.display="block";
+
     while(bowlerusedarray.length > 0) 
     {
         bowlerusedarray.pop();
@@ -1225,26 +1344,7 @@ function openiniupinnschange()
 
     document.getElementById("selectbowler").innerHTML="";
 
-    document.getElementById('popup2').innerHTML=`<div class="auth-form">
-                    <div class="auth-form-header">
-                        <h3>Choose players</h3>
-                    </div>
-
-                     <h3>Select Striker</h3>
-                        <select class="form-select" id="strikerlistdisplayinnschange" aria-label="Default select example">
-                        </select> 
-                        
-                     <h3>Select Non striker</h3>
-                        <select class="form-select" id="nonstrikerlistdisplayinnschange" aria-label="Default select example">    
-                        </select> 
-
-                     <h3>Select Bowler</h3>
-                        <select class="form-select" id="bowlerlistdisplayinnschange" aria-label="Default select example">    
-                        </select> 
-
-                        <button type="submit" id="saveinitplayersinnschange" class="cricnotch-btn btn-filled radius-5">Save</button>
-                 
-                </div>`
+    document.getElementById('uiinnschange').style.display="block";
 
           onValue(getstrikerslist,(snapshot)=>
           {
@@ -1352,11 +1452,16 @@ function openiniupinnschange()
                     getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
                 }
 
+                document.getElementById("box2").style.display="none";
+
           });
 }
 
 function openiniup()
 {
+    
+    document.getElementById("box").style.display="block";
+
     onValue(getstrikerslist,(snapshot)=>
           {
             snapshot.forEach(snap => 
@@ -1486,7 +1591,9 @@ function openiniup()
 
                 localStorage.setItem("initial_ui_opened",1);
         
-            
+                document.getElementById("box").style.display="none";
+
+
           });
 }
 
@@ -1569,6 +1676,7 @@ function addtoscorecard()
     }
 }
 
+
 function switchteams()
 {
     // SWITCH TEAMS
@@ -1580,6 +1688,10 @@ function switchteams()
                             
                             var target=parseInt(document.getElementById("teamascore").innerText) + 1;
                             console.log("target set by team a is"+target);
+
+                            document.getElementById("targetholder").innerHTML=target;
+
+                            document.getElementById("targetdesc").innerHTML = `${teambselected} needs ${target} runs to win`
 
                             localStorage.setItem("Target",target);
 
@@ -1641,6 +1753,10 @@ function switchteams()
                             var target=parseInt(document.getElementById("teambscore").innerText) + 1;
                             console.log("target set by team b is"+target);
 
+                            document.getElementById("targetholder").innerHTML=target;
+
+                            document.getElementById("targetdesc").innerHTML = `${teamaselected} needs ${target} runs to win`
+
                             localStorage.setItem("Target",target);
 
                             balls=0;
@@ -1694,7 +1810,13 @@ function switchteams()
                         }
 }
 
+var strikersr=0;
+var nonstrikersr=0;
 
+var ballereco = 0;
+
+var crr=0;
+var rrr=0;
 
 btn0.addEventListener('click', () => 
 {
@@ -1713,7 +1835,7 @@ btn0.addEventListener('click', () =>
 
             if (battingfirst==teamaselected)
             {
-                teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
+                teamaovers.innerHTML = parseFloat(document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
 
                 if (strikerstar.innerText=="*")
                 {
@@ -1721,15 +1843,16 @@ btn0.addEventListener('click', () =>
                   strikerballs = strikerballs + 1;
                   batter1bowlcount.innerHTML = strikerballs;  
 
+                  strikersr = (strikerscore/strikerballs)*100;
+                  batter1strikeratecount.innerHTML = strikersr;
+
                   addcommentary.innerHTML += `<div class="cal-schedule">
-                                                <em>10:00 AM<br>${teamaovers.innerText}</em>
-                                                <strong>Welcome Conference Talk</strong>
-                                                <span><i class="fa fa-building"></i>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}</span>
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>` 
 
                    
-
-
                     document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
                                                                 <td>not out</td>
@@ -1749,15 +1872,14 @@ btn0.addEventListener('click', () =>
                   nonstrikerballs = nonstrikerballs+1;
                   batter2bowlcount.innerHTML = nonstrikerballs;
 
-                   addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">0</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = nonstrikersr;
+
+                   addcommentary.innerHTML += `<div class="cal-schedule" >
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                                                 document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -1787,6 +1909,8 @@ btn0.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -1799,21 +1923,18 @@ btn0.addEventListener('click', () =>
             {
                 teambovers.innerHTML = parseFloat(document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
 
+
                 if (strikerstar.innerText=="*")
                 {
                   
                   strikerballs = strikerballs + 1;
                   batter1bowlcount.innerHTML = strikerballs;   
 
-                   addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">0</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                   addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                                                 document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -1832,15 +1953,11 @@ btn0.addEventListener('click', () =>
                   nonstrikerballs = nonstrikerballs+1;
                   batter2bowlcount.innerHTML = nonstrikerballs;
 
-                   addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">0</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`
+                   addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                                                 document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -1900,14 +2017,27 @@ btn0.addEventListener('click', () =>
                  overdone = overdone+1;   
 
                  ballerballcount = ballerballcount+0.4; 
+
+
                 
                 // UPDATE OVERS PANEL
                  if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                  currentbowlerovers.innerHTML = ballerballcount; 
+
+                 ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+                 currentbowlerecon.innerHTML = ballereco;
+
 
                  addtoscorecard();
 
@@ -1928,16 +2058,11 @@ btn0.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -1947,16 +2072,11 @@ btn0.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -1986,16 +2106,10 @@ btn0.addEventListener('click', () =>
                          if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+teal                                                </div>` 
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -2005,16 +2119,11 @@ btn0.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -2046,27 +2155,27 @@ btn1.addEventListener('click', () =>
               {
                 teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
                 teamascore.innerHTML = score;
-            
+
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">1</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                   strikerscore = strikerscore+1;
                   strikerstar.innerHTML="";
                   nonstrikerstar.innerHTML="*";
                   strikerballs = strikerballs + 1;
 
+                  strikersr = (strikerscore/strikerballs)*100;
+
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2082,15 +2191,11 @@ btn1.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">1</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`   
 
 
 
@@ -2101,6 +2206,9 @@ btn1.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2140,19 +2248,16 @@ btn1.addEventListener('click', () =>
               {
                 teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
                 teambscore.innerHTML = score;
+
             
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">1</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                   strikerscore = strikerscore+1;
                   strikerstar.innerHTML="";
@@ -2161,6 +2266,9 @@ btn1.addEventListener('click', () =>
 
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2176,15 +2284,11 @@ btn1.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">1</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                   addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
 
@@ -2195,6 +2299,9 @@ btn1.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2256,11 +2363,21 @@ btn1.addEventListener('click', () =>
                  ballerballcount = ballerballcount+0.4;
 
                  if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                 currentbowlerovers.innerHTML = ballerballcount;
+
+                              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
 
                 addtoscorecard();
 
@@ -2282,16 +2399,11 @@ btn1.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -2301,16 +2413,11 @@ btn1.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -2339,16 +2446,11 @@ btn1.addEventListener('click', () =>
                              if (strikerstar.innerText=="*")
                              {
                                 
-                                addcommentary.innerHTML += `
-                                                <div class="commentary-box">
-                                                    <div class="commentary-header">
-                                                        <h5>In this over</h5>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                    <p id="inthisovertext"></p>
-                                                </div> `
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                 strikerstar.innerHTML="";
@@ -2360,16 +2462,11 @@ btn1.addEventListener('click', () =>
                                  else if (nonstrikerstar.innerText=="*")
                                   {
                                       
-                                    addcommentary.innerHTML += `
-                                                    <div class="commentary-box">
-                                                        <div class="commentary-header">
-                                                            <h5>In this over</h5>
-                                                        </div>
-                                                        <p>
-                                                            ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                        </p>
-                                                        <p id="inthisovertext"></p>
-                                                    </div> `
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                       nonstrikerstar.innerHTML="";
@@ -2405,21 +2502,20 @@ btn2.addEventListener('click', () =>
                 if (strikerstar.innerText=="*")
                 {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">2</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                   strikerscore = strikerscore+2;
                   strikerballs = strikerballs + 1;
 
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2435,15 +2531,11 @@ btn2.addEventListener('click', () =>
                 else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">2</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`  
 
 
 
@@ -2452,6 +2544,9 @@ btn2.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2495,21 +2590,20 @@ btn2.addEventListener('click', () =>
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">2</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                   strikerscore = strikerscore+2;
                   strikerballs = strikerballs + 1;
 
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2525,15 +2619,11 @@ btn2.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">2</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`  
 
 
 
@@ -2542,6 +2632,9 @@ btn2.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2583,6 +2676,9 @@ btn2.addEventListener('click', () =>
               ballerruncount = parseInt(donescore)+2;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+                              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -2602,11 +2698,21 @@ btn2.addEventListener('click', () =>
                  ballerballcount = ballerballcount+0.4;
 
                  if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                 currentbowlerovers.innerHTML = ballerballcount;
+
+                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -2628,16 +2734,11 @@ btn2.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -2647,16 +2748,11 @@ btn2.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`   
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -2685,16 +2781,11 @@ btn2.addEventListener('click', () =>
                              if (strikerstar.innerText=="*")
                              {
                                 
-                                addcommentary.innerHTML += `
-                                                <div class="commentary-box">
-                                                    <div class="commentary-header">
-                                                        <h5>In this over</h5>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                    <p id="inthisovertext"></p>
-                                                </div> `
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
                                 strikerstar.innerHTML="";
@@ -2706,16 +2797,11 @@ btn2.addEventListener('click', () =>
                                  else if (nonstrikerstar.innerText=="*")
                                   {
                                       
-                                    addcommentary.innerHTML += `
-                                                    <div class="commentary-box">
-                                                        <div class="commentary-header">
-                                                            <h5>In this over</h5>
-                                                        </div>
-                                                        <p>
-                                                            ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                        </p>
-                                                        <p id="inthisovertext"></p>
-                                                    </div> `
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
                                       nonstrikerstar.innerHTML="";
@@ -2752,15 +2838,11 @@ btn3.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                       {
                           
-                          addcommentary.innerHTML += ` <li>
-                                                            <div>
-                                                                <h5>${teamaovers.innerText}</h5>
-                                                                <span class="p-3 mb-2 bg-info text-white">3</span>
-                                                            </div>
-                                                            <p>
-                                                                ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                            </p>
-                                                        </li>`
+                          addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                           strikerscore = strikerscore+3;
                           strikerstar.innerHTML="";
@@ -2769,6 +2851,9 @@ btn3.addEventListener('click', () =>
 
                           batter1scorepara.innerHTML = strikerscore;
                           batter1bowlcount.innerHTML = strikerballs;
+
+                          strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                           document.getElementById("initialstriker").innerHTML =`
                                                                         <td>${batter1namepara.innerText}</td>
@@ -2784,15 +2869,11 @@ btn3.addEventListener('click', () =>
                       else if (nonstrikerstar.innerText=="*")
                       {
                             
-                            addcommentary.innerHTML += ` <li>
-                                                            <div>
-                                                                <h5>${teamaovers.innerText}</h5>
-                                                                <span class="p-3 mb-2 bg-info text-white">3</span>
-                                                            </div>
-                                                            <p>
-                                                                ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                            </p>
-                                                        </li>`  
+                            addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`  
 
 
 
@@ -2803,6 +2884,9 @@ btn3.addEventListener('click', () =>
 
                           batter2bowlcount.innerHTML = nonstrikerballs; 
                           batter2scorepara.innerHTML = nonstrikerscore;
+
+                          nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                           document.getElementById("initialnonstriker").innerHTML =`
                                                                         <td>${batter2namepara.innerText}</td>
@@ -2845,15 +2929,11 @@ btn3.addEventListener('click', () =>
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">3</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                   strikerscore = strikerscore+3;
                   strikerstar.innerHTML="";
@@ -2862,6 +2942,9 @@ btn3.addEventListener('click', () =>
 
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2877,15 +2960,11 @@ btn3.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">3</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`  
 
 
 
@@ -2896,6 +2975,9 @@ btn3.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2955,12 +3037,22 @@ btn3.addEventListener('click', () =>
                  
                  ballerballcount = ballerballcount+0.4;
 
-                 if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                 currentbowlerovers.innerHTML = ballerballcount;
+
+                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -2982,16 +3074,11 @@ btn3.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -3001,16 +3088,11 @@ btn3.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -3039,16 +3121,11 @@ btn3.addEventListener('click', () =>
                              if (strikerstar.innerText=="*")
                              {
                                 
-                                addcommentary.innerHTML += `
-                                                <div class="commentary-box">
-                                                    <div class="commentary-header">
-                                                        <h5>In this over</h5>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                    <p id="inthisovertext"></p>
-                                                </div> `
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong > ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                 strikerstar.innerHTML="";
@@ -3060,16 +3137,11 @@ btn3.addEventListener('click', () =>
                                  else if (nonstrikerstar.innerText=="*")
                                   {
                                       
-                                    addcommentary.innerHTML += `
-                                                    <div class="commentary-box">
-                                                        <div class="commentary-header">
-                                                            <h5>In this over</h5>
-                                                        </div>
-                                                        <p>
-                                                            ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                        </p>
-                                                        <p id="inthisovertext"></p>
-                                                    </div> `
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                       nonstrikerstar.innerHTML="";
@@ -3105,15 +3177,11 @@ btn4.addEventListener('click', () =>
                 if (strikerstar.innerText=="*")
                 {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">4</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9315</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                   strikerscore = strikerscore+4;
                   strikerballs = strikerballs + 1;
@@ -3124,6 +3192,9 @@ btn4.addEventListener('click', () =>
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
                   batter1fourcount.innerHTML = strikerfours;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3139,15 +3210,11 @@ btn4.addEventListener('click', () =>
                 else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">4</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark" >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
 
@@ -3158,6 +3225,9 @@ btn4.addEventListener('click', () =>
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
                   batter2fourcount.innerHTML = nonstrikerfours;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3201,15 +3271,11 @@ btn4.addEventListener('click', () =>
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">4</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                   strikerscore = strikerscore+4;
                   strikerballs = strikerballs + 1;
@@ -3218,6 +3284,9 @@ btn4.addEventListener('click', () =>
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
                   batter1fourcount.innerHTML = strikerfours;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3233,15 +3302,11 @@ btn4.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">4</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
 
@@ -3252,6 +3317,9 @@ btn4.addEventListener('click', () =>
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
                   batter2fourcount.innerHTML = nonstrikerfours;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3313,11 +3381,21 @@ btn4.addEventListener('click', () =>
                  ballerballcount = ballerballcount+0.4;
 
                  if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                 currentbowlerovers.innerHTML = ballerballcount;
+
+                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -3339,16 +3417,11 @@ btn4.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark"> ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -3358,16 +3431,11 @@ btn4.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark"  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -3396,16 +3464,11 @@ btn4.addEventListener('click', () =>
                              if (strikerstar.innerText=="*")
                              {
                                 
-                                addcommentary.innerHTML += `
-                                                <div class="commentary-box">
-                                                    <div class="commentary-header">
-                                                        <h5>In this over</h5>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                    <p id="inthisovertext"></p>
-                                                </div> `
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                 strikerstar.innerHTML="";
@@ -3417,16 +3480,11 @@ btn4.addEventListener('click', () =>
                                  else if (nonstrikerstar.innerText=="*")
                                   {
                                       
-                                    addcommentary.innerHTML += `
-                                                    <div class="commentary-box">
-                                                        <div class="commentary-header">
-                                                            <h5>In this over</h5>
-                                                        </div>
-                                                        <p>
-                                                            ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                        </p>
-                                                        <p id="inthisovertext"></p>
-                                                    </div> `
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <strong class="demo-color color-white bg-green-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                       nonstrikerstar.innerHTML="";
@@ -3463,15 +3521,11 @@ btn5.addEventListener('click', () =>
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">3</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                   strikerscore = strikerscore+5;
                   strikerstar.innerHTML="";
@@ -3480,6 +3534,9 @@ btn5.addEventListener('click', () =>
 
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3495,15 +3552,11 @@ btn5.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">5</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`   
 
 
 
@@ -3514,6 +3567,9 @@ btn5.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3556,15 +3612,11 @@ btn5.addEventListener('click', () =>
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">5</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                   strikerscore = strikerscore+5;
                   strikerstar.innerHTML="";
@@ -3573,6 +3625,9 @@ btn5.addEventListener('click', () =>
 
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3588,15 +3643,11 @@ btn5.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">5</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`   
 
 
 
@@ -3607,6 +3658,9 @@ btn5.addEventListener('click', () =>
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3665,11 +3719,21 @@ btn5.addEventListener('click', () =>
                  ballerballcount = ballerballcount+0.4;
 
                  if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                 currentbowlerovers.innerHTML = ballerballcount;
+
+                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -3691,16 +3755,11 @@ btn5.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -3710,16 +3769,11 @@ btn5.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -3747,16 +3801,11 @@ btn5.addEventListener('click', () =>
                              if (strikerstar.innerText=="*")
                              {
                                 
-                                addcommentary.innerHTML += `
-                                                <div class="commentary-box">
-                                                    <div class="commentary-header">
-                                                        <h5>In this over</h5>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                    <p id="inthisovertext"></p>
-                                                </div> `
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
                                 strikerstar.innerHTML="";
@@ -3768,16 +3817,11 @@ btn5.addEventListener('click', () =>
                                  else if (nonstrikerstar.innerText=="*")
                                   {
                                       
-                                    addcommentary.innerHTML += `
-                                                    <div class="commentary-box">
-                                                        <div class="commentary-header">
-                                                            <h5>In this over</h5>
-                                                        </div>
-                                                        <p>
-                                                            ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                        </p>
-                                                        <p id="inthisovertext"></p>
-                                                    </div> `
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
+                                                <strong>${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
                                       nonstrikerstar.innerHTML="";
@@ -3813,15 +3857,11 @@ btn6.addEventListener('click', () =>
                 if (strikerstar.innerText=="*")
                 {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">6</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
                   strikerscore = strikerscore+6;
                   strikerballs = strikerballs + 1;
@@ -3830,6 +3870,9 @@ btn6.addEventListener('click', () =>
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
                   batter1sixcount.innerHTML = strikersixes;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3845,25 +3888,24 @@ btn6.addEventListener('click', () =>
                 else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">6</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
 
                   nonstrikerscore = nonstrikerscore+6;
                   nonstrikerballs = nonstrikerballs+1;
-                  nonstrikersixes = nontrikersixes+1;
+                  nonstrikersixes = nonstrikersixes+1;
 
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
                   batter2sixcount.innerHTML = nonstrikersixes;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3907,15 +3949,11 @@ btn6.addEventListener('click', () =>
               if (strikerstar.innerText=="*")
               {
                   
-                  addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">6</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                   strikerscore = strikerscore+6;
                   strikerballs = strikerballs + 1;
@@ -3924,6 +3962,10 @@ btn6.addEventListener('click', () =>
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
                   batter1sixcount.innerHTML = strikersixes;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
+
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3939,15 +3981,11 @@ btn6.addEventListener('click', () =>
               else if (nonstrikerstar.innerText=="*")
               {
                     
-                    addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-info text-white">6</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`  
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>` 
 
 
 
@@ -3958,6 +3996,9 @@ btn6.addEventListener('click', () =>
                   batter2bowlcount.innerHTML = nonstrikerballs; 
                   batter2scorepara.innerHTML = nonstrikerscore;
                   batter2sixcount.innerHTML = nonstrikersixes;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4022,11 +4063,21 @@ btn6.addEventListener('click', () =>
                  ballerballcount = ballerballcount+0.4;
 
                  if (battingfirst==teamaselected)
-                 { teamaovers.innerHTML = overdone+".0"; } 
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; }
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
 
                 currentbowlerovers.innerHTML = ballerballcount;
+
+                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -4048,16 +4099,11 @@ btn6.addEventListener('click', () =>
                       if (strikerstar.innerText=="*")
                          {
                     
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
@@ -4067,16 +4113,11 @@ btn6.addEventListener('click', () =>
                          else if (nonstrikerstar.innerText=="*")
                           {
                               
-                             addcommentary.innerHTML += `
-                                            <div class="commentary-box">
-                                                <div class="commentary-header">
-                                                    <h5>In this over</h5>
-                                                </div>
-                                                <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                </p>
-                                                <p id="inthisovertext"></p>
-                                            </div> `
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
@@ -4105,16 +4146,11 @@ btn6.addEventListener('click', () =>
                              if (strikerstar.innerText=="*")
                              {
                                 
-                                addcommentary.innerHTML += `
-                                                <div class="commentary-box">
-                                                    <div class="commentary-header">
-                                                        <h5>In this over</h5>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                    <p id="inthisovertext"></p>
-                                                </div> `
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                 strikerstar.innerHTML="";
@@ -4126,16 +4162,11 @@ btn6.addEventListener('click', () =>
                                  else if (nonstrikerstar.innerText=="*")
                                   {
                                       
-                                    addcommentary.innerHTML += `
-                                                    <div class="commentary-box">
-                                                        <div class="commentary-header">
-                                                            <h5>In this over</h5>
-                                                        </div>
-                                                        <p>
-                                                            ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                        </p>
-                                                        <p id="inthisovertext"></p>
-                                                    </div> `
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                                       nonstrikerstar.innerHTML="";
@@ -4160,15 +4191,12 @@ btnwide.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">WD</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Wd</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                 if (innsover==2)
@@ -4196,15 +4224,12 @@ btnwide.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">WD</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Wd</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                 if (innsover==2)
@@ -4232,6 +4257,21 @@ btnwide.addEventListener('click', () =>
       ballerruncount = parseInt(donescore)+1;
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+      ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
+            if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
+
        addtoscorecard();
       
 });
@@ -4246,15 +4286,12 @@ btnnb.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">NB</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Nb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                 if (innsover==2)
@@ -4281,15 +4318,11 @@ btnnb.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">NB</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Nb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                 if (innsover==2)
@@ -4317,6 +4350,21 @@ btnnb.addEventListener('click', () =>
       ballerruncount = parseInt(donescore)+1;
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+      ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
+if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
+
       addtoscorecard();
 
 
@@ -4333,15 +4381,11 @@ btnlb.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">LB</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
              if (innsover==2)
               {
@@ -4367,15 +4411,11 @@ btnlb.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">LB</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
              if (innsover==2)
               {
@@ -4401,6 +4441,21 @@ btnlb.addEventListener('click', () =>
       ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
       currentbowlerovers.innerHTML = ballerballcount;
 
+      ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
+if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
+
       addtoscorecard();
 
 });
@@ -4416,15 +4471,11 @@ btnb.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">B</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
             if (innsover==2)
               {
@@ -4450,15 +4501,11 @@ btnb.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">B</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
               if (innsover==2)
               {
@@ -4484,10 +4531,24 @@ btnb.addEventListener('click', () =>
       ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
       currentbowlerovers.innerHTML = ballerballcount;
 
+      ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
+if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
+
       addtoscorecard();
 
 });
-
 
 btnex.addEventListener('click', () => 
 {
@@ -4498,15 +4559,11 @@ btnex.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">EX</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-dark-light" style="font-size: 200%; color: #FF5722;">EX</span><br></em>
+                                                <strong class="demo-color color-white bg-dark-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-dark-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                 if (innsover==2)
@@ -4534,15 +4591,11 @@ btnex.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
-        addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-secondary text-white">EX</span>
-                                                    </div>
-                                                    <p>
-                                                        ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}
-                                                    </p>
-                                                </li>`
+        addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-dark-light" style="font-size: 200%; color: #FF5722;">EX</span><br></em>
+                                                <strong class="demo-color color-white bg-dark-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-dark-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
 
                 if (innsover==2)
@@ -4569,6 +4622,22 @@ btnex.addEventListener('click', () =>
 
       ballerruncount = parseInt(donescore)+1;
       currentbowlerrunsgiven.innerHTML = ballerruncount;
+
+            ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
+if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = crr; 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = crr
+                 }
+
       addtoscorecard();
      
 });
@@ -4705,6 +4774,9 @@ btnwicket.addEventListener('click', () =>
 
             currentbowlerovers.innerHTML = ballerballcount;
 
+            ballereco = (currentbowlerrunsgiven.innereText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
             currentbowlerwickets.innerHTML = parseInt(currentbowlerwickets.innerText) + 1;
 
             addtoscorecard();
@@ -4717,12 +4789,18 @@ btnwicket.addEventListener('click', () =>
             {
                 strikerballs = strikerballs+1;
                 batter1bowlcount.innerHTML = strikerballs;
+
+                strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = strikersr;
             }
 
             else if (nonstrikerstar.innerText=="*")
             {
                 nonstrikerballs = nonstrikerballs+1;
                 batter2bowlcount.innerHTML=nonstrikerballs;
+
+                nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+batter2strikeratecount.innerHTML = nonstrikersr;
             }
 
             if (battingfirst==teamaselected)
@@ -4735,20 +4813,12 @@ btnwicket.addEventListener('click', () =>
 
                     console.log("inns 1 is over");
                                     
-                                   switchteams();
+                    switchteams();
                 }
 
                 teamaovers.innerHTML = parseFloat(document.getElementById("teamaovers").innerText*10 + 0.1*10 )/10;
 
-                addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teamaovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-danger text-white">W</span>
-                                                    </div>
-                                                    <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`
+               
             
                 if (ball_count%6!=0)   //wicket fell but over not done yet
                 {
@@ -4768,6 +4838,12 @@ btnwicket.addEventListener('click', () =>
                             previousbattersix = batter1sixcount.innerText;
                             previousbatterstrikerate = batter1strikeratecount.innerText;
                             previousbowlername = currentbowlernamepara.innerText;
+
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                   {
@@ -4817,6 +4893,12 @@ btnwicket.addEventListener('click', () =>
                         previousbatterstrikerate = batter2strikeratecount.innerText;
                         previousbowlername = currentbowlernamepara.innerText;
 
+                         addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
+
                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                   {
                                         Name : batter2namepara.innerText,
@@ -4859,6 +4941,9 @@ btnwicket.addEventListener('click', () =>
 
                  currentbowlerovers.innerHTML = ballerballcount;
 
+                 ballereco = (currentbowlerrunsgiven.innereText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
                  addtoscorecard();
 
 
@@ -4884,7 +4969,7 @@ btnwicket.addEventListener('click', () =>
                     {
                             lastbatterwicketype = document.getElementById("wicketdisplaylastbatter").value;
                             console.log("last batter out by"+lastbatterwicketype);
-                            $('#wicketforlastbatter').modal('hide');
+                            document.getElementById("wicketforlastbatter").style.display="none";
 
                               if (lastbatterwicketype=="b") 
                                 {
@@ -5188,6 +5273,12 @@ btnwicket.addEventListener('click', () =>
                         previousbatterstrikerate = batter1strikeratecount.innerText;
                         previousbowlername = currentbowlernamepara.innerText;
 
+                         addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teamaovers.innerText}, ${previousbowlername} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
+
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                   {
                                         Name : batter1namepara.innerText,
@@ -5199,10 +5290,7 @@ btnwicket.addEventListener('click', () =>
                                         Inat : getposition
                                   });
 
-                   
-
-                        
-
+                
                         display_batsmen_bowler_ui(); 
 
                         over_change_ui();
@@ -5223,6 +5311,12 @@ btnwicket.addEventListener('click', () =>
                         previousbatterstrikerate = batter2strikeratecount.innerText;
                         previousbowlername = currentbowlernamepara.innerText;
 
+                         addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teamaovers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
+
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                   {
                                         Name : batter2namepara.innerText,
@@ -5231,7 +5325,7 @@ btnwicket.addEventListener('click', () =>
                                         StrikeRate : batter2strikeratecount.innerText,
                                         Fours : batter2fourcount.innerText,
                                         Six : batter2sixcount.innerText,
-                                        Inat : getpositiont
+                                        Inat : getposition
                                   });
 
      
@@ -5262,15 +5356,6 @@ btnwicket.addEventListener('click', () =>
                     switchteams();
                 }
 
-                addcommentary.innerHTML += ` <li>
-                                                    <div>
-                                                        <h5>${teambovers.innerText}</h5>
-                                                        <span class="p-3 mb-2 bg-danger text-white">W</span>
-                                                    </div>
-                                                    <p>
-                                                    ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}
-                                                    </p>
-                                                </li>`
             
                 if (ball_count%6!=0)   //wicket fell but over not done yet
                 {
@@ -5288,6 +5373,12 @@ btnwicket.addEventListener('click', () =>
                             previousbatterfours = batter1fourcount.innerText;
                             previousbattersix = batter1sixcount.innerText;
                             previousbatterstrikerate = batter1strikeratecount.innerText;
+
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teambovers.innerText}, ${previousbowlername} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                     
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
@@ -5318,6 +5409,12 @@ btnwicket.addEventListener('click', () =>
                                 previousbatterfours = batter2fourcount.innerText;
                                 previousbattersix = batter2sixcount.innerText;
                                 previousbatterstrikerate = batter2strikeratecount.innerText;
+
+                                 addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teamabvers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                   {
@@ -5350,6 +5447,9 @@ btnwicket.addEventListener('click', () =>
 
                    currentbowlerovers.innerHTML = ballerballcount;
 
+                   ballereco = (currentbowlerrunsgiven.innereText)/(currentbowlerovers.innerText);
+currentbowlerecon.innerHTML = ballereco;
+
                    addtoscorecard();
 
                   if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON WICKET
@@ -5372,7 +5472,7 @@ btnwicket.addEventListener('click', () =>
                         {
                             lastbatterwicketype = document.getElementById("wicketdisplaylastbatter").value;
                             console.log("last batter out by"+lastbatterwicketype);
-                            $('#wicketforlastbatter').modal('hide');
+                            document.getElementById("wicketforlastbatter").style.display="none";
 
                             
                                 if (lastbatterwicketype=="b") 
@@ -5664,6 +5764,12 @@ btnwicket.addEventListener('click', () =>
                                         previousbatterstrikerate = batter1strikeratecount.innerText;
                                         previousbowlername = currentbowlernamepara.innerText;
 
+                                         addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teambovers.innerText}, ${previousbowlername} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
+
                                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                                   {
                                                         Name : batter1namepara.innerText,
@@ -5694,6 +5800,12 @@ btnwicket.addEventListener('click', () =>
                                         previousbattersix = batter2sixcount.innerText;
                                         previousbatterstrikerate = batter2strikeratecount.innerText;
                                         previousbowlername = currentbowlernamepara.innerText;
+
+                                         addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
+                                                <strong class="demo-color color-white bg-orange-dark">${teambovers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                </div>`
 
                                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                                   {
@@ -7055,7 +7167,7 @@ savenewbatter.addEventListener('click', () =>
 
         console.log(battersarray);
 
-        $('#onlybatterdisplay').modal('hide');
+        document.getElementById("onlybatterdisplay").style.display="none";
 
     
 })
@@ -8455,7 +8567,7 @@ savenewbatteroverchange.addEventListener('click', () =>
 
         console.log(battersarray);
 
-        $('#batterbowler').modal('hide');
+        document.getElementById("batterbowler").style.display="none";
 
      
 })
@@ -8558,7 +8670,8 @@ function over_change_ui(bowlersarray)
                             setdata(newbowler);
                          } 
                         
-                           
+                    document.getElementById("bowlermodal").style.display="none";
+
                 });
 
 
