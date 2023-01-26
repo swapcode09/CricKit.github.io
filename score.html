@@ -178,6 +178,67 @@
 </div>
 </div>
 
+<div class="card card-style" id="uiinnschange" style="display:none">
+<div class="content mb-0">
+<div>
+<div class="menu-title">
+        <h1 class="font-24">Innings over</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+        </div>
+        <div class="content mb-0 mt-2">
+
+
+        <label for="form5" class="color-highlight">Select Striker</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="strikerlistdisplayinnschange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+        
+        <label for="form5" class="color-highlight">Select Non Striker</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="nonstrikerlistdisplayinnschange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <label for="form5" class="color-highlight">Select Bowler</label>
+        <div class="input-style has-borders no-icon mb-4">
+        <form id="form1">
+          
+                  <select id="bowlerlistdisplayinnschange">
+                    
+                  </select>    
+        </form>
+        <span><i class="fa fa-chevron-down"></i></span>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <i class="fa fa-check disabled invalid color-red-dark"></i>
+        <em></em>
+        </div>
+
+        <button type="submit" id="saveinitplayersinnschange" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
+
+    <button type="submit" id="savenewbatter" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
+        </div>
+</div>
+</div>
+</div>
+
+
 <!-- OVER DONE BOWLER DISPLAY MODAL -->
 <div class="card card-style" id="bowlermodal" style="display:none;">
 <div class="content mb-0">
@@ -788,66 +849,6 @@
 </div> 
 
 
-
-<div id="uiinnschange" class="menu menu-box-modal rounded-m" data-menu-height="400" data-menu-width="350">
-<div class="menu-title">
-        <h1 class="font-24">Innings over - Select batter</h1>
-        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
-        </div>
-        <div class="content mb-0 mt-2">
-
-
-        <label for="form5" class="color-highlight">Select Striker</label>
-        <div class="input-style has-borders no-icon mb-4">
-        <form id="form1">
-          
-                  <select id="strikerlistdisplayinnschange">
-                    
-                  </select>    
-        </form>
-        <span><i class="fa fa-chevron-down"></i></span>
-        <i class="fa fa-check disabled valid color-green-dark"></i>
-        <i class="fa fa-check disabled invalid color-red-dark"></i>
-        <em></em>
-        </div>
-        
-        <label for="form5" class="color-highlight">Select Non Striker</label>
-        <div class="input-style has-borders no-icon mb-4">
-        <form id="form1">
-          
-                  <select id="nonstrikerlistdisplayinnschange">
-                    
-                  </select>    
-        </form>
-        <span><i class="fa fa-chevron-down"></i></span>
-        <i class="fa fa-check disabled valid color-green-dark"></i>
-        <i class="fa fa-check disabled invalid color-red-dark"></i>
-        <em></em>
-        </div>
-
-        <label for="form5" class="color-highlight">Select Bowler</label>
-        <div class="input-style has-borders no-icon mb-4">
-        <form id="form1">
-          
-                  <select id="bowlerlistdisplayinnschange">
-                    
-                  </select>    
-        </form>
-        <span><i class="fa fa-chevron-down"></i></span>
-        <i class="fa fa-check disabled valid color-green-dark"></i>
-        <i class="fa fa-check disabled invalid color-red-dark"></i>
-        <em></em>
-        </div>
-
-
-      
-        <button type="submit" id="saveinitplayersinnschange" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
-        </div>
-</div> 
-
-
-
-
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
 
@@ -1325,7 +1326,6 @@ var balls= 0;
 
 function openiniupinnschange()
 {
-    document.getElementById("box2").style.display="block";
 
     while(bowlerusedarray.length > 0) 
     {
@@ -1452,7 +1452,7 @@ function openiniupinnschange()
                     getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
                 }
 
-                document.getElementById("box2").style.display="none";
+                document.getElementById('uiinnschange').style.display="none";
 
           });
 }
@@ -1986,6 +1986,8 @@ btn0.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -2052,6 +2054,35 @@ btn0.addEventListener('click', () =>
                                             Economy : currentbowlerecon.innerText
                                           });
 
+                            // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
                     ballerballcount = 0;
 
                         // UPDATE SCORECARD
@@ -2066,6 +2097,8 @@ btn0.addEventListener('click', () =>
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
+
+                            
                          }
                          
                          // UPDATE SCORECARD
@@ -2080,11 +2113,13 @@ btn0.addEventListener('click', () =>
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
+
                           }
                         
                           currentovertext.innerHTML = "";  
                           switchteams()  
 
+                          
                         
                  }
                 
@@ -2235,6 +2270,8 @@ btn1.addEventListener('click', () =>
                                   balls_rem = totalballs-balls;
                                   console.log("rem balls is"+balls_rem);
 
+                                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                                   if (balls_rem==0)
                                   {
                                     alert("team b won the match");
@@ -2329,6 +2366,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -2393,6 +2432,36 @@ currentbowlerecon.innerHTML = ballereco;
                                             Economy : currentbowlerecon.innerText
                                           });
 
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
                     ballerballcount = 0;
 
                                             // UPDATE SCORECARD
@@ -2407,6 +2476,7 @@ currentbowlerecon.innerHTML = ballereco;
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
+
                          }
                          
                          // UPDATE SCORECARD
@@ -2421,12 +2491,15 @@ currentbowlerecon.innerHTML = ballereco;
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
+
+
                           }
 
                           currentovertext.innerHTML = "";   
 
                           switchteams();
 
+                          
                     } 
 
                     else
@@ -2573,6 +2646,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -2661,6 +2736,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -2728,6 +2805,36 @@ currentbowlerecon.innerHTML = ballereco;
                                             Economy : currentbowlerecon.innerText
                                           });
 
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
                     ballerballcount = 0;
 
                                             // UPDATE SCORECARD
@@ -2742,6 +2849,8 @@ currentbowlerecon.innerHTML = ballereco;
 
                             strikerstar.innerHTML="";
                             nonstrikerstar.innerHTML="*";
+
+                        
                          }
                          
                          // UPDATE SCORECARD
@@ -2756,6 +2865,7 @@ currentbowlerecon.innerHTML = ballereco;
 
                               nonstrikerstar.innerHTML="";
                               strikerstar.innerHTML="*";
+
                           }
 
                           currentovertext.innerHTML = "";   
@@ -2913,6 +3023,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -3004,6 +3116,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -3067,6 +3181,36 @@ currentbowlerecon.innerHTML = ballereco;
                                             WicketsTaken : currentbowlerwickets.innerText,
                                             Economy : currentbowlerecon.innerText
                                           });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
 
                     ballerballcount = 0;
 
@@ -3254,6 +3398,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -3346,6 +3492,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -3410,6 +3558,36 @@ currentbowlerecon.innerHTML = ballereco;
                                             WicketsTaken : currentbowlerwickets.innerText,
                                             Economy : currentbowlerecon.innerText
                                           });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
 
                     ballerballcount = 0;
 
@@ -3596,6 +3774,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -3687,6 +3867,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -3748,6 +3930,36 @@ currentbowlerecon.innerHTML = ballereco;
                                             WicketsTaken : currentbowlerwickets.innerText,
                                             Economy : currentbowlerecon.innerText
                                           });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
 
                     ballerballcount = 0;
 
@@ -3932,6 +4144,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -4025,6 +4239,8 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -4032,9 +4248,6 @@ batter2strikeratecount.innerHTML = nonstrikersr;
 
               }
                 
-
-
-
 
                 }
 
@@ -4092,6 +4305,36 @@ currentbowlerecon.innerHTML = ballereco;
                                             WicketsTaken : currentbowlerwickets.innerText,
                                             Economy : currentbowlerecon.innerText
                                           });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
 
                     ballerballcount = 0;
 
@@ -4212,6 +4455,8 @@ btnwide.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -4245,6 +4490,8 @@ btnwide.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -4262,12 +4509,12 @@ currentbowlerecon.innerHTML = ballereco;
 
             if (battingfirst==teamaselected)
                  { 
-                    teamaovers.innerHTML = overdone+".0"; 
+                     
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
                     teamcrr.innerText = crr; 
                 } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; 
+                 {  
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
@@ -4307,6 +4554,8 @@ btnnb.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -4338,6 +4587,8 @@ btnnb.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -4355,12 +4606,12 @@ currentbowlerecon.innerHTML = ballereco;
 
 if (battingfirst==teamaselected)
                  { 
-                    teamaovers.innerHTML = overdone+".0"; 
+                    
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
                     teamcrr.innerText = crr; 
                 } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; 
+                 {  
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
@@ -4370,6 +4621,7 @@ if (battingfirst==teamaselected)
 
 });
 
+// NEED TO CHECK INNS DONE AND OVER DONE
 btnlb.addEventListener('click', () => 
 {
     score = score+1;
@@ -4399,6 +4651,8 @@ btnlb.addEventListener('click', () =>
 
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
 
                   if (balls_rem==0)
                   {
@@ -4430,6 +4684,8 @@ btnlb.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -4446,12 +4702,12 @@ currentbowlerecon.innerHTML = ballereco;
 
 if (battingfirst==teamaselected)
                  { 
-                    teamaovers.innerHTML = overdone+".0"; 
+                    
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
                     teamcrr.innerText = crr; 
                 } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; 
+                 {  
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
@@ -4460,6 +4716,7 @@ if (battingfirst==teamaselected)
 
 });
 
+// NEED TO CHECK INNS DONE AND OVER DONE 
 btnb.addEventListener('click', () => 
 {
     score = score+1;
@@ -4489,6 +4746,8 @@ btnb.addEventListener('click', () =>
 
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
 
                   if (balls_rem==0)
                   {
@@ -4520,6 +4779,8 @@ btnb.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team b won the match");
@@ -4536,12 +4797,12 @@ currentbowlerecon.innerHTML = ballereco;
 
 if (battingfirst==teamaselected)
                  { 
-                    teamaovers.innerHTML = overdone+".0"; 
+                    
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
                     teamcrr.innerText = crr; 
                 } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; 
+                 { 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
@@ -4549,6 +4810,7 @@ if (battingfirst==teamaselected)
       addtoscorecard();
 
 });
+ 
 
 btnex.addEventListener('click', () => 
 {
@@ -4578,6 +4840,8 @@ btnex.addEventListener('click', () =>
 
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
 
                   if (balls_rem==0)
                   {
@@ -4611,6 +4875,8 @@ btnex.addEventListener('click', () =>
                   balls_rem = totalballs-balls;
                   console.log("rem balls is"+balls_rem);
 
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
                   if (balls_rem==0)
                   {
                     alert("team a won the match");
@@ -4628,12 +4894,12 @@ currentbowlerecon.innerHTML = ballereco;
 
 if (battingfirst==teamaselected)
                  { 
-                    teamaovers.innerHTML = overdone+".0"; 
+                     
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
                     teamcrr.innerText = crr; 
                 } 
                  if (battingfirst==teambselected)
-                 { teambovers.innerHTML = overdone+".0"; 
+                 { 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
@@ -4978,7 +5244,10 @@ currentbowlerecon.innerHTML = ballereco;
                                     
                                         var getposition = document.getElementById('pos1').innerText;
 
+                                        var notoutguy = document.getElementById("pos2").innerText;
+
                                         console.log("yes last batter out was striker");
+
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -4992,6 +5261,19 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
+                                                          {
+                                                                Name : batter2namepara.innerText,
+                                                                Runs : batter2scorepara.innerText,
+                                                                Balls : batter2bowlcount.innerText,
+                                                                StrikeRate : batter2strikeratecount.innerText,
+                                                                Fours : batter2fourcount.innerText,
+                                                                Six : batter2sixcount.innerText,
+                                                                WicketType : "not out",
+                                                                BowlerName : currentbowlernamepara.innerText,
+                                                                Inat : notoutguy
+                                                          });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -4999,6 +5281,21 @@ currentbowlerecon.innerHTML = ballereco;
                                            
                                            
                                         var getposition = document.getElementById('pos2').innerText;
+                                        var notoutguy = document.getElementById("pos1").innerText;
+
+                                        set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
+                                                          {
+                                                                Name : batter1namepara.innerText,
+                                                                Runs : batter1scorepara.innerText,
+                                                                Balls : batter1bowlcount.innerText,
+                                                                StrikeRate : batter1strikeratecount.innerText,
+                                                                Fours : batter1fourcount.innerText,
+                                                                Six : batter1sixcount.innerText,
+                                                                WicketType : "not out",
+                                                                BowlerName : currentbowlernamepara.innerText,
+                                                                Inat : notoutguy
+                                                          });
+
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5022,6 +5319,8 @@ currentbowlerecon.innerHTML = ballereco;
                                     
                                         var getposition = document.getElementById('pos1').innerText;
 
+                                        var notoutguy = document.getElementById("pos2").innerText;
+
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -5035,11 +5334,25 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
-                                        var getposition = document.getElementById('pos2').innerText;    
+                                        var getposition = document.getElementById('pos2').innerText; 
+
+                                        var notoutguy = document.getElementById("pos1").innerText;   
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5052,6 +5365,18 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                  set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
                                     }
                                 } 
 
@@ -5061,6 +5386,8 @@ currentbowlerecon.innerHTML = ballereco;
                                     {
                                         
                                         var getposition = document.getElementById('pos1').innerText;
+
+                                        var notoutguy = document.getElementById("pos2").innerText;
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -5074,11 +5401,25 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
-                                        var getposition = document.getElementById('pos2').innerText;     
+                                        var getposition = document.getElementById('pos2').innerText;
+
+                                             var notoutguy = document.getElementById("pos1").innerText;
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5091,6 +5432,20 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }
                                 }
 
@@ -5100,6 +5455,8 @@ currentbowlerecon.innerHTML = ballereco;
                                     {
                                        var getposition = document.getElementById('pos1').innerText;
 
+                                       var notoutguy = document.getElementById("pos2").innerText;
+
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -5113,12 +5470,26 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
                                              
-                                        var getposition = document.getElementById('pos2').innerText;    
+                                        var getposition = document.getElementById('pos2').innerText;
+
+                                            var notoutguy = document.getElementById("pos1").innerText;
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5131,6 +5502,18 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                            set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
                                     }
                                 }   
 
@@ -5140,6 +5523,8 @@ currentbowlerecon.innerHTML = ballereco;
                                      {
                      
                                         var getposition = document.getElementById('pos1').innerText;
+
+                                        var notoutguy = document.getElementById("pos2").innerText;
 
                      document.getElementById("lastbat").innerHTML = 
                                 `${batter1namepara.innerText} run out ${currentbowlernamepara.innerText} ${batter1scorepara.innerText} (${batter1bowlcount.innerText} ${batter1fourcount.innerText}x4 ${batter1sixcount.innerText}x6) SR: ${batter1strikeratecount.innerText} ) | </span> FOW: ${teamascore.innerText}/${teamawickets.innerText} (${teamaovers.innerText} ov)`
@@ -5158,12 +5543,26 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition
                                       });                             
 
+                        set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                     }
 
                  else if (whout=="nostrikerro")
                 {
                                           
                     var getposition = document.getElementById('pos2').innerText;
+
+                    var notoutguy = document.getElementById("pos1").innerText;
 
                     document.getElementById("lastbat").innerHTML = 
                                 `${batter2namepara.innerText} run out ${currentbowlernamepara.innerText} ${batter2scorepara.innerText} (${batter2bowlcount.innerText} ${batter2fourcount.innerText}x4 ${batter2sixcount.innerText}x6) SR: ${batter2strikeratecount.innerText} ) | </span> FOW: ${teamascore.innerText}/${teamawickets.innerText} (${teamaovers.innerText} ov)`
@@ -5181,6 +5580,19 @@ currentbowlerecon.innerHTML = ballereco;
                                         BowlerName : currentbowlernamepara.innerText,
                                         Inat : getposition
                                       });
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
 
                             
                 }
@@ -5241,7 +5653,7 @@ currentbowlerecon.innerHTML = ballereco;
 
                         });
 
-                    }
+                  }
 
 
                     else if (overdone != totalovers)    // INNS NOT DONE BUT WICKET HAS FALLEN
@@ -5482,6 +5894,8 @@ currentbowlerecon.innerHTML = ballereco;
                                     
                                         var getposition = document.getElementById('pos1').innerText;
 
+                                        var notoutguy = document.getElementById("pos2").innerText;
+
                                         console.log("yes last batter out was striker");
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
@@ -5496,11 +5910,24 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
-                                        var getposition = document.getElementById('pos2').innerText;   
+                                        var getposition = document.getElementById('pos2').innerText; 
+                                        var notoutguy = document.getElementById("pos1").innerText;  
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5513,6 +5940,18 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                  set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
                                     }
 
                                 }
@@ -5523,6 +5962,7 @@ currentbowlerecon.innerHTML = ballereco;
                                     {
                                     
                                         var getposition = document.getElementById('pos1').innerText;
+                                        var notoutguy = document.getElementById("pos2").innerText;
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -5536,11 +5976,24 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
-                                        var getposition = document.getElementById('pos2').innerText;    
+                                        var getposition = document.getElementById('pos2').innerText;
+                                        var notoutguy = document.getElementById("pos1").innerText;    
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5553,6 +6006,18 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                            set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
                                     }
                                 } 
 
@@ -5562,6 +6027,7 @@ currentbowlerecon.innerHTML = ballereco;
                                     {
                                         
                                         var getposition = document.getElementById('pos1').innerText;
+                                        var notoutguy = document.getElementById("pos2").innerText;
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -5575,11 +6041,24 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
-                                         var getposition = document.getElementById('pos2').innerText;    
+                                         var getposition = document.getElementById('pos2').innerText; 
+                                         var notoutguy = document.getElementById("pos1").innerText;   
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5592,6 +6071,18 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                  set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
                                     }
                                 }
 
@@ -5601,6 +6092,7 @@ currentbowlerecon.innerHTML = ballereco;
                                     {
                                          
                                         var getposition = document.getElementById('pos1').innerText;
+                                        var notoutguy = document.getElementById("pos2").innerText;
                                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter1namepara.innerText,
@@ -5614,11 +6106,24 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : getposition
                                                           });
 
+                                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
                                     {
-                                           var getposition = document.getElementById('pos2').innerText;  
+                                           var getposition = document.getElementById('pos2').innerText; 
+                                           var notoutguy = document.getElementById("pos1").innerText; 
                                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText+"/") , 
                                                           {
                                                                 Name : batter2namepara.innerText,
@@ -5631,6 +6136,18 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                            set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
                                     }
                                 }
 
@@ -5640,6 +6157,7 @@ currentbowlerecon.innerHTML = ballereco;
                                      {
                      
                                         var getposition = document.getElementById('pos1').innerText;
+                                        var notoutguy = document.getElementById("pos2").innerText;
                      document.getElementById("lastbat").innerHTML = 
                                 `${batter1namepara.innerText} run out ${currentbowlernamepara.innerText} ${batter1scorepara.innerText} (${batter1bowlcount.innerText} ${batter1fourcount.innerText}x4 ${batter1sixcount.innerText}x6) SR: ${batter1strikeratecount.innerText} ) | </span> FOW: ${teambscore.innerText}/${teambwickets.innerText} (${teambovers.innerText} ov)`
 
@@ -5655,14 +6173,27 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "run out",
                                         BowlerName : currentbowlernamepara.innerText,
                                         Inat : getposition
-                                      });                             
+                                      }); 
+
+                            set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  });
 
                     }
 
                  else if (whout=="nostrikerro")
                 {
                      
-                     var getposition = document.getElementById('pos2').innerText;                     
+                     var getposition = document.getElementById('pos2').innerText; 
+                     var notoutguy = document.getElementById("pos1").innerText;                    
                     document.getElementById("lastbat").innerHTML = 
                                 `${batter2namepara.innerText} run out ${currentbowlernamepara.innerText} ${batter2scorepara.innerText} (${batter2bowlcount.innerText} ${batter2fourcount.innerText}x4 ${batter2sixcount.innerText}x6) SR: ${batter2strikeratecount.innerText} ) | </span> FOW: ${teambscore.innerText}/${teambwickets.innerText} (${teambovers.innerText} ov)`
 
@@ -5679,6 +6210,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         BowlerName : currentbowlernamepara.innerText,
                                         Inat : getposition
                                       });
+
+                     set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
 
                             
                 }

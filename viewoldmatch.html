@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>AppKit Mobile</title>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</head>
+<body class="theme-light">
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+<div id="page">
+<div class="header header-fixed header-logo-center header-auto-show">
+<a href="index.html" class="header-title">Dashboard</a>
+<a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-chevron-left"></i></a>
+<a href="#" data-menu="menu-main" class="header-icon header-icon-4"><i class="fas fa-bars"></i></a>
+<a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-dark"><i class="fas fa-sun"></i></a>
+<a href="#" data-toggle-theme class="header-icon header-icon-3 show-on-theme-light"><i class="fas fa-moon"></i></a>
+</div>
+<div id="footer-bar" class="footer-bar-6">
+<a href="index-components.html"><i class="fa fa-layer-group"></i><span>Features</span></a>
+<a href="index-pages.html" class="active-nav"><i class="fa fa-file"></i><span>Pages</span></a>
+<a href="index.html" class="circle-nav"><i class="fa fa-home"></i><span>Welcome</span></a>
+<a href="index-projects.html"><i class="fa fa-camera"></i><span>Projects</span></a>
+<a href="#" data-menu="menu-main"><i class="fa fa-bars"></i><span>Menu</span></a>
+</div>
+<div class="page-title page-title-fixed">
+<div>
+<h1 class="font-16 color-highlight mb-n3">Welcome Back</h1>
+<h1>Enabled</h1>
+</div>
+<a href="#" class="page-title-icon shadow-xl bg-theme mt-2 color-theme" data-menu="menu-share"><i class="fa fa-share-alt"></i></a>
+<a href="#" class="page-title-icon shadow-xl bg-theme mt-2 color-theme show-on-theme-light" data-toggle-theme><i class="fa fa-moon"></i></a>
+<a href="#" class="page-title-icon shadow-xl bg-theme mt-2 color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-lightbulb color-yellow-dark"></i></a>
+<a href="#" class="page-title-icon shadow-xl bg-theme mt-2 color-theme" data-menu="menu-main"><i class="fa fa-bars"></i></a>
+</div>
+
+<div class="page-title-clear"></div>
+<div class="page-content">
+
+<div class="card card-style">
+<div class="content mb-0">
+
+<p class="mb-n1 color-highlight font-600">LIVE</p>
+<p>
+
+</p>
+<div class="d-flex mb-4">
+<div class="align-self-center">
+<img src="images/food/small/3s.jpg" class="rounded-sm me-3" width="40">
+</div>
+<div class="align-self-center">
+<p class="color-highlight font-11 mb-n2" id="teamAname"></p>
+<strong class="font-15 color-black mb-4" id="teamascore">0</strong>/<strong id="teamawickets" class="font-15 color-black mb-4">0</strong>  (<strong id="teamaovers" class="font-15 color-black mb-4">0.0</strong>)
+</div>
+
+</div>
+
+<div class="d-flex mb-4"> 
+<div class="align-self-center">
+<img src="images/food/small/7s.jpg" class="rounded-sm me-3" width="40">
+</div>
+<div class="align-self-center">
+<p class="color-highlight font-11 mb-n2" id="teamBname"></p>
+<strong class="font-15 color-black mb-4" id="teambscore">0</strong>/<strong id="teambwickets" class="font-15 color-black mb-4">0</strong>  (<strong id="teambovers" class="font-15 color-black mb-4">0.0</strong>)
+</div>
+
+</div>
+
+<div class="d-flex mb-4">
+<div class="align-self-center">
+<p class="mb-n1 color-red-dark font-600" id="tossdetails"></p>
+<h2 class="font-15 line-height-s mt-1 mb-1" id="targetdesc"></h2>
+
+<p>
+
+</p>
+
+
+</div>
+<div class="ms-auto ps-3 align-self-center text-center">
+<p class="color-highlight font-10 mb-n2">Target</p>
+<h2 class="font-15 mb-0" id="targetholder">coming soon</h2>
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+<div class="card card-style bg-theme pb-0">
+<div class="content" id="tab-group-1">
+<div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
+<a href="#" data-active data-bs-toggle="collapse" data-bs-target="#Performance">Performance</a>
+<a href="#" data-bs-toggle="collapse" data-bs-target="#Scorecard">Scorecard</a>
+
+<a href="#" data-bs-toggle="collapse" data-bs-target="#Teams">Teams</a>
+</div>
+<div class="clearfix mb-3"></div>
+
+
+
+<div data-bs-parent="#tab-group-1" class="collapse show" id="Performance">
+
+<h4 id="teamabatdisp"></h4>
+<div class="card card-style">
+<div class="content mb-2">
+<h4>Batting</h4>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">In At</th>
+                    <th scope="col">Batsmen</th>
+                    <th scope="col">R</th>
+                    <th scope="col">B</th>
+                    <th scope="col">4s</th>
+                    <th scope="col">6s</th>
+                    <th scope="col">Sr</th>
+                  </tr>
+                </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="pos1">1</td>
+                                                <td>
+                                                <a> <strong id="batter1namepara"></strong> <span id="strikerstar">*</span></a> 
+                                                </td>
+                                                <td id="batter1scorepara">0</td>
+                                                <td id="batter1bowlcount">0</td>
+                                                <td id="batter1fourcount">0</td>
+                                                <td id="batter1sixcount">0</td>
+                                                <td id="batter1strikeratecount">0.00</td>
+                                          
+                                            </tr>
+                                            <tr>
+                                                <td id="pos2">2</td>
+                                                <td>
+                                            <a><strong id="batter2namepara"></strong> <span id="nonstrikerstar"></span></a>
+                                                </td>
+                                                <td id="batter2scorepara">0</td>
+                                                <td id="batter2bowlcount">0</td>
+                                                <td id="batter2fourcount">0</td>
+                                                <td id="batter2sixcount">0</td>
+                                                <td id="batter2strikeratecount">0.00</td>
+                                             
+                                            </tr>
+ 
+                                        </tbody>
+                                    </table>
+
+                        
+                                <div class="spell-sum-box">
+                        <p class="mb-n1 color-highlight font-600">Last Bat: <span id="lastbat"></span></hp>
+                                </div>
+                     
+
+</div>
+</div>
+
+<div class="card card-style">
+<div class="content mb-2">
+<h4>Bowling</h4>
+
+
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Bowler</th>
+                                    <th scope="col">O</th>
+                                    <th scope="col">R</th>
+                                    <th scope="col">W</th>
+                                    <th scope="col">Eco</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                                <td>
+                                                    <a><strong id="currentbowlernamepara"></strong></a>
+                                                </td>
+                                                <td><strong id="currentbowlerovers">0</strong></td>
+                                              
+                                                <td id="currentbowlerrunsgiven">0</td>
+                                                <td id='currentbowlerwickets'>0</td>
+                                                <td id="currentbowlerecon">0.00</td>
+                                          
+                                            </tr>
+                               
+                                </tbody>
+                              </table>
+
+
+</div>
+</div>
+
+<div class="divider bg-green-dark divider-margins"></div>
+
+<h4 id="teambbatdisp"></h4>
+<div class="card card-style">
+<div class="content mb-2">
+<h4>Batting</h4>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">In At</th>
+                    <th scope="col">Batsmen</th>
+                    <th scope="col">R</th>
+                    <th scope="col">B</th>
+                    <th scope="col">4s</th>
+                    <th scope="col">6s</th>
+                    <th scope="col">Sr</th>
+                  </tr>
+                </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="pos1">1</td>
+                                                <td>
+                                                <a> <strong id="batter1namepara"></strong> <span id="strikerstar">*</span></a> 
+                                                </td>
+                                                <td id="batter1scorepara">0</td>
+                                                <td id="batter1bowlcount">0</td>
+                                                <td id="batter1fourcount">0</td>
+                                                <td id="batter1sixcount">0</td>
+                                                <td id="batter1strikeratecount">0.00</td>
+                                          
+                                            </tr>
+                                            <tr>
+                                                <td id="pos2">2</td>
+                                                <td>
+                                            <a><strong id="batter2namepara"></strong> <span id="nonstrikerstar"></span></a>
+                                                </td>
+                                                <td id="batter2scorepara">0</td>
+                                                <td id="batter2bowlcount">0</td>
+                                                <td id="batter2fourcount">0</td>
+                                                <td id="batter2sixcount">0</td>
+                                                <td id="batter2strikeratecount">0.00</td>
+                                             
+                                            </tr>
+ 
+                                        </tbody>
+                                    </table>
+
+                        
+                                <div class="spell-sum-box">
+                        <p class="mb-n1 color-highlight font-600">Last Bat: <span id="lastbat"></span></hp>
+                                </div>
+                     
+
+</div>
+</div>
+
+<div class="card card-style">
+<div class="content mb-2">
+<h4>Bowling</h4>
+
+
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Bowler</th>
+                                    <th scope="col">O</th>
+                                    <th scope="col">R</th>
+                                    <th scope="col">W</th>
+                                    <th scope="col">Eco</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                                <td>
+                                                    <a><strong id="currentbowlernamepara"></strong></a>
+                                                </td>
+                                                <td><strong id="currentbowlerovers">0</strong></td>
+                                              
+                                                <td id="currentbowlerrunsgiven">0</td>
+                                                <td id='currentbowlerwickets'>0</td>
+                                                <td id="currentbowlerecon">0.00</td>
+                                          
+                                            </tr>
+                               
+                                </tbody>
+                              </table>
+
+
+</div>
+</div>
+
+
+
+
+<div data-bs-parent="#tab-group-1" class="collapse" id="Scorecard">
+
+
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                        
+                                                                <th scope="col">Batsmen</th>
+                                                                <th scope="col"></th>
+                                                                <th scope="col">R</th>
+                                                                <th scope="col">B</th>
+                                                                <th scope="col">4s</th>
+                                                                <th scope="col">6s</th>
+                                                                <th scope="col">SR</th>
+                                                            </tr>
+                                                        </thead>
+                                                    <tbody id="batterdetailsforteama">
+
+                                                            <tr id="initialstriker">
+
+
+                                                            </tr>
+
+                                                            <tr id="initialnonstriker">
+
+
+                                                            </tr>
+                                                            
+
+                                            
+                                                        </tbody>
+
+                                                        </table>
+
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td><strong>Extras</strong></td>
+                                                                <td>b 0, lb 2, w 0, nb 0, p 0</td>
+                                                                <td class="text-left" colspan="5"><strong>2</strong></td>
+                                                            </tr>
+                                                            
+                                                            <tr class="score-text-bold">
+                                                                <td>Total Score</td>
+                                                                <td>10 wkts, 79.1 Ov</td>
+                                                                <td class="text-left" colspan="5">259</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                         <div class="spell-sum-box px-30 py-20">
+                                                        <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
+                                                        <h5 class="d-sm-flex">
+                                                            Fall of Wickets:
+                                                            <span class="ml-05"
+                                                                >19-1 (Lahiru Thirimanne, 6.4), 51-2 (Oshada Fernando, 18.2), 53-3 (Dimuth Karunaratne, 19.6), 76-4 (Kusal Mendis, 25.4), 90-5 (Niroshan Dickwella,
+                                                                29.2), 133-6 (Dhananjaya de Silva, 38.5), 142-7 (Suranga Lakmal, 40.1), 152-8 (Kusal Perera, 44.3), 184-9 (Kasun Rajitha, 55.3), 191-10 (Lasith
+                                                                Embuldeniya, 59.2)
+                                                            </span>
+                                                        </h5>
+                                                    </div>
+
+                                                    <table class="widget-table table table-striped table-medium no-border">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Bowlers</th>
+                                                                <th scope="col">o</th>
+                                                            
+                                                                <th scope="col">r</th>
+                                                                <th scope="col">w</th>
+                                                                <th scope="col">econ</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="bowlerdetailsforteamb">
+                                                             
+                                              
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+
+                                                    <table class="widget-table table table-striped table-medium no-border">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Batsmen</th>
+                                                                <th scope="col"></th>
+                                                                <th scope="col">r</th>
+                                                                <th scope="col">b</th>
+                                                                <th scope="col">4s</th>
+                                                                <th scope="col">6s</th>
+                                                                <th scope="col">sr</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="batterdetailsforteamb">
+                                                            
+                                                            <tr id="initialstrikerteamb">
+
+
+                                                            </tr>
+
+                                                            <tr id="initialnonstrikerteamb">
+
+
+                                                            </tr>
+
+                                                            
+                                                        </tbody>
+                                                    </table>
+
+                                                     <div class="spell-sum-box px-30 py-20">
+                                                        <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
+                                                        <h5 class="d-sm-flex">
+                                                            Fall of Wickets:
+                                                            <span class="ml-05"
+                                                                >19-1 (Lahiru Thirimanne, 6.4), 51-2 (Oshada Fernando, 18.2), 53-3 (Dimuth Karunaratne, 19.6), 76-4 (Kusal Mendis, 25.4), 90-5 (Niroshan Dickwella,
+                                                                29.2), 133-6 (Dhananjaya de Silva, 38.5), 142-7 (Suranga Lakmal, 40.1), 152-8 (Kusal Perera, 44.3), 184-9 (Kasun Rajitha, 55.3), 191-10 (Lasith
+                                                                Embuldeniya, 59.2)
+                                                            </span>
+                                                        </h5>
+                                                    </div>
+
+                                                     <table class="widget-table table table-striped table-medium no-border">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Bowlers</th>
+                                                                <th scope="col">o</th>
+                                                          
+                                                                <th scope="col">r</th>
+                                                                <th scope="col">w</th>
+                                                                <th scope="col">econ</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="bowlerdetailsforteama">
+                                                             
+                                              
+                                                        </tbody>
+
+
+
+                                                        
+                                                    </table>
+</div>
+
+
+<div data-bs-parent="#tab-group-1" class="collapse" id="Teams">
+    
+<!-- TEAMS CODE HERE -->
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+
+
+<script type="text/javascript">
+    var striker = document.getElementById('batter1namepara').innerText;
+    var nonstriker = document.getElementById('batter2namepara').innerText;
+
+    let batter1namepara = document.getElementById('batter1namepara');
+    let batter2namepara = document.getElementById('batter2namepara'); 
+
+    let strikerstar = document.getElementById('strikerstar');
+    let nonstrikerstar = document.getElementById('nonstrikerstar'); 
+
+    let scorecardbutton = document.getElementById('scorecardbutton');
+
+
+    // batter details
+    let batter1scorepara = document.getElementById('batter1scorepara');
+    let batter1bowlcount = document.getElementById('batter1bowlcount');
+    let batter2scorepara = document.getElementById('batter2scorepara');
+    let batter2bowlcount = document.getElementById('batter2bowlcount');
+    let batter1strikeratecount = document.getElementById('batter1strikeratecount');
+    let batter2strikeratecount = document.getElementById('batter2strikeratecount');
+
+    let batter1fourcount = document.getElementById('batter1fourcount');
+    let batter1sixcount = document.getElementById('batter1sixcount');
+
+    let batter2fourcount = document.getElementById('batter2fourcount');
+    let batter2sixcount = document.getElementById('batter2sixcount');
+
+    //bowler details
+
+    let currentbowlernamepara = document.getElementById('currentbowlernamepara');
+    let currentbowlerovers = document.getElementById('currentbowlerovers');
+    let currentbowlerrunsgiven = document.getElementById('currentbowlerrunsgiven');
+    let currentbowlerwickets = document.getElementById('currentbowlerwickets');
+    let currentbowlerecon = document.getElementById('currentbowlerecon');
+
+    let ballerballcount=0;
+    let ballerwicketcount=0;
+    let ballerruncount=0;
+    let ballerecon=0;
+
+    //team details
+
+    let teamaovers = document.getElementById('teamaovers');
+    let teamascore = document.getElementById('teamascore');
+    let teamawickets = document.getElementById('teamawickets');
+
+    let teambovers = document.getElementById('teambovers');
+    let teambscore = document.getElementById('teambscore');
+    let teambwickets = document.getElementById('teambwickets');
+
+    let currentovertext = document.getElementById('currentovertext');
+   
+    let teamcrr = document.getElementById('teamcrr');
+    let teamrrr = document.getElementById('teamrrr');
+          
+    var temp="";
+
+    let batterdetailsforteama = document.getElementById('batterdetailsforteama');
+    let batterdetailsforteamb = document.getElementById('batterdetailsforteamb');
+
+    //score variables
+    var val_of_button;
+    var score = 0;
+    var current_rr=0;
+    var overdone = 0;
+    var wickets = 0;
+    
+    var innsover=1;
+
+    var temp_for_inns_switch;
+
+    var inat=2;
+</script>
+
+<script type="module"> 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+
+          import { getDatabase , set , ref , update , push , child , onValue , get , remove , query , orderByChild } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+          
+          var firebaseConfig = 
+          {
+            apiKey: "AIzaSyAest1kY2wkdzwWCPf7-bkwyhWLekXZDhE",
+            authDomain: "cricket-master-d3c58.firebaseapp.com",
+            databaseURL: "https://cricket-master-d3c58-default-rtdb.firebaseio.com",
+            projectId: "cricket-master-d3c58",
+            storageBucket: "cricket-master-d3c58.appspot.com",
+            messagingSenderId: "554998698559",
+            appId: "1:554998698559:web:6617512d672bc484305e8a"
+          };
+
+          
+          const app = initializeApp(firebaseConfig);
+          const database = getDatabase(app);
+
+          var modal = document.getElementById("myModal");
+          var span = document.getElementsByClassName("close")[0];
+
+          var selectedmatch = localStorage.getItem("selectedmatch");
+
+          var getinitialuistatus = localStorage.getItem("initial_ui_opened");
+
+            var teamtoss = localStorage.getItem("Toss");
+            var choice = localStorage.getItem("optedto");
+
+            var totalovers = localStorage.getItem("TotalOvers");
+    
+            var teamaselected = localStorage.getItem("teamaselected");
+            var teambselected = localStorage.getItem("teambselected");
+
+    
+               let getstrikerslist;
+               let getbowlerslist;
+               let getrembattersa;
+               let getrembattersb;
+
+          
+
+const matchref = ref(database,selectedmatch+"/");
+
+const batterdatafora = ref(database,selectedmatch+"/"+"Data/BatterData/"+teamaselected+"/");
+const batterdataforb = ref(database,selectedmatch+"/"+"Data/BatterData/"+teambselected+"/");
+
+function getdetails() 
+{
+    
+     onValue(matchref,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              document.getElementById("teamabatdisp").innerHTML = `${issue.Team1}`
+              document.getElementById("teambbatdisp").innerHTML = `${issue.Team2}`
+
+              console.log(issue);
+                            
+            });
+             
+              /* let sortedProducts = teamabatter.sort(
+            (p1, p2) => (p1.Inat > p2.Inat) ? 1 : (p1.Inat < p2.Inat) ? -1 : 0);
+
+        console.log("Products sorted based on descending order of their prices are:")
+        console.log(sortedProducts); */       
+        
+        }); 
+
+
+     onValue(batterdataforb,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              console.log(issue);
+                          
+            });
+             
+              /* let sortedProducts = teamabatter.sort(
+            (p1, p2) => (p1.Inat > p2.Inat) ? 1 : (p1.Inat < p2.Inat) ? -1 : 0);
+
+        console.log("Products sorted based on descending order of their prices are:")
+        console.log(sortedProducts); */       
+        
+        }); 
+
+
+        onValue(matchref,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              console.log(issue);
+
+              /* teamabatter = issue.teamaselected */
+            
+              document.getElementById("teamAname").innerHTML = `${issue.Team1}`
+              document.getElementById("teamBname").innerHTML = `${issue.Team2}`
+              
+             /* document.getElementById("matchdetails").innerHTML = `<b>${issue.MatchID}</b> at ${issue.Ground}, ${issue.Overs} overs match` */
+              
+              document.getElementById("tossdetails").innerHTML = `${issue.Toss} won the toss and opted to ${issue.OptedTo}` 
+              
+            })
+          })
+}
+
+
+
+
+
+var target;
+
+
+function addtoscorecard()
+{
+    if (battingfirst==teamaselected)
+    {
+            var check1 = document.getElementById(currentbowlernamepara.innerText);
+
+                     console.log(check1);
+
+                                          
+                                          if (check1!=null)
+                                          {
+                                            document.getElementById(`${currentbowlernamepara.innerText}`).innerHTML =
+                                                            `
+                                                            <td>
+                                                                    <strong>${currentbowlernamepara.innerText}</strong>
+                                                                </td>
+                                                                <td><strong>${currentbowlerovers.innerText}</strong></td>
+                                                                <td>${currentbowlerrunsgiven.innerText}</td>
+                                                                <td>${currentbowlerwickets.innerText}</td>
+                                                                <td>${currentbowlerecon.innerText}</td>
+                                                            `                       
+                                            
+                                          }
+
+                                          else
+                                          {
+                                            console.log("baller not exu");  
+                                            document.getElementById("bowlerdetailsforteamb").innerHTML += `
+                                                             <tr id="${currentbowlernamepara.innerText}">
+                                                                <td>
+                                                                    <strong>${currentbowlernamepara.innerText}</strong>
+                                                                </td>
+                                                                <td><strong>${currentbowlerovers.innerText}</strong></td>
+                                                                <td>${currentbowlerrunsgiven.innerText}</td>
+                                                                <td>${currentbowlerwickets.innerText}</td>
+                                                                <td>${currentbowlerecon.innerText}</td>
+                                                            </tr> `      
+                                          }
+    }
+
+    else if (battingfirst==teambselected)
+    {
+            var check1 = document.getElementById(currentbowlernamepara.innerText);
+
+                     console.log(check1);
+
+                                          
+                                          if (check1!=null)
+                                          {
+                                            document.getElementById(`${currentbowlernamepara.innerText}`).innerHTML =
+                                                            `
+                                                            <td>
+                                                                    <strong>${currentbowlernamepara.innerText}</strong>
+                                                                </td>
+                                                                <td><strong>${currentbowlerovers.innerText}</strong></td>
+                                                                <td>${currentbowlerrunsgiven.innerText}</td>
+                                                                <td>${currentbowlerwickets.innerText}</td>
+                                                                <td>${currentbowlerecon.innerText}</td>
+                                                            `                       
+                                            
+                                          }
+
+                                          else
+                                          {
+                                            console.log("baller not exu");  
+                                            document.getElementById("bowlerdetailsforteama").innerHTML += `
+                                                             <tr id="${currentbowlernamepara.innerText}">
+                                                                <td>
+                                                                    <strong>${currentbowlernamepara.innerText}</strong>
+                                                                </td>
+                                                                <td><strong>${currentbowlerovers.innerText}</strong></td>
+                                                                <td>${currentbowlerrunsgiven.innerText}</td>
+                                                                <td>${currentbowlerwickets.innerText}</td>
+                                                                <td>${currentbowlerecon.innerText}</td>
+                                                            </tr> `      
+                                          }
+    }
+}
+
+
+
+ 
+
+window.onload = getdetails;
+
+
+</script>
+
+
+</body>
+</html>
