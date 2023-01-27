@@ -178,6 +178,7 @@
 </div>
 </div>
 
+<!-- UI MODAL INNS CHANGE -->
 <div class="card card-style" id="uiinnschange" style="display:none">
 <div class="content mb-0">
 <div>
@@ -231,8 +232,6 @@
         </div>
 
         <button type="submit" id="saveinitplayersinnschange" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
-
-    <button type="submit" id="savenewbatter" class="btn btn-m btn-full mb-3 rounded-0 text-uppercase font-700 shadow-s bg-blue-dark">Save</button>
         </div>
 </div>
 </div>
@@ -266,7 +265,6 @@
 </div>
 </div>
 </div>
-
 
 <!-- WICKET FALLING NORMAL BALL MODAL -->
 <div class="card card-style" id="onlybatterdisplay" style="display:none">
@@ -338,7 +336,7 @@
         </div>
 </div>
 </div>
-</div>
+</div> 
 
 <!-- WICKET FALLING LAST BALL OVER -->
 <div class="card card-style" id="batterbowler" style="display:none">
@@ -5041,7 +5039,7 @@ btnwicket.addEventListener('click', () =>
             currentbowlerovers.innerHTML = ballerballcount;
 
             ballereco = (currentbowlerrunsgiven.innereText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+            currentbowlerecon.innerHTML = ballereco;
 
             currentbowlerwickets.innerHTML = parseInt(currentbowlerwickets.innerText) + 1;
 
@@ -5057,7 +5055,7 @@ currentbowlerecon.innerHTML = ballereco;
                 batter1bowlcount.innerHTML = strikerballs;
 
                 strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                batter1strikeratecount.innerHTML = strikersr;
             }
 
             else if (nonstrikerstar.innerText=="*")
@@ -5066,7 +5064,7 @@ batter1strikeratecount.innerHTML = strikersr;
                 batter2bowlcount.innerHTML=nonstrikerballs;
 
                 nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                batter2strikeratecount.innerHTML = nonstrikersr;
             }
 
             if (battingfirst==teamaselected)
@@ -5651,7 +5649,7 @@ currentbowlerecon.innerHTML = ballereco;
 
                           currentovertext.innerHTML = ""; 
 
-                        });
+                        }); 
 
                   }
 
@@ -6278,7 +6276,7 @@ currentbowlerecon.innerHTML = ballereco;
 
                           currentovertext.innerHTML = ""; 
 
-                        });
+                        }); 
                     }
                  
 
@@ -7700,7 +7698,8 @@ savenewbatter.addEventListener('click', () =>
             
         }
 
- 
+        document.getElementById("onlybatterdisplay").style.display="none";
+
         const getindex = battersarray.indexOf(newbatterselected);
 
         if (getindex > -1) 
@@ -7710,10 +7709,9 @@ savenewbatter.addEventListener('click', () =>
 
         console.log(battersarray);
 
-        document.getElementById("onlybatterdisplay").style.display="none";
 
     
-})
+}) 
 
 // WICKETS FALLING ON LAST BALLS
 

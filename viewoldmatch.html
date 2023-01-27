@@ -296,41 +296,28 @@
 </div>
 
 
+</p>
+</div>
+
 
 
 <div data-bs-parent="#tab-group-1" class="collapse" id="Scorecard">
 
 
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                        
-                                                                <th scope="col">Batsmen</th>
-                                                                <th scope="col"></th>
-                                                                <th scope="col">R</th>
-                                                                <th scope="col">B</th>
-                                                                <th scope="col">4s</th>
-                                                                <th scope="col">6s</th>
-                                                                <th scope="col">SR</th>
-                                                            </tr>
-                                                        </thead>
-                                                    <tbody id="batterdetailsforteama">
+<!-- 2nd accordion for teama -->
+<div class="card card-style shadow-0 bg-green-dark mb-1">
+<button class="btn accordion-btn color-white no-effect" data-bs-toggle="collapse" data-bs-target="#collapse6">
+<i class="fa fa-star me-2"></i>
+<span id="teamanamescorecard"></span>
+<i class="fa fa-chevron-down font-10 accordion-icon"></i>
+</button>
+<div id="collapse6" class="collapse bg-theme" data-bs-parent="#accordion-2">
+<div class="pt-3 pb-3">
 
-                                                            <tr id="initialstriker">
-
-
-                                                            </tr>
-
-                                                            <tr id="initialnonstriker">
-
-
-                                                            </tr>
-                                                            
-
-                                            
-                                                        </tbody>
-
-                                                        </table>
+<p class="mb-0">
+                                        <div id="tabattable">
+                                              
+                                            </div>      
 
                                                         <table class="table">
                                                             <tr>
@@ -376,38 +363,29 @@
                                               
                                                         </tbody>
                                                     </table>
+</p>
+
+</div>
+</div>
+</div>
+
+<br>
 
 
+<div class="card card-style shadow-0 bg-green-dark mb-1">
+<button class="btn accordion-btn color-white no-effect" data-bs-toggle="collapse" data-bs-target="#collapse5">
+<i class="fa fa-star me-2"></i>
+<span id="teambnamescorecard"></span>
+<i class="fa fa-chevron-down font-10 accordion-icon"></i>
+</button>
+<div id="collapse5" class="collapse bg-theme" data-bs-parent="#accordion-2">
+<div class="pt-3 pb-3">
 
-
-
-                                                    <table class="widget-table table table-striped table-medium no-border">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Batsmen</th>
-                                                                <th scope="col"></th>
-                                                                <th scope="col">r</th>
-                                                                <th scope="col">b</th>
-                                                                <th scope="col">4s</th>
-                                                                <th scope="col">6s</th>
-                                                                <th scope="col">sr</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="batterdetailsforteamb">
-                                                            
-                                                            <tr id="initialstrikerteamb">
-
-
-                                                            </tr>
-
-                                                            <tr id="initialnonstrikerteamb">
-
-
-                                                            </tr>
-
-                                                            
-                                                        </tbody>
-                                                    </table>
+<p class="mb-0">
+  
+                                                  <div id="tbbattable">
+                                              
+                                                  </div>
 
                                                      <div class="spell-sum-box px-30 py-20">
                                                         <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
@@ -442,6 +420,14 @@
 
                                                         
                                                     </table>
+
+
+</p>
+
+</div>
+</div>
+</div>
+                                              
 </div>
 
 
@@ -586,6 +572,13 @@ const matchref = ref(database,selectedmatch+"/");
 const batterdatafora = ref(database,selectedmatch+"/"+"Data/BatterData/"+teamaselected+"/");
 const batterdataforb = ref(database,selectedmatch+"/"+"Data/BatterData/"+teambselected+"/");
 
+
+const bowlerdatafora = ref(database,selectedmatch+"/"+"Data/BowlerData/"+teamaselected+"/");
+const bowlerdataforb = ref(database,selectedmatch+"/"+"Data/BowlerData/"+teambselected+"/");
+
+let teamabatter = [];
+let teambbatter = [];
+
 function getdetails() 
 {
     
@@ -599,17 +592,70 @@ function getdetails()
               document.getElementById("teamabatdisp").innerHTML = `${issue.Team1}`
               document.getElementById("teambbatdisp").innerHTML = `${issue.Team2}`
 
-              console.log(issue);
+              document.getElementById("teamanamescorecard").innerHTML = `${issue.Team1}`
+              document.getElementById("teambnamescorecard").innerHTML = `${issue.Team2}`
                             
             });
-             
-              /* let sortedProducts = teamabatter.sort(
+            
+        }); 
+
+     onValue(batterdatafora,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              console.log(issue);
+
+              teamabatter.push(issue); 
+
+               let sortedbattersa = teamabatter.sort(
             (p1, p2) => (p1.Inat > p2.Inat) ? 1 : (p1.Inat < p2.Inat) ? -1 : 0);
 
-        console.log("Products sorted based on descending order of their prices are:")
-        console.log(sortedProducts); */       
-        
-        }); 
+               console.log(sortedbattersa);
+
+               var html = "<table class='table'>"; 
+
+               html+='<th>';
+               html+='<tr>';
+               html+='<td>'+'Batsmen'+'</td>';
+               html+='<td>'+''+'</td>';
+               html+='<td>'+'R'+'</td>';
+               html+='<td>'+'B'+'</td>';
+               html+='<td>'+'4s'+'</td>';
+               html+='<td>'+'6s'+'</td>';
+               html+='<td>'+'Sr'+'</td>';
+               html+='</tr>';
+               html+='</th>'
+
+                for (var i=0;i<sortedbattersa.length;i++)
+                {
+                    html+='<tr>';
+                    html+='<td>'+sortedbattersa[i].Name+'</td>';
+                    
+                    if (sortedbattersa[i].WicketType!="not out")
+                    {
+                      html+='<td>'+sortedbattersa[i].WicketType+' '+sortedbattersa[i].BowlerName+'</td>';
+                    }
+                    else
+                    {
+                        html+='<td>'+sortedbattersa[i].WicketType+'</td>';
+                    }
+
+                    html+='<td>'+sortedbattersa[i].Runs+'</td>';
+                    html+='<td>'+sortedbattersa[i].Balls+'</td>';
+                    html+='<td>'+sortedbattersa[i].Fours+'</td>';
+                    html+='<td>'+sortedbattersa[i].Six+'</td>';
+                    html+='<td>'+parseFloat(sortedbattersa[i].StrikeRate).toFixed(2)+'</td>';
+                }
+
+
+                document.getElementById("tabattable").innerHTML = html;
+
+
+            });
+          });
 
 
      onValue(batterdataforb,(snapshot)=>
@@ -620,6 +666,94 @@ function getdetails()
               const issue = snap.val(); 
 
               console.log(issue);
+
+            teambbatter.push(issue); 
+
+               let sortedbattersb = teambbatter.sort(
+            (p1, p2) => (p1.Inat > p2.Inat) ? 1 : (p1.Inat < p2.Inat) ? -1 : 0);
+
+               console.log(sortedbattersa);
+
+               var html = "<table class='table'>"; 
+
+               html+='<th>';
+               html+='<tr>';
+               html+='<td>'+'Batsmen'+'</td>';
+               html+='<td>'+''+'</td>';
+               html+='<td>'+'R'+'</td>';
+               html+='<td>'+'B'+'</td>';
+               html+='<td>'+'4s'+'</td>';
+               html+='<td>'+'6s'+'</td>';
+               html+='<td>'+'Sr'+'</td>';
+               html+='</tr>';
+               html+='</th>'
+
+                for (var i=0;i<sortedbattersa.length;i++)
+                {
+                    html+='<tr>';
+                    html+='<td>'+sortedbattersa[i].Name+'</td>';
+                    
+                    if (sortedbattersa[i].WicketType!="not out")
+                    {
+                      html+='<td>'+sortedbattersa[i].WicketType+' '+sortedbattersa[i].BowlerName+'</td>';
+                    }
+                    else
+                    {
+                        html+='<td>'+sortedbattersa[i].WicketType+'</td>';
+                    }
+
+                    html+='<td>'+sortedbattersa[i].Runs+'</td>';
+                    html+='<td>'+sortedbattersa[i].Balls+'</td>';
+                    html+='<td>'+sortedbattersa[i].Fours+'</td>';
+                    html+='<td>'+sortedbattersa[i].Six+'</td>';
+                    html+='<td>'+parseFloat(sortedbattersa[i].StrikeRate).toFixed(2)+'</td>';
+                }
+
+
+                document.getElementById("tbbattable").innerHTML = html;
+
+
+            });
+        
+        });
+ 
+
+     onValue(bowlerdatafora,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              console.log(issue);
+
+              document.getElementById("bowlerdetailsforteama").innerHTML += `
+                                                                  <td>${issue.BowlerName}</td>
+                                                                  <td>${issue.Overs}</td>
+                                                                  <td>${issue.RunsGiven}</td>
+                                                                  <td>${issue.WicketsTaken}</td>
+                                                                  <td>${issue.Economy}</td>
+                                                                `             
+            });
+          });
+
+
+     onValue(bowlerdataforb,(snapshot)=>
+          {
+            snapshot.forEach(snap => 
+            {
+              
+              const issue = snap.val(); 
+
+              console.log(issue);
+
+              document.getElementById("bowlerdetailsforteamb").innerHTML += `
+                                                                  <td>${issue.BowlerName}</td>
+                                                                  <td>${issue.Overs}</td>
+                                                                  <td>${issue.RunsGiven}</td>
+                                                                  <td>${issue.WicketsTaken}</td>
+                                                                  <td>${issue.Economy}</td>
+                                                                 `
                           
             });
              
@@ -629,7 +763,8 @@ function getdetails()
         console.log("Products sorted based on descending order of their prices are:")
         console.log(sortedProducts); */       
         
-        }); 
+        });
+
 
 
         onValue(matchref,(snapshot)=>
@@ -649,6 +784,9 @@ function getdetails()
              /* document.getElementById("matchdetails").innerHTML = `<b>${issue.MatchID}</b> at ${issue.Ground}, ${issue.Overs} overs match` */
               
               document.getElementById("tossdetails").innerHTML = `${issue.Toss} won the toss and opted to ${issue.OptedTo}` 
+
+
+
               
             })
           })
