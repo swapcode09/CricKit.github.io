@@ -664,13 +664,11 @@
                                                     </table>
 
                                                          <div class="spell-sum-box px-30 py-20">
-                                                        <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
+                                                        <h5>Did not bat: <span id="didnotbata"></span></h5>
                                                         <h5 class="d-sm-flex">
                                                             Fall of Wickets:
-                                                            <span class="ml-05"
-                                                                >19-1 (Lahiru Thirimanne, 6.4), 51-2 (Oshada Fernando, 18.2), 53-3 (Dimuth Karunaratne, 19.6), 76-4 (Kusal Mendis, 25.4), 90-5 (Niroshan Dickwella,
-                                                                29.2), 133-6 (Dhananjaya de Silva, 38.5), 142-7 (Suranga Lakmal, 40.1), 152-8 (Kusal Perera, 44.3), 184-9 (Kasun Rajitha, 55.3), 191-10 (Lasith
-                                                                Embuldeniya, 59.2)
+                                                            <span class="ml-05" id="wicketimelinea">
+                                                                
                                                             </span>
                                                         </h5>
                                                     </div>
@@ -726,13 +724,11 @@
                                                     </table>
 
                                                      <div class="spell-sum-box px-30 py-20">
-                                                        <h5>Did not bat: <span>Anton Devcich (c), Brett Hampton, Scott Kuggeleijn, Tim Southee, Anurag Verma, Joe Walker, Trent Boult</span></h5>
+                                                        <h5>Did not bat: <span id="didnotbatb"></span></h5>
                                                         <h5 class="d-sm-flex">
                                                             Fall of Wickets:
-                                                            <span class="ml-05"
-                                                                >19-1 (Lahiru Thirimanne, 6.4), 51-2 (Oshada Fernando, 18.2), 53-3 (Dimuth Karunaratne, 19.6), 76-4 (Kusal Mendis, 25.4), 90-5 (Niroshan Dickwella,
-                                                                29.2), 133-6 (Dhananjaya de Silva, 38.5), 142-7 (Suranga Lakmal, 40.1), 152-8 (Kusal Perera, 44.3), 184-9 (Kasun Rajitha, 55.3), 191-10 (Lasith
-                                                                Embuldeniya, 59.2)
+                                                            <span class="ml-05" id="wicketimelineb">
+
                                                             </span>
                                                         </h5>
                                                     </div>
@@ -1460,6 +1456,9 @@ function openiniup()
     
     document.getElementById("box").style.display="block";
 
+
+                                                                
+                                        
     onValue(getstrikerslist,(snapshot)=>
           {
             snapshot.forEach(snap => 
@@ -1537,7 +1536,7 @@ function openiniup()
                     document.getElementById("initialstriker").innerHTML +=
                     `
                                                                 <td>${striker}</td>
-                                                                <td><i><h6>not out</h6></i></td>
+                                                                <td>not out</td>
                                                                 <td><strong>0</strong></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
@@ -1549,7 +1548,7 @@ function openiniup()
                     document.getElementById("initialnonstriker").innerHTML +=
                     `
                                                                 <td>${nonstriker}</td>
-                                                                <td><i><h6>not out</h6>not out</td>
+                                                                <td>not out</td>
                                                                 <td><strong>0</strong></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
@@ -1586,6 +1585,7 @@ function openiniup()
                 }
 
                 
+                console.log(battersarray);
 
                 localStorage.setItem("initial_ui_opened",1);
         
@@ -1812,6 +1812,7 @@ var ballereco = 0;
 
 var crr=0;
 var rrr=0;
+
 
 btn0.addEventListener('click', () => 
 {
@@ -4939,6 +4940,8 @@ if (battingfirst==teamaselected)
     getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
     getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
 
+    
+
             onValue(getbowlerslist,(snapshot)=>
                                       {
                                         snapshot.forEach(snap => 
@@ -5111,6 +5114,8 @@ btnwicket.addEventListener('click', () =>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
 
+document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-${teamawickets.innerText} (${previousbattername},${teamaovers.innerText}) `
+
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                   {
                                         Name : batter1namepara.innerText,
@@ -5164,6 +5169,8 @@ btnwicket.addEventListener('click', () =>
                                                 <strong class="demo-color color-white bg-orange-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
+
+        document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-${teamawickets.innerText} (${previousbattername},${teamaovers.innerText}) `
 
                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                   {
@@ -5651,7 +5658,9 @@ currentbowlerecon.innerHTML = ballereco;
 
                           currentovertext.innerHTML = ""; 
 
-                        }); 
+                        });
+
+    document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-${teamawickets.innerText} (${previousbattername},${teamaovers.innerText}) `
 
                   }
 
@@ -5691,6 +5700,8 @@ currentbowlerecon.innerHTML = ballereco;
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
 
+                document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-${teamawickets.innerText} (${previousbattername},${teamaovers.innerText}) `
+
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                   {
                                         Name : batter1namepara.innerText,
@@ -5728,6 +5739,8 @@ currentbowlerecon.innerHTML = ballereco;
                                                 <strong class="demo-color color-white bg-orange-dark">${teamaovers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
+
+            document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-${teamawickets.innerText} (${previousbattername},${teamaovers.innerText}) `
 
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                   {
@@ -5792,6 +5805,8 @@ currentbowlerecon.innerHTML = ballereco;
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
 
+            document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-${teambwickets.innerText} (${previousbattername},${teambovers.innerText}) `
+
                     
                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                   {
@@ -5827,6 +5842,7 @@ currentbowlerecon.innerHTML = ballereco;
                                                 <strong class="demo-color color-white bg-orange-dark">${teamabvers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
+                document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-${teambwickets.innerText} (${previousbattername},${teambovers.innerText}) `
 
                             set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                   {
@@ -6279,6 +6295,8 @@ currentbowlerecon.innerHTML = ballereco;
                           currentovertext.innerHTML = ""; 
 
                         }); 
+
+document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-${teambwickets.innerText} (${previousbattername},${teambovers.innerText}) `
                     }
                  
 
@@ -6312,6 +6330,7 @@ currentbowlerecon.innerHTML = ballereco;
                                                 <strong class="demo-color color-white bg-orange-dark">${teambovers.innerText}, ${previousbowlername} to ${batter1namepara.innerText}  </strong>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
+        document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-${teambwickets.innerText} (${previousbattername},${teambovers.innerText}) `
 
                                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
                                                   {
@@ -6349,6 +6368,8 @@ currentbowlerecon.innerHTML = ballereco;
                                                 <strong class="demo-color color-white bg-orange-dark">${teambovers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
+
+            document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-${teambwickets.innerText} (${previousbattername},${teambovers.innerText}) `
 
                                         set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
                                                   {
