@@ -1839,7 +1839,7 @@ btn0.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;  
 
                   strikersr = (strikerscore/strikerballs)*100;
-                  batter1strikeratecount.innerHTML = strikersr;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -1868,7 +1868,7 @@ btn0.addEventListener('click', () =>
                   batter2bowlcount.innerHTML = nonstrikerballs;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = nonstrikersr;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                    addcommentary.innerHTML += `<div class="cal-schedule" >
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -1923,7 +1923,10 @@ btn0.addEventListener('click', () =>
                 {
                   
                   strikerballs = strikerballs + 1;
-                  batter1bowlcount.innerHTML = strikerballs;   
+                  batter1bowlcount.innerHTML = strikerballs; 
+
+                     strikersr = (strikerscore/strikerballs)*100;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                    addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -1947,6 +1950,9 @@ btn0.addEventListener('click', () =>
               {
                   nonstrikerballs = nonstrikerballs+1;
                   batter2bowlcount.innerHTML = nonstrikerballs;
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                    addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -2205,7 +2211,7 @@ btn1.addEventListener('click', () =>
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
 
-                  batter1strikeratecount.innerHTML = strikersr;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2238,7 +2244,7 @@ btn1.addEventListener('click', () =>
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = nonstrikersr;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2300,7 +2306,7 @@ btn1.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2333,7 +2339,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2411,7 +2417,7 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                 currentbowlerovers.innerHTML = ballerballcount;
 
                               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+                              currentbowlerecon.innerHTML = ballereco;
 
                 addtoscorecard();
 
@@ -2583,7 +2589,7 @@ btn2.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2614,7 +2620,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2673,7 +2679,7 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2704,7 +2710,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2958,7 +2964,7 @@ btn3.addEventListener('click', () =>
                           batter1bowlcount.innerHTML = strikerballs;
 
                           strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                            batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                           document.getElementById("initialstriker").innerHTML =`
                                                                         <td>${batter1namepara.innerText}</td>
@@ -2991,7 +2997,7 @@ batter1strikeratecount.innerHTML = strikersr;
                           batter2scorepara.innerHTML = nonstrikerscore;
 
                           nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                            batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                           document.getElementById("initialnonstriker").innerHTML =`
                                                                         <td>${batter2namepara.innerText}</td>
@@ -3051,7 +3057,7 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3084,7 +3090,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3333,7 +3339,7 @@ btn4.addEventListener('click', () =>
                   batter1fourcount.innerHTML = strikerfours;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3366,7 +3372,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2fourcount.innerHTML = nonstrikerfours;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3427,7 +3433,7 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   batter1fourcount.innerHTML = strikerfours;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3460,7 +3466,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2fourcount.innerHTML = nonstrikerfours;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3709,7 +3715,7 @@ btn5.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3742,7 +3748,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3802,7 +3808,7 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3835,7 +3841,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4079,7 +4085,7 @@ btn6.addEventListener('click', () =>
                   batter1sixcount.innerHTML = strikersixes;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -4112,7 +4118,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2sixcount.innerHTML = nonstrikersixes;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4173,7 +4179,7 @@ batter2strikeratecount.innerHTML = nonstrikersr;
                   batter1sixcount.innerHTML = strikersixes;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = strikersr;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
 
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
@@ -4207,7 +4213,7 @@ batter1strikeratecount.innerHTML = strikersr;
                   batter2sixcount.innerHTML = nonstrikersixes;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = nonstrikersr;
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4518,7 +4524,6 @@ currentbowlerecon.innerHTML = ballereco;
       
 });
 
-
 btnnb.addEventListener('click', () => 
 {
     score = score+1;
@@ -4616,7 +4621,7 @@ if (battingfirst==teamaselected)
 
 });
 
-// NEED TO CHECK INNS DONE AND OVER DONE
+// NEED TO CHECK INNS DONE , OVER DONE , strike rate of batters
 btnlb.addEventListener('click', () => 
 {
     score = score+1;
