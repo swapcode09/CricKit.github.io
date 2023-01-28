@@ -571,7 +571,7 @@
 </div>
 </div>
 
-<div class="card card-style">
+<div class="card card-style" id="scorebuttons" style="display:block;">
 <div class="content mb-0">
 <h4 class="font-700">Score Panel</h4>
 <p class="mt-n2 mb-4">
@@ -611,6 +611,12 @@
 </div>
 </div>
 </div>
+
+
+<div id="resultalert">
+
+</div>
+
 
 </div>
 
@@ -1813,6 +1819,7 @@ var ballereco = 0;
 var crr=0;
 var rrr=0;
 
+var completed=0;
 
 btn0.addEventListener('click', () => 
 {
@@ -1899,14 +1906,19 @@ btn0.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    `<div id="menu-success-2" class="menu menu-box-bottom bg-green-dark rounded-m" data-menu-height="335" data-menu-effect="menu-over">
-                        <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
-                        <h1 class="text-center mt-3 font-700 color-white">Match Over</h1>
-                        <p class="boxed-text-l color-white opacity-70">
-                        Team ${teamaselected} won the match!
-                        </p>
-                        <a href="#" class="close-menu btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black">Go to menu</a>
-                        </div>`
+                    
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`      
                   }
 
                   balls_rem = totalballs-balls;
@@ -1916,17 +1928,19 @@ btn0.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    `<div id="menu-success-2" class="menu menu-box-bottom bg-green-dark rounded-m" data-menu-height="335" data-menu-effect="menu-over">
-                        <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
-                        <h1 class="text-center mt-3 font-700 color-white">Match Over</h1>
-                        <p class="boxed-text-l color-white opacity-70">
-                        Team ${teambselected} won the match!
-                        </p>
-                        <a href="#" class="close-menu btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black">Go to menu</a>
-                        </div>`
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`      
                   }
 
-              }
+                }
             }
 
             else if (battingfirst==teambselected)
@@ -1996,7 +2010,18 @@ btn0.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`   
                   }
 
                   balls_rem = totalballs-balls;
@@ -2006,7 +2031,16 @@ btn0.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -2061,6 +2095,9 @@ btn0.addEventListener('click', () =>
 
                  if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON 0
                  {  
+                    
+                    if (completed!=1)
+                    {
                     // SAVE BOWER DATA 1ST EVEN IF INNS IS OVER
                     set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -2134,9 +2171,8 @@ btn0.addEventListener('click', () =>
                         
                           currentovertext.innerHTML = "";  
                           switchteams()  
-
-                          
-                        
+                        }
+                             
                  }
                 
                     // BUTTON 0 PRESSED INNS NOT DONE BUT OVERDONE
@@ -2280,7 +2316,18 @@ btn1.addEventListener('click', () =>
 
                                   if (rem_score==0)
                                   {
-                                    alert("team a won the match");
+                                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                                   }
 
                                   balls_rem = totalballs-balls;
@@ -2290,7 +2337,16 @@ btn1.addEventListener('click', () =>
 
                                   if (balls_rem==0)
                                   {
-                                    alert("team b won the match");
+                                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                                   }
 
                               }
@@ -2376,7 +2432,18 @@ btn1.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                   }
 
                   balls_rem = totalballs-balls;
@@ -2386,7 +2453,16 @@ btn1.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                   }
 
               }
@@ -2656,7 +2732,18 @@ btn2.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team a won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`  
                   }
 
                   balls_rem = totalballs-balls;
@@ -2666,7 +2753,16 @@ btn2.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team b won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -2746,7 +2842,18 @@ btn2.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -2756,7 +2863,16 @@ btn2.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                   }
 
               }
@@ -3033,7 +3149,18 @@ btn3.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team a won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -3043,7 +3170,16 @@ btn3.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team b won the match");
+                     completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                   }
 
               }
@@ -3126,7 +3262,18 @@ btn3.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -3136,7 +3283,16 @@ btn3.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -3408,7 +3564,18 @@ btn4.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team a won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -3418,7 +3585,16 @@ btn4.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team b won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -3502,7 +3678,18 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -3512,7 +3699,16 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -3784,7 +3980,18 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    alert("team a won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -3794,7 +4001,16 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    alert("team b won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                   }
 
               }
@@ -3877,7 +4093,18 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -3887,7 +4114,16 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>` 
                   }
 
               }
@@ -4154,7 +4390,18 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    alert("team a won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -4164,7 +4411,16 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    alert("team b won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -4249,7 +4505,18 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    alert("team b won the match");
+                    completed = 1;
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -4259,7 +4526,16 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    alert("team a won the match");
+                    completed=1;
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
                   }
 
               }
@@ -5853,7 +6129,7 @@ currentbowlerecon.innerHTML = ballereco;
 
                                  addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-orange-darkt" style="font-size: 200%; color: #FF5722;">W</span><br></em>
-                                                <strong class="demo-color color-white bg-orange-dark">${teamabvers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
+                                                <strong class="demo-color color-white bg-orange-dark">${teambovers.innerText}, ${previousbowlername} to ${batter2namepara.innerText}  </strong>
                                                 <span class="demo-color color-white bg-orange-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
                                                 </div>`
                 document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-${teambwickets.innerText} (${previousbattername},${teambovers.innerText}) `
