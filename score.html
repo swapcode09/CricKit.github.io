@@ -1899,7 +1899,14 @@ btn0.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    alert("team a won the match");
+                    `<div id="menu-success-2" class="menu menu-box-bottom bg-green-dark rounded-m" data-menu-height="335" data-menu-effect="menu-over">
+                        <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+                        <h1 class="text-center mt-3 font-700 color-white">Match Over</h1>
+                        <p class="boxed-text-l color-white opacity-70">
+                        Team ${teamaselected} won the match!
+                        </p>
+                        <a href="#" class="close-menu btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black">Go to menu</a>
+                        </div>`
                   }
 
                   balls_rem = totalballs-balls;
@@ -1909,7 +1916,14 @@ btn0.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    alert("team b won the match");
+                    `<div id="menu-success-2" class="menu menu-box-bottom bg-green-dark rounded-m" data-menu-height="335" data-menu-effect="menu-over">
+                        <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i></h1>
+                        <h1 class="text-center mt-3 font-700 color-white">Match Over</h1>
+                        <p class="boxed-text-l color-white opacity-70">
+                        Team ${teambselected} won the match!
+                        </p>
+                        <a href="#" class="close-menu btn btn-m btn-center-m button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black">Go to menu</a>
+                        </div>`
                   }
 
               }
