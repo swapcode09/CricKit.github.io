@@ -457,6 +457,7 @@
         <div class="form-check" id="runoutradiolastbatter">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunoutlastbatter" value="strikerro" onchange="throwwhoout(this)">
             <label class="form-check-label">Striker <strong id="strikernamelastbatter"></strong></label>
+            <br>
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunoutlastbatter" value="nostrikerro" onchange="throwwhoout(this)">
                 <label class="form-check-label">Non Striker <strong id="nonstrikernamelastbatter"></strong></label>
         </div>
@@ -2053,6 +2054,9 @@ btn0.addEventListener('click', () =>
 
             currentbowlerovers.innerHTML = ballerballcount;
 
+                 ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+
             set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -2084,12 +2088,6 @@ btn0.addEventListener('click', () =>
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
-
-                 currentbowlerovers.innerHTML = ballerballcount; 
-
-                 ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-                 currentbowlerecon.innerHTML = ballereco;
-
 
                  addtoscorecard();
 
@@ -2475,6 +2473,12 @@ btn1.addEventListener('click', () =>
               ballerruncount = parseInt(donescore)+1;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+              currentbowlerovers.innerHTML = ballerballcount; 
+
+                 ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+
+
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -2504,11 +2508,6 @@ btn1.addEventListener('click', () =>
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
-
-                currentbowlerovers.innerHTML = ballerballcount;
-
-                              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-                              currentbowlerecon.innerHTML = ballereco;
 
                 addtoscorecard();
 
@@ -2886,7 +2885,7 @@ btn2.addEventListener('click', () =>
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
                               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+                              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -3305,6 +3304,10 @@ btn3.addEventListener('click', () =>
               ballerruncount = parseInt(donescore)+3;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+
+
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -3335,10 +3338,6 @@ btn3.addEventListener('click', () =>
                     teamcrr.innerText = crr
                  }
 
-                currentbowlerovers.innerHTML = ballerballcount;
-
-                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -3722,6 +3721,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
               ballerruncount = parseInt(donescore)+4;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -3752,10 +3754,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                     teamcrr.innerText = crr
                  }
 
-                currentbowlerovers.innerHTML = ballerballcount;
 
-                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -4134,6 +4133,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
               ballerruncount = parseInt(donescore)+5;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -4163,11 +4165,6 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
                     teamcrr.innerText = crr
                  }
-
-                currentbowlerovers.innerHTML = ballerballcount;
-
-                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -4549,6 +4546,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
               ballerruncount = parseInt(donescore)+6;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
                                             Overs : currentbowlerovers.innerText,
@@ -4579,13 +4579,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                     teamcrr.innerText = crr
                  }
 
-                currentbowlerovers.innerHTML = ballerballcount;
-
-                ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
-
                  addtoscorecard();
-
 
                 if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON 0
                  {  
@@ -4797,7 +4791,7 @@ btnwide.addEventListener('click', () =>
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
 
             if (battingfirst==teamaselected)
                  { 
@@ -4893,7 +4887,7 @@ btnnb.addEventListener('click', () =>
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
 
 if (battingfirst==teamaselected)
                  { 
@@ -4921,8 +4915,14 @@ btnlb.addEventListener('click', () =>
 
     var doneballs = currentbowlerovers.innerText;
 
+    var donescore = currentbowlerrunsgiven.innerText;
+    ballerruncount = parseInt(donescore)+1;
+    currentbowlerrunsgiven.innerHTML = ballerruncount;
+
       if (battingfirst==teamaselected)
       {
+        teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
+
         teamascore.innerHTML = score;
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
@@ -4951,10 +4951,22 @@ btnlb.addEventListener('click', () =>
                   }
 
               }
+
+              if (strikerstar.innerText=="*")
+              {
+                strikerstar.innerText="";
+                nonstrikerstar.innerText="*";
+              }
+              else
+              {
+                strikerstar.innerText="*";
+                nonstrikerstar.innerText="";
+              }
       }
 
       if (battingfirst==teambselected)
       {
+        teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
         teambscore.innerHTML = score;
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
@@ -4983,13 +4995,24 @@ btnlb.addEventListener('click', () =>
                   }
 
               }
+
+              if (strikerstar.innerText=="*")
+              {
+                strikerstar.innerText="";
+                nonstrikerstar.innerText="*";
+              }
+              else
+              {
+                strikerstar.innerText="*";
+                nonstrikerstar.innerText="";
+              }
       }
 
       ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
       currentbowlerovers.innerHTML = ballerballcount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
 
 if (battingfirst==teamaselected)
                  { 
@@ -5016,8 +5039,13 @@ btnb.addEventListener('click', () =>
 
     var doneballs = currentbowlerovers.innerText;
 
+    var donescore = currentbowlerrunsgiven.innerText;
+    ballerruncount = parseInt(donescore)+1;
+    currentbowlerrunsgiven.innerHTML = ballerruncount;
+
       if (battingfirst==teamaselected)
       {
+        teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
         teamascore.innerHTML = score;
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
@@ -5046,10 +5074,26 @@ btnb.addEventListener('click', () =>
                   }
 
               }
+
+
+              if (strikerstar.innerText=="*")
+              {
+                strikerstar.innerText="";
+                nonstrikerstar.innerText="*";
+              }
+              else
+              {
+                strikerstar.innerText="*";
+                nonstrikerstar.innerText="";
+              }
+
+
+
       }
 
       if (battingfirst==teambselected)
       {
+        teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
         teambscore.innerHTML = score;
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
@@ -5078,13 +5122,24 @@ btnb.addEventListener('click', () =>
                   }
 
               }
+
+              if (strikerstar.innerText=="*")
+              {
+                strikerstar.innerText="";
+                nonstrikerstar.innerText="*";
+              }
+              else
+              {
+                strikerstar.innerText="*";
+                nonstrikerstar.innerText="";
+              }
       }
 
       ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
       currentbowlerovers.innerHTML = ballerballcount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
 
 if (battingfirst==teamaselected)
                  { 
@@ -5180,8 +5235,8 @@ btnex.addEventListener('click', () =>
       ballerruncount = parseInt(donescore)+1;
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
-            ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+           ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
 
 if (battingfirst==teamaselected)
                  { 
@@ -5350,7 +5405,7 @@ btnwicket.addEventListener('click', () =>
                 batter1bowlcount.innerHTML = strikerballs;
 
                 strikersr = (strikerscore/strikerballs)*100;
-                batter1strikeratecount.innerHTML = strikersr;
+                batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
             }
 
             else if (nonstrikerstar.innerText=="*")
@@ -5359,7 +5414,7 @@ btnwicket.addEventListener('click', () =>
                 batter2bowlcount.innerHTML=nonstrikerballs;
 
                 nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                batter2strikeratecount.innerHTML = nonstrikersr;
+                batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
             }
 
             if (battingfirst==teamaselected)
@@ -5505,7 +5560,7 @@ document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-
                  currentbowlerovers.innerHTML = ballerballcount;
 
                  ballereco = (currentbowlerrunsgiven.innereText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+                 currentbowlerecon.innerHTML = ballereco;
 
                  addtoscorecard();
 
@@ -5571,6 +5626,24 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 Inat : notoutguy
                                                           });
 
+
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
+            
+             
+
+
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -5605,6 +5678,20 @@ currentbowlerecon.innerHTML = ballereco;
                                                                 BowlerName : currentbowlernamepara.innerText,
                                                                 Inat : getposition
                                                           });
+
+                                            document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
+
+             
                                     }
 
                                 }
@@ -5643,6 +5730,21 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                        document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>lbw ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
+            
+             
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -5673,7 +5775,23 @@ currentbowlerecon.innerHTML = ballereco;
                                         Six : batter1sixcount.innerText,
                                         Inat : getposition,
                                         WicketType : "not out"
-                                  });
+                                  })
+
+
+                                    document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>lbw ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
+
+
+             
                                     }
                                 } 
 
@@ -5710,6 +5828,21 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>c&b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
+            
+             
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -5743,11 +5876,26 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                      document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>c&b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
+
+             
                                     }
                                 }
 
                                 if (lastbatterwicketype=="c")
                                 {
+                                    var bowlercaught = document.getElementById("bowlerlistifcaughtoverchangelastbatter").value;    
+
                                     if (strikerstar.innerText=="*")
                                     {
                                        var getposition = document.getElementById('pos1').innerText;
@@ -5778,6 +5926,22 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   });
+
+
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>c ${bowlercaught} b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
+
+            
 
                                     }  
 
@@ -5811,6 +5975,22 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   }); 
+
+
+                                            document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>c ${bowlercaught} b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
+
+             
+
                                     }
                                 }   
 
@@ -5852,6 +6032,21 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>run out b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
+            
+             
+
                     }
 
                  else if (whout=="nostrikerro")
@@ -5890,14 +6085,23 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   }); 
 
+                      document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>run out b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
 
-                            
+                    document.getElementById('initialnonstriker').id = temp;
+
+             
                 }
 
 
             }
-
-                            
 
                             // SWITCH TEAMS ONLY AFTER SAVING LAST BATTER DATA
                                 if (battingfirst==teamaselected)
@@ -6166,7 +6370,7 @@ currentbowlerecon.innerHTML = ballereco;
                    currentbowlerovers.innerHTML = ballerballcount;
 
                    ballereco = (currentbowlerrunsgiven.innereText)/(currentbowlerovers.innerText);
-currentbowlerecon.innerHTML = ballereco;
+                    currentbowlerecon.innerHTML = ballereco;
 
                    addtoscorecard();
 
@@ -6228,6 +6432,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -6259,6 +6475,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   }); 
                                     }
+
+                                    document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
 
                                 }
 
@@ -6294,6 +6522,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>lbw ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -6324,6 +6564,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   });
+
+                                              document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>lbw ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
                                     }
                                 } 
 
@@ -6359,6 +6611,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>c&b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
                                     }  
 
                                     else if (nonstrikerstar.innerText=="*")
@@ -6389,11 +6653,25 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   }); 
+
+                                    document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>c&b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
                                     }
                                 }
 
                                 if (lastbatterwicketype=="c")
                                 {
+                                    var bowlercaught = document.getElementById("bowlerlistifcaughtoverchangelastbatter").value;
+
                                     if (strikerstar.innerText=="*")
                                     {
                                          
@@ -6423,6 +6701,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   });
+
+                                    document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>c ${bowlercaught} b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
 
                                     }  
 
@@ -6454,6 +6744,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   }); 
+
+                                              document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>c ${bowlercaught} b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
                                     }
                                 }
 
@@ -6493,6 +6795,18 @@ currentbowlerecon.innerHTML = ballereco;
                                         WicketType : "not out"
                                   });
 
+                            document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>run out b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialstriker').id = temp;
+
                     }
 
                  else if (whout=="nostrikerro")
@@ -6528,6 +6842,19 @@ currentbowlerecon.innerHTML = ballereco;
                                         Inat : getposition,
                                         WicketType : "not out"
                                   }); 
+
+
+  document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>run out b ${currentbowlernamepara.innerText}</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+
+                    document.getElementById('initialnonstriker').id = temp;
 
                             
                 }
