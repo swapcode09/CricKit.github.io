@@ -75,9 +75,17 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 
 const matchref = ref(database,"Matches/");
 
+
 function readteamsandmatches() 
 {
-  
+
+    if (!window.location.hash)
+    {
+        window.location = window.location+'#loaded';
+        window.location.reload();
+    }
+
+
   onValue(matchref,(snapshot)=>
   {
     snapshot.forEach(snap => 
@@ -180,13 +188,6 @@ window.onload = readteamsandmatches;
       return false;
   }
 </script>
-
-
-
-
-
-
-
 
 </body>
 
