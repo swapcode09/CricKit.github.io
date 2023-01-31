@@ -170,17 +170,6 @@ Fill in the information correctly to save the match information.
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
 
-
-<script>
-
-
-
-/* var teamlistdisplay = document.getElementById("teamlistdisplay"); */
-
-  
-</script>
-
-
 <script>
 const form1 = document.getElementById('form1');
 const form2 = document.getElementById('form2');
@@ -497,32 +486,7 @@ window.onload=readteamsandmatches;
       var btnValue = ele.value;
       var initial_ui_opened = 0;
       localStorage.setItem("selectedmatch",btnValue);
-      localStorage.setItem("initial_ui_opened",initial_ui_opened);
-  
-      /* if (toss == teamaselected && optedto == "Bat")
-      {
-         localStorage.setItem("battingfirst",teamaselected);
-         localStorage.setItem("bowlingfirst",teambselected);
-      }
-
-      if (toss == teamaselected && optedto == "Bowl")
-      {
-         localStorage.setItem("battingfirst",teambselected);
-         localStorage.setItem("bowlingfirst",teamaselected);
-      }
-
-      if (toss == teambselected && optedto == "Bat")
-      {
-         localStorage.setItem("battingfirst",teambselected);
-         localStorage.setItem("bowlingfirst",teamaselected);
-      }
-
-      if (toss == teambselected && optedto == "Bowl")
-      {
-         localStorage.setItem("battingfirst",teamaselected);
-         localStorage.setItem("bowlingfirst",teambselected);
-      } */
-      
+      localStorage.setItem("initial_ui_opened",initial_ui_opened);      
       return false;
   }
 </script>
