@@ -136,9 +136,6 @@ function readteamsandmatches()
                           <button onclick="cr7(this)" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-blue-dark" name="mybees" value="${issue2.MatchID}" type="submit" style="margin-right:20px;float:left" id="startmatchbutton">Start Match</button>
                     </form>
 
-                    <form>
-<button onClick="deletematch(this);" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-red-light" name="mybees" value="${issue2.MatchID}" type="submit" id="deletematchbutton" style="float:right;">Delete Match</button>
-                    </form>
 
                 </div>
                 </div>`
@@ -150,20 +147,6 @@ function readteamsandmatches()
 }        
 
 
-function deletematch(ele2)
-  {
-        var todel = ele2.value;
-
-        console.log("to remove"+todel);
-
-        remove(ref(database,"Matches/"+todel))
-        .then(()=>{
-            alert("removed");
-        })
-        .catch((error)=>{
-            alert("problem");
-        });
-  }
 
 
 window.onload = readteamsandmatches;
