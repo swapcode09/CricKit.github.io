@@ -1831,6 +1831,10 @@ btn0.addEventListener('click', () =>
 
             balls = balls+1;
 
+            console.log("balls are"+balls);
+
+            console.log("ball count is"+ball_count);
+
             score = score + 0;
         
             currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
@@ -2073,9 +2077,10 @@ btn0.addEventListener('click', () =>
                  overdone = overdone+1;   
 
                  ballerballcount = ballerballcount+0.4; 
+                 currentbowlerovers.innerHTML = ballerballcount;
 
 
-                
+     
                 // UPDATE OVERS PANEL
                  if (battingfirst==teamaselected)
                  { 
@@ -2496,6 +2501,7 @@ btn1.addEventListener('click', () =>
                  overdone = overdone+1;
                  
                  ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
                  if (battingfirst==teamaselected)
                  { 
@@ -2904,6 +2910,7 @@ btn2.addEventListener('click', () =>
                  overdone = overdone+1;
                  
                  ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
                  if (battingfirst==teamaselected)
                  { 
@@ -3325,6 +3332,7 @@ btn3.addEventListener('click', () =>
                  overdone = overdone+1;
                  
                  ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
                 if (battingfirst==teamaselected)
                  { 
@@ -3741,6 +3749,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                  overdone = overdone+1;
                  
                  ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
                  if (battingfirst==teamaselected)
                  { 
@@ -4153,6 +4162,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                  overdone = overdone+1;
                  
                  ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
                  if (battingfirst==teamaselected)
                  { 
@@ -4566,6 +4576,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                  overdone = overdone+1;
                  
                  ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
                  if (battingfirst==teamaselected)
                  { 
