@@ -132,9 +132,10 @@ function readteamsandmatches()
                 </div>
                 </div>
 
-                    <form action="score.html">
-                          <button onclick="cr7(this)" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-blue-dark" name="mybees" value="${issue2.MatchID}" type="submit" style="margin-right:20px;float:left" id="startmatchbutton">Start Match</button>
-                    </form>
+        <form action="score.html">
+            <button onclick="cr7(this)" class="btn btn-warning" name="mybees" value="${issue2.MatchID}" type="submit" style="margin-right:20px">Start Match</button>
+                          </form>
+        </form>
 
 
                 </div>
@@ -146,14 +147,11 @@ function readteamsandmatches()
 
 }        
 
-
-
-
 window.onload = readteamsandmatches;
 </script>
 
 
-<script type="module">
+<script>
 
    function cr7(ele) 
    {
