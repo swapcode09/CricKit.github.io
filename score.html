@@ -328,6 +328,7 @@
         <div class="form-check" id="runoutradio">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunout" value="strikerro" onchange="throwwhoout(this)">
             <label class="form-check-label">Striker <strong id="strikername"></strong></label>
+            <br>
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunout" value="nostrikerro" onchange="throwwhoout(this)">
                 <label class="form-check-label">Non Striker <strong id="nonstrikername"></strong></label>
         </div>
@@ -400,6 +401,7 @@
         <div class="form-check" id="runoutradiooverchange">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="strikerrunoutoverchange" value="strikerro" onchange="throwwhoout(this)">
             <label class="form-check-label">Striker <strong id="strikernameoverchange"></strong></label>
+            <br>
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="nonstrikerrunoutoverchange" value="nostrikerro" onchange="throwwhoout(this)">
                 <label class="form-check-label">Non Striker <strong id="nonstrikernameoverchange"></strong></label>
         </div>
@@ -1222,28 +1224,6 @@ function getdetails()
             openiniup();
     }
 
-      /*  onValue(batterdatafora,(snapshot)=>
-          {
-            snapshot.forEach(snap => 
-            {
-              
-              const issue = snap.val(); 
-
-              console.log(issue);
-              
-             teamabatter.push(issue);                
-            
-            });
-             
-              let sortedProducts = teamabatter.sort(
-            (p1, p2) => (p1.Inat > p2.Inat) ? 1 : (p1.Inat < p2.Inat) ? -1 : 0);
-
-        console.log("Products sorted based on descending order of their prices are:")
-        console.log(sortedProducts);         
-        
-        }); */
-
-
         onValue(matchref,(snapshot)=>
           {
             snapshot.forEach(snap => 
@@ -1741,7 +1721,12 @@ function switchteams()
                             /* currentbowlerovers.innerText=ballerballcount; */
 
                             getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
+
+                            console.log(getstrikerslist);
+
                             getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
+
+                            console.log(getbowlerslist);
 
                             openiniupinnschange();
 
@@ -1749,7 +1734,7 @@ function switchteams()
                         }
                         
                         // SWITCH TEAMS
-                        else 
+                        else if (battingfirst==teambselected)
                         {
                             
                             innsover = innsover+1;
@@ -1806,7 +1791,11 @@ function switchteams()
                             batter2strikeratecount.innerText="0";
 
                             getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
+
+                            console.log(getstrikerslist);
                             getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
+
+                            console.log(getbowlerslistt);
 
                             openiniupinnschange();
                         }
@@ -1852,7 +1841,7 @@ btn0.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;  
 
                   strikersr = (strikerscore/strikerballs)*100;
-                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -1881,7 +1870,7 @@ btn0.addEventListener('click', () =>
                   batter2bowlcount.innerHTML = nonstrikerballs;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                    addcommentary.innerHTML += `<div class="cal-schedule" >
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -1911,8 +1900,10 @@ btn0.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    
-                    completed = 1;
+            
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -1933,8 +1924,12 @@ btn0.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    
                      console.log("rem runs were"+rem_score);
+
+                     update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      document.getElementById("resultalert").innerHTML = `
                      <div class="alert alert-success" role="alert">
@@ -1960,7 +1955,7 @@ btn0.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs; 
 
                      strikersr = (strikerscore/strikerballs)*100;
-                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                    addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -1986,7 +1981,7 @@ btn0.addEventListener('click', () =>
                   batter2bowlcount.innerHTML = nonstrikerballs;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                    addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#8857</span><br></em>
@@ -2015,8 +2010,10 @@ btn0.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
-
+                    
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
 
@@ -2036,7 +2033,9 @@ btn0.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -2059,7 +2058,7 @@ btn0.addEventListener('click', () =>
             currentbowlerovers.innerHTML = ballerballcount;
 
                  ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
             set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -2086,12 +2085,12 @@ btn0.addEventListener('click', () =>
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
                  addtoscorecard();
@@ -2252,7 +2251,7 @@ btn1.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>` 
 
                   strikerscore = strikerscore+1;
@@ -2265,7 +2264,7 @@ btn1.addEventListener('click', () =>
                   batter1scorepara.innerHTML = strikerscore;
                   batter1bowlcount.innerHTML = strikerballs;
 
-                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2284,7 +2283,7 @@ btn1.addEventListener('click', () =>
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>`   
 
 
@@ -2298,7 +2297,7 @@ btn1.addEventListener('click', () =>
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2319,7 +2318,9 @@ btn1.addEventListener('click', () =>
 
                                   if (rem_score==0)
                                   {
-                                    completed = 1;
+                                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -2340,7 +2341,9 @@ btn1.addEventListener('click', () =>
 
                                   if (balls_rem==0)
                                   {
-                                    completed=1;
+                                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -2368,7 +2371,7 @@ btn1.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>`
 
                   strikerscore = strikerscore+1;
@@ -2380,7 +2383,7 @@ btn1.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2399,7 +2402,7 @@ btn1.addEventListener('click', () =>
                    addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>` 
 
 
@@ -2413,7 +2416,7 @@ btn1.addEventListener('click', () =>
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2435,7 +2438,9 @@ btn1.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -2456,7 +2461,9 @@ btn1.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -2481,7 +2488,7 @@ btn1.addEventListener('click', () =>
               currentbowlerovers.innerHTML = ballerballcount; 
 
                  ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
@@ -2507,12 +2514,12 @@ btn1.addEventListener('click', () =>
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
                 addtoscorecard();
@@ -2568,7 +2575,7 @@ btn1.addEventListener('click', () =>
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>`
 
                             strikerstar.innerHTML="";
@@ -2583,7 +2590,7 @@ btn1.addEventListener('click', () =>
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>`
 
                               nonstrikerstar.innerHTML="";
@@ -2619,7 +2626,7 @@ btn1.addEventListener('click', () =>
                                 addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>`
 
 
@@ -2635,7 +2642,7 @@ btn1.addEventListener('click', () =>
                                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9312</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 1 run!</span>
                                                 </div>`
 
 
@@ -2675,7 +2682,7 @@ btn2.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>` 
 
                   strikerscore = strikerscore+2;
@@ -2685,7 +2692,7 @@ btn2.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2704,7 +2711,7 @@ btn2.addEventListener('click', () =>
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>`  
 
 
@@ -2716,7 +2723,7 @@ btn2.addEventListener('click', () =>
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2737,7 +2744,9 @@ btn2.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -2758,7 +2767,9 @@ btn2.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -2785,7 +2796,7 @@ btn2.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>` 
 
                   strikerscore = strikerscore+2;
@@ -2795,7 +2806,7 @@ btn2.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -2814,7 +2825,7 @@ btn2.addEventListener('click', () =>
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>`  
 
 
@@ -2826,7 +2837,7 @@ btn2.addEventListener('click', () =>
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -2847,7 +2858,9 @@ btn2.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -2868,7 +2881,9 @@ btn2.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -2891,7 +2906,7 @@ btn2.addEventListener('click', () =>
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
                               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-                              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+                              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -2916,12 +2931,12 @@ btn2.addEventListener('click', () =>
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
                 currentbowlerovers.innerHTML = ballerballcount;
@@ -2982,7 +2997,7 @@ currentbowlerecon.innerHTML = ballereco;
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!n</span>
                                                 </div>` 
 
                             strikerstar.innerHTML="";
@@ -2998,7 +3013,7 @@ currentbowlerecon.innerHTML = ballereco;
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>`   
 
                               nonstrikerstar.innerHTML="";
@@ -3032,7 +3047,7 @@ currentbowlerecon.innerHTML = ballereco;
                                 addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>` 
 
 
@@ -3048,7 +3063,7 @@ currentbowlerecon.innerHTML = ballereco;
                                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9313</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 2 runs!</span>
                                                 </div>` 
 
 
@@ -3089,7 +3104,7 @@ btn3.addEventListener('click', () =>
                           addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>` 
 
                           strikerscore = strikerscore+3;
@@ -3101,7 +3116,7 @@ btn3.addEventListener('click', () =>
                           batter1bowlcount.innerHTML = strikerballs;
 
                           strikersr = (strikerscore/strikerballs)*100;
-                            batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                            batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                           document.getElementById("initialstriker").innerHTML =`
                                                                         <td>${batter1namepara.innerText}</td>
@@ -3120,7 +3135,7 @@ btn3.addEventListener('click', () =>
                             addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`  
 
 
@@ -3134,7 +3149,7 @@ btn3.addEventListener('click', () =>
                           batter2scorepara.innerHTML = nonstrikerscore;
 
                           nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                            batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                            batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                           document.getElementById("initialnonstriker").innerHTML =`
                                                                         <td>${batter2namepara.innerText}</td>
@@ -3155,7 +3170,9 @@ btn3.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -3176,7 +3193,9 @@ btn3.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                     completed=1;
+                     update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -3202,7 +3221,7 @@ btn3.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`
 
                   strikerscore = strikerscore+3;
@@ -3214,7 +3233,7 @@ btn3.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3233,7 +3252,7 @@ btn3.addEventListener('click', () =>
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`  
 
 
@@ -3247,7 +3266,7 @@ btn3.addEventListener('click', () =>
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3268,7 +3287,9 @@ btn3.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -3289,7 +3310,9 @@ btn3.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -3312,7 +3335,7 @@ btn3.addEventListener('click', () =>
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
@@ -3338,12 +3361,12 @@ btn3.addEventListener('click', () =>
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
 
@@ -3400,7 +3423,7 @@ btn3.addEventListener('click', () =>
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`
 
                             strikerstar.innerHTML="";
@@ -3414,7 +3437,7 @@ btn3.addEventListener('click', () =>
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`
 
                               nonstrikerstar.innerHTML="";
@@ -3447,7 +3470,7 @@ btn3.addEventListener('click', () =>
                                 addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong > ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`
 
 
@@ -3463,7 +3486,7 @@ btn3.addEventListener('click', () =>
                                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong >${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span ><i class="fa fa-sign-language" aria-hidden="true"></i>Its 3 runs!</span>
                                                 </div>`
 
 
@@ -3503,7 +3526,7 @@ btn4.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9315</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>`
 
                   strikerscore = strikerscore+4;
@@ -3517,7 +3540,7 @@ btn4.addEventListener('click', () =>
                   batter1fourcount.innerHTML = strikerfours;
 
                   strikersr = (strikerscore/strikerballs)*100;
-                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+                    batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3534,9 +3557,9 @@ btn4.addEventListener('click', () =>
               {
                     
                     addcommentary.innerHTML += `<div class="cal-schedule">
-                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9315</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark" >${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>` 
 
 
@@ -3550,7 +3573,7 @@ btn4.addEventListener('click', () =>
                   batter2fourcount.innerHTML = nonstrikerfours;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+                    batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3571,7 +3594,9 @@ btn4.addEventListener('click', () =>
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -3592,7 +3617,9 @@ btn4.addEventListener('click', () =>
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -3617,9 +3644,9 @@ btn4.addEventListener('click', () =>
               {
                   
                   addcommentary.innerHTML += `<div class="cal-schedule">
-                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9315</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>`
 
                   strikerscore = strikerscore+4;
@@ -3631,7 +3658,7 @@ btn4.addEventListener('click', () =>
                   batter1fourcount.innerHTML = strikerfours;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3648,9 +3675,9 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
               {
                     
                     addcommentary.innerHTML += `<div class="cal-schedule">
-                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
+                                                <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9315</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>` 
 
 
@@ -3685,7 +3712,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -3706,7 +3735,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -3730,7 +3761,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -3755,12 +3786,12 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
 
@@ -3818,7 +3849,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark"> ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>`
 
                             strikerstar.innerHTML="";
@@ -3832,7 +3863,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-green-dark"  style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>`
 
                               nonstrikerstar.innerHTML="";
@@ -3865,7 +3896,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                                 addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!/span>
                                                 </div>`
 
 
@@ -3881,7 +3912,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-green-dark" style="font-size: 200%; color: #FF5722;">&#9314</span><br></em>
                                                 <strong class="demo-color color-white bg-green-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-green-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 4runs!</span>
                                                 </div>`
 
 
@@ -3922,7 +3953,7 @@ btn5.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>` 
 
                   strikerscore = strikerscore+5;
@@ -3934,7 +3965,7 @@ btn5.addEventListener('click', () =>
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -3953,7 +3984,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>`   
 
 
@@ -3967,7 +3998,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -3988,7 +4019,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -4009,7 +4042,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -4035,7 +4070,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>` 
 
                   strikerscore = strikerscore+5;
@@ -4047,7 +4082,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                   batter1bowlcount.innerHTML = strikerballs;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -4066,7 +4101,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>`   
 
 
@@ -4080,7 +4115,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                   batter2scorepara.innerHTML = nonstrikerscore;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4101,7 +4136,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -4122,7 +4159,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -4143,7 +4182,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+                 currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -4168,12 +4207,12 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
                  addtoscorecard();
@@ -4229,7 +4268,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>` 
 
                             strikerstar.innerHTML="";
@@ -4243,7 +4282,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>` 
 
                               nonstrikerstar.innerHTML="";
@@ -4275,7 +4314,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                                 addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!n</span>
                                                 </div>` 
 
 
@@ -4291,7 +4330,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span style="font-size: 200%; color: #FF5722;">&#9316;</span><br></em>
                                                 <strong>${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span><i class="fa fa-sign-language" aria-hidden="true"></i>Its 5 runs!</span>
                                                 </div>` 
 
 
@@ -4331,7 +4370,7 @@ btn6.addEventListener('click', () =>
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>` 
 
                   strikerscore = strikerscore+6;
@@ -4343,7 +4382,7 @@ btn6.addEventListener('click', () =>
                   batter1sixcount.innerHTML = strikersixes;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
                   document.getElementById("initialstriker").innerHTML =`
                                                                 <td>${batter1namepara.innerText}</td>
@@ -4362,7 +4401,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>`
 
 
@@ -4376,7 +4415,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                   batter2sixcount.innerHTML = nonstrikersixes;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstriker").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4397,7 +4436,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teamawickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -4418,7 +4459,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -4434,7 +4477,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
           }
 
 
-          if (battingfirst==teambselected)
+             if (battingfirst==teambselected)
               {
                 teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
                 teambscore.innerHTML = score;
@@ -4445,7 +4488,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                   addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>`
 
                   strikerscore = strikerscore+6;
@@ -4457,7 +4500,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                   batter1sixcount.innerHTML = strikersixes;
 
                   strikersr = (strikerscore/strikerballs)*100;
-batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
 
 
                   document.getElementById("initialstrikerteamb").innerHTML =`
@@ -4477,7 +4520,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>` 
 
 
@@ -4491,7 +4534,7 @@ batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(2);
                   batter2sixcount.innerHTML = nonstrikersixes;
 
                   nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
-batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
+batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
 
                   document.getElementById("initialnonstrikerteamb").innerHTML =`
                                                                 <td>${batter2namepara.innerText}</td>
@@ -4512,7 +4555,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (rem_score==0)
                   {
-                    completed = 1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
 
                      var rem_wickets = 10 - (teambwickets.innerText);
                     console.log("rem wickets were"+rem_wickets);
@@ -4533,7 +4578,9 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
                   if (balls_rem==0)
                   {
-                    completed=1;
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
                      console.log("rem runs were"+rem_score);
 
                      document.getElementById("resultalert").innerHTML = `
@@ -4551,13 +4598,13 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                 }
 
 
-            ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
+             ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
               currentbowlerovers.innerHTML = ballerballcount;
               ballerruncount = parseInt(donescore)+6;
               currentbowlerrunsgiven.innerHTML = ballerruncount;
 
               ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
               set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
                                             BowlerName : currentbowlernamepara.innerText,
@@ -4582,12 +4629,12 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                  { 
                     teamaovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { teambovers.innerHTML = overdone+".0"; 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
                  addtoscorecard();
@@ -4642,7 +4689,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>`
 
                             strikerstar.innerHTML="";
@@ -4656,7 +4703,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                              addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>`
 
                               nonstrikerstar.innerHTML="";
@@ -4689,7 +4736,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                                 addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>`
 
 
@@ -4705,7 +4752,7 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
                                     addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
                                                 <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its 6 runs!</span>
                                                 </div>`
 
 
@@ -4721,12 +4768,15 @@ batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(2);
 
 var toadd;
 
+// INNS NEVER GETS OVER ON WIDE SO NO NEED TO CHECK
 btnwide.addEventListener('click', () => 
 {
-    
+      val_of_button = "Wd";
       score = score+1;
 
       var donescore = currentbowlerrunsgiven.innerText;
+
+      currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
 
       if (battingfirst==teamaselected)
       {
@@ -4735,7 +4785,7 @@ btnwide.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Wd</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a WIDE ball!</span>
                                                 </div>`
 
 
@@ -4770,7 +4820,7 @@ btnwide.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Wd</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a WIDE ball!</span>
                                                 </div>`
 
 
@@ -4802,29 +4852,34 @@ btnwide.addEventListener('click', () =>
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
             if (battingfirst==teamaselected)
                  { 
                      
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  {  
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
        addtoscorecard();
       
 });
 
+// INNS NEVER GETS OVER ON NO BALL SO NO NEED TO CHECK
 btnnb.addEventListener('click', () => 
 {
+    val_of_button = "Nb";
+
     score = score+1;
 
     var donescore = currentbowlerrunsgiven.innerText;  //to increment bowler score by 1
+
+    currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
 
       if (battingfirst==teamaselected)
       {
@@ -4833,7 +4888,7 @@ btnnb.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Nb</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a NO ball!</span>
                                                 </div>`
 
 
@@ -4866,7 +4921,7 @@ btnnb.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Nb</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a NO ball!</span>
                                                 </div>`
 
 
@@ -4898,18 +4953,18 @@ btnnb.addEventListener('click', () =>
       currentbowlerrunsgiven.innerHTML = ballerruncount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
 if (battingfirst==teamaselected)
                  { 
                     
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  {  
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
       addtoscorecard();
@@ -4917,12 +4972,17 @@ if (battingfirst==teamaselected)
 
 });
 
-// NEED TO CHECK INNS DONE , OVER DONE , strike rate of batters
-btnlb.addEventListener('click', () => 
+/* btnlb.addEventListener('click', () => 
 {
+    val_of_button = "Lb";
+
     score = score+1;
 
     balls=balls+1;
+
+    ball_count = ball_count+1;
+
+    console.log(ball_count);
 
     var doneballs = currentbowlerovers.innerText;
 
@@ -4930,16 +4990,25 @@ btnlb.addEventListener('click', () =>
     ballerruncount = parseInt(donescore)+1;
     currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+    ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
+    currentbowlerovers.innerHTML = ballerballcount;
+
+    currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
+
       if (battingfirst==teamaselected)
       {
-        teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
+        teamaovers.innerHTML = parseFloat(document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
 
         teamascore.innerHTML = score;
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
                                                 </div>`
+
+                                     
+            crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+            teamcrr.innerText = parseFloat(crr).toFixed(2); 
 
              if (innsover==2)
               {
@@ -4963,16 +5032,155 @@ btnlb.addEventListener('click', () =>
 
               }
 
-              if (strikerstar.innerText=="*")
+              if (ball_count%6==0)
               {
-                strikerstar.innerText="";
-                nonstrikerstar.innerText="*";
-              }
-              else
-              {
-                strikerstar.innerText="*";
-                nonstrikerstar.innerText="";
-              }
+                 overdone = overdone+1;
+                 
+                 ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
+
+                 addtoscorecard();
+
+                if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON 0
+                 {  
+                    // SAVE BOWER DATA 1ST EVEN IF INNS IS OVER
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+                    ballerballcount = 0;
+
+                                            // UPDATE SCORECARD
+                      if (strikerstar.innerText=="*")
+                         {
+                    
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its LEG BYE!</span>
+                                                </div>`
+
+                            strikerstar.innerHTML="";
+                            nonstrikerstar.innerHTML="*";
+                         }
+                         
+                         // UPDATE SCORECARD
+                         else if (nonstrikerstar.innerText=="*")
+                          {
+                              
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>ts LEG BYE!</span>
+                                                </div>`
+
+                              nonstrikerstar.innerHTML="";
+                              strikerstar.innerHTML="*";
+                          }
+
+                          currentovertext.innerHTML = "";   
+
+                         switchteams(); 
+
+                    } 
+
+                    else
+                    {
+                         set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                        ballerballcount = 0;
+
+                         over_change_ui(bowlersarray);
+
+                             if (strikerstar.innerText=="*")
+                             {
+                                
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>ts LEG BYE!</span>
+                                                </div>`
+
+
+                                strikerstar.innerHTML="";
+                                nonstrikerstar.innerHTML="*";
+                               
+                             }
+                 
+
+                                 else if (nonstrikerstar.innerText=="*")
+                                  {
+                                      
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>ts LEG BYE!</span>
+                                                </div>`
+
+
+                                      nonstrikerstar.innerHTML="";
+                                      strikerstar.innerHTML="*";
+                                     
+                                  }
+
+                            currentovertext.innerHTML = "";
+                    }
+                } 
+
+            
+                else
+                {
+                      if (strikerstar.innerText=="*")
+                      {
+                        strikerstar.innerText="";
+                        nonstrikerstar.innerText="*";
+                      }
+                      else
+                      {
+                        strikerstar.innerText="*";
+                        nonstrikerstar.innerText="";
+                      }
+                }
       }
 
       if (battingfirst==teambselected)
@@ -4982,8 +5190,11 @@ btnlb.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
                                                 </div>`
+
+                crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                teamcrr.innerText = parseFloat(crr).toFixed(2);
 
              if (innsover==2)
               {
@@ -5006,44 +5217,579 @@ btnlb.addEventListener('click', () =>
                   }
 
               }
+              
+              if (ball_count%6==0)
+              {
+                 overdone = overdone+1;
+                 
+                 ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
 
-              if (strikerstar.innerText=="*")
-              {
-                strikerstar.innerText="";
-                nonstrikerstar.innerText="*";
-              }
-              else
-              {
-                strikerstar.innerText="*";
-                nonstrikerstar.innerText="";
-              }
+                 addtoscorecard();
+
+                if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON 0
+                 {  
+                    // SAVE BOWER DATA 1ST EVEN IF INNS IS OVER
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+                    ballerballcount = 0;
+
+                                            // UPDATE SCORECARD
+                      if (strikerstar.innerText=="*")
+                         {
+                    
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>Its LEG BYE!</span>
+                                                </div>`
+
+                            strikerstar.innerHTML="";
+                            nonstrikerstar.innerHTML="*";
+                         }
+                         
+                         // UPDATE SCORECARD
+                         else if (nonstrikerstar.innerText=="*")
+                          {
+                              
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>ts LEG BYE!</span>
+                                                </div>`
+
+                              nonstrikerstar.innerHTML="";
+                              strikerstar.innerHTML="*";
+                          }
+
+                          currentovertext.innerHTML = "";   
+
+                         switchteams(); 
+
+                    } 
+
+                    else
+                    {
+                         set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                        ballerballcount = 0;
+
+                         over_change_ui(bowlersarray);
+
+                             if (strikerstar.innerText=="*")
+                             {
+                                
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>ts LEG BYE!</span>
+                                                </div>`
+
+
+                                strikerstar.innerHTML="";
+                                nonstrikerstar.innerHTML="*";
+                               
+                             }
+                 
+
+                                 else if (nonstrikerstar.innerText=="*")
+                                  {
+                                      
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-magenta-dark" style="font-size: 200%; color: #FF5722;">&#9317;</span><br></em>
+                                                <strong class="demo-color color-white bg-magenta-dark">${currentbowlernamepara.innerText} to ${batter2namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-magenta-dark"><i class="fa fa-sign-language" aria-hidden="true"></i>ts LEG BYE!</span>
+                                                </div>`
+
+
+                                      nonstrikerstar.innerHTML="";
+                                      strikerstar.innerHTML="*";
+                                     
+                                  }
+
+                            currentovertext.innerHTML = "";
+                    }
+                } 
+
+             else
+             {
+                if (strikerstar.innerText=="*")
+                      {
+                        strikerstar.innerText="";
+                        nonstrikerstar.innerText="*";
+                      }
+                      else
+                      {
+                        strikerstar.innerText="*";
+                        nonstrikerstar.innerText="";
+                      }
+            }
       }
 
       ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
       currentbowlerovers.innerHTML = ballerballcount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
-
-if (battingfirst==teamaselected)
-                 { 
-                    
-                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
-                } 
-                 if (battingfirst==teambselected)
-                 {  
-                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
-                 }
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
       addtoscorecard();
 
+}); */
+
+btnlb.addEventListener('click' , ()=>
+{
+   
+             val_of_button = "Lb";
+             score = score + 1;
+
+             balls = balls+1;
+
+            var donescore = currentbowlerrunsgiven.innerText;  //to increment bowler score by 1
+
+            var doneballs = currentbowlerovers.innerText;  // to increment bowler ball count by 0.1
+
+              currentovertext.insertAdjacentHTML("beforeend"," " + val_of_button);
+
+              ball_count = ball_count + 1;
+
+              if (battingfirst==teamaselected)
+              {
+                teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
+                teamascore.innerHTML = score;
+
+                if (strikerstar.innerText=="*")
+                {
+                  
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+                  strikerballs = strikerballs + 1;
+
+                  batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
+
+                  document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+                }
+
+                else if (nonstrikerstar.innerText=="*")
+              {
+                    
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+
+
+
+                  nonstrikerballs = nonstrikerballs+1;
+
+                  batter2bowlcount.innerHTML = nonstrikerballs; 
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
+
+                  document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+              }
+
+              if (innsover==2)
+              {
+                  target = localStorage.getItem("Target");
+                  rem_score = target - parseInt(document.getElementById("teamascore").innerText);
+                  console.log("rem score is"+rem_score);
+
+                  if (rem_score==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+                  balls_rem = totalballs-balls;
+                  console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
+                  if (balls_rem==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+              }
+          }
+
+
+             if (battingfirst==teambselected)
+              {
+                teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
+                teambscore.innerHTML = score;
+            
+              if (strikerstar.innerText=="*")
+              {
+                  
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+
+                  strikerballs = strikerballs + 1;
+
+                  batter1bowlcount.innerHTML = strikerballs;
+
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
+
+
+                  document.getElementById("initialstrikerteamb").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+              }
+              
+              else if (nonstrikerstar.innerText=="*")
+              {
+                    
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>` 
+
+                  nonstrikerballs = nonstrikerballs+1;
+
+
+                  batter2bowlcount.innerHTML = nonstrikerballs; 
+  
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
+
+                  document.getElementById("initialnonstrikerteamb").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+              }
+
+              if (innsover==2)
+              {
+                  target = localStorage.getItem("Target");
+                  rem_score = target - parseInt(document.getElementById("teambscore").innerText);
+                  console.log("rem score is"+rem_score);
+
+                  if (rem_score==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+                  balls_rem = totalballs-balls;
+                  console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
+                  if (balls_rem==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+              }
+                
+
+                }
+
+
+              ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
+              currentbowlerovers.innerHTML = ballerballcount;
+              ballerruncount = parseInt(donescore)+1;
+              currentbowlerrunsgiven.innerHTML = ballerruncount;
+
+              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
+
+              set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+               addtoscorecard();
+
+
+              if (ball_count%6==0)
+              {
+
+                 overdone = overdone+1;
+                 
+                 ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
+
+                 if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
+                 }
+
+                 addtoscorecard();
+
+                if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON 0
+                 {  
+                    // SAVE BOWER DATA 1ST EVEN IF INNS IS OVER
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+                    ballerballcount = 0;
+
+                                            // UPDATE SCORECARD
+                      if (strikerstar.innerText=="*")
+                         {
+                    
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+
+                            strikerstar.innerHTML="";
+                            nonstrikerstar.innerHTML="*";
+                         }
+                         
+                         // UPDATE SCORECARD
+                         else if (nonstrikerstar.innerText=="*")
+                          {
+                              
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+
+                              nonstrikerstar.innerHTML="";
+                              strikerstar.innerHTML="*";
+                          }
+
+                          currentovertext.innerHTML = "";   
+
+                         switchteams(); 
+
+                    } 
+
+                    else
+                    {
+                         set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                        ballerballcount = 0;
+
+                         over_change_ui(bowlersarray);
+
+                             if (strikerstar.innerText=="*")
+                             {
+                                
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+
+
+                                strikerstar.innerHTML="";
+                                nonstrikerstar.innerHTML="*";
+                               
+                             }
+                 
+
+                                 else if (nonstrikerstar.innerText=="*")
+                                  {
+                                      
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a LEG BYE!</span>
+                                                </div>`
+
+
+                                      nonstrikerstar.innerHTML="";
+                                      strikerstar.innerHTML="*";
+                                     
+                                  }
+
+                            currentovertext.innerHTML = "";
+                    }
+                }     
+
 });
 
-// NEED TO CHECK INNS DONE AND OVER DONE 
-btnb.addEventListener('click', () => 
+
+/* btnb.addEventListener('click', () => 
 {
+    val_of_button = "B";
+
     score = score+1;
 
     balls=balls+1;
@@ -5054,6 +5800,8 @@ btnb.addEventListener('click', () =>
     ballerruncount = parseInt(donescore)+1;
     currentbowlerrunsgiven.innerHTML = ballerruncount;
 
+    currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
+
       if (battingfirst==teamaselected)
       {
         teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
@@ -5061,7 +5809,7 @@ btnb.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a BYE!</span>
                                                 </div>`
 
             if (innsover==2)
@@ -5109,7 +5857,7 @@ btnb.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a BYE!</span>
                                                 </div>`
 
               if (innsover==2)
@@ -5150,21 +5898,427 @@ btnb.addEventListener('click', () =>
       currentbowlerovers.innerHTML = ballerballcount;
 
       ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
-      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(2);
+      currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
 
 if (battingfirst==teamaselected)
                  { 
                     
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
       addtoscorecard();
+
+}); */
+
+
+btnb.addEventListener('click' , ()=>
+{
+   
+             val_of_button = "B";
+             score = score + 1;
+
+             balls = balls+1;
+
+            var donescore = currentbowlerrunsgiven.innerText;  //to increment bowler score by 1
+
+            var doneballs = currentbowlerovers.innerText;  // to increment bowler ball count by 0.1
+
+              currentovertext.insertAdjacentHTML("beforeend"," " + val_of_button);
+
+              ball_count = ball_count + 1;
+
+              if (battingfirst==teamaselected)
+              {
+                teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
+                teamascore.innerHTML = score;
+
+                if (strikerstar.innerText=="*")
+                {
+                  
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a BYE!</span>
+                                                </div>`
+                  strikerballs = strikerballs + 1;
+
+                  batter1bowlcount.innerHTML = strikerballs;
+
+                  strikersr = (strikerscore/strikerballs)*100;
+                  batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
+
+                  document.getElementById("initialstriker").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+                }
+
+                else if (nonstrikerstar.innerText=="*")
+              {
+                    
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a BYE!</span>
+                                                </div>`
+
+
+
+                  nonstrikerballs = nonstrikerballs+1;
+
+                  batter2bowlcount.innerHTML = nonstrikerballs; 
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
+
+                  document.getElementById("initialnonstriker").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+              }
+
+              if (innsover==2)
+              {
+                  target = localStorage.getItem("Target");
+                  rem_score = target - parseInt(document.getElementById("teamascore").innerText);
+                  console.log("rem score is"+rem_score);
+
+                  if (rem_score==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+                     var rem_wickets = 10 - (teamawickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+                  balls_rem = totalballs-balls;
+                  console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teamaselected} needs ${rem_score} from ${balls_rem} to win`
+
+                  if (balls_rem==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+              }
+          }
+
+
+             if (battingfirst==teambselected)
+              {
+                teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
+                teambscore.innerHTML = score;
+            
+              if (strikerstar.innerText=="*")
+              {
+                  
+                  addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a BYE!</span>
+                                                </div>`
+
+                  strikerballs = strikerballs + 1;
+
+                  batter1bowlcount.innerHTML = strikerballs;
+
+
+                  strikersr = (strikerscore/strikerballs)*100;
+batter1strikeratecount.innerHTML = parseFloat(strikersr).toFixed(1);
+
+
+                  document.getElementById("initialstrikerteamb").innerHTML =`
+                                                                <td>${batter1namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter1scorepara.innerText}</strong></td>
+                                                                <td>${batter1bowlcount.innerText}</td>
+                                                                <td>${batter1fourcount.innerText}</td>
+                                                                <td>${batter1sixcount.innerText}</td>
+                                                                <td>${batter1strikeratecount.innerText}</td>
+                                        `
+              }
+              
+              else if (nonstrikerstar.innerText=="*")
+              {
+                    
+                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">B</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its a BYE!</span>
+                                                </div>` 
+
+                  nonstrikerballs = nonstrikerballs+1;
+
+
+                  batter2bowlcount.innerHTML = nonstrikerballs; 
+  
+
+                  nonstrikersr = (nonstrikerscore/nonstrikerballs)*100;
+                  batter2strikeratecount.innerHTML = parseFloat(nonstrikersr).toFixed(1);
+
+                  document.getElementById("initialnonstrikerteamb").innerHTML =`
+                                                                <td>${batter2namepara.innerText}</td>
+                                                                <td>not out</td>
+                                                                <td><strong>${batter2scorepara.innerText}</strong></td>
+                                                                <td>${batter2bowlcount.innerText}</td>
+                                                                <td>${batter2fourcount.innerText}</td>
+                                                                <td>${batter2sixcount.innerText}</td>
+                                                                <td>${batter2strikeratecount.innerText}</td>
+                                        `
+              }
+
+              if (innsover==2)
+              {
+                  target = localStorage.getItem("Target");
+                  rem_score = target - parseInt(document.getElementById("teambscore").innerText);
+                  console.log("rem score is"+rem_score);
+
+                  if (rem_score==0)
+                  {
+                    update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+                     var rem_wickets = 10 - (teambwickets.innerText);
+                    console.log("rem wickets were"+rem_wickets);
+
+                    document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teambselected} won by ${rem_wickets}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+                  balls_rem = totalballs-balls;
+                  console.log("rem balls is"+balls_rem);
+
+                  document.getElementById("targetdesc").innerHTML=`${teambselected} needs ${rem_score} from ${balls_rem} to win`
+
+                  if (balls_rem==0)
+                  {
+                   update (ref(database,'Matches/'+selectedmatch) , {
+                                    completed : 1
+                                  });
+                     console.log("rem runs were"+rem_score);
+
+                     document.getElementById("resultalert").innerHTML = `
+                     <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading">Match Over!</h4>
+                      <p>${teamaselected} won by ${rem_score}</p>
+                      <hr>
+                      <button>Future</button>
+                    </div>`
+                  }
+
+              }
+                
+
+                }
+
+
+              ballerballcount = (parseFloat(doneballs)*10 + 0.1*10)/10;
+              currentbowlerovers.innerHTML = ballerballcount;
+              ballerruncount = parseInt(donescore)+1;
+              currentbowlerrunsgiven.innerHTML = ballerruncount;
+
+              ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+              currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
+
+              set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+               addtoscorecard();
+
+
+              if (ball_count%6==0)
+              {
+
+                 overdone = overdone+1;
+                 
+                 ballerballcount = ballerballcount+0.4;
+                 currentbowlerovers.innerHTML = ballerballcount;
+
+                 if (battingfirst==teamaselected)
+                 { 
+                    teamaovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
+                } 
+                 if (battingfirst==teambselected)
+                 { teambovers.innerHTML = overdone+".0"; 
+                    crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
+                 }
+
+                 addtoscorecard();
+
+                if (overdone == totalovers)  // THIS GETS EXECUTED ONLY WHEN INNS IS OVER ON BUTTON 0
+                 {  
+                    // SAVE BOWER DATA 1ST EVEN IF INNS IS OVER
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                    // SAVE DATA OF NOT OUT BATTERS
+                            var getposition = document.getElementById('pos1').innerText;
+                            var getposition = document.getElementById('pos2').innerText;
+
+
+                    set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter1namepara.innerText) , 
+                                  {
+                                        Name : batter1namepara.innerText,
+                                        Runs : batter1scorepara.innerText,
+                                        Balls : batter1bowlcount.innerText,
+                                        StrikeRate : batter1strikeratecount.innerText,
+                                        Fours : batter1fourcount.innerText,
+                                        Six : batter1sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+
+                          set (ref(database,selectedmatch+"/"+"Data/"+"BatterData/"+battingfirst+"/"+batter2namepara.innerText) , 
+                                  {
+                                        Name : batter2namepara.innerText,
+                                        Runs : batter2scorepara.innerText,
+                                        Balls : batter2bowlcount.innerText,
+                                        StrikeRate : batter2strikeratecount.innerText,
+                                        Fours : batter2fourcount.innerText,
+                                        Six : batter2sixcount.innerText,
+                                        Inat : getposition,
+                                        WicketType : "not out"
+                                  }); 
+
+                    ballerballcount = 0;
+
+                                            // UPDATE SCORECARD
+                      if (strikerstar.innerText=="*")
+                         {
+                    
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its BYE!</span>
+                                                </div>`
+
+                            strikerstar.innerHTML="";
+                            nonstrikerstar.innerHTML="*";
+                         }
+                         
+                         // UPDATE SCORECARD
+                         else if (nonstrikerstar.innerText=="*")
+                          {
+                              
+                             addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its BYE!</span>
+                                                </div>`
+
+                              nonstrikerstar.innerHTML="";
+                              strikerstar.innerHTML="*";
+                          }
+
+                          currentovertext.innerHTML = "";   
+
+                         switchteams(); 
+
+                    } 
+
+                    else
+                    {
+                         set (ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst+"/"+currentbowlernamepara.innerText) , {
+                                            BowlerName : currentbowlernamepara.innerText,
+                                            Overs : currentbowlerovers.innerText,
+                                            RunsGiven : currentbowlerrunsgiven.innerText,
+                                            WicketsTaken : currentbowlerwickets.innerText,
+                                            Economy : currentbowlerecon.innerText
+                                          });
+
+                        ballerballcount = 0;
+
+                         over_change_ui(bowlersarray);
+
+                             if (strikerstar.innerText=="*")
+                             {
+                                
+                                addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its BYE!</span>
+                                                </div>`
+
+
+                                strikerstar.innerHTML="";
+                                nonstrikerstar.innerHTML="*";
+                               
+                             }
+                 
+
+                                 else if (nonstrikerstar.innerText=="*")
+                                  {
+                                      
+                                    addcommentary.innerHTML += `<div class="cal-schedule">
+                                                <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Lb</span><br></em>
+                                                <strong class="demo-color color-white bg-yellow-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
+                                                <span class="demo-color color-white bg-yellow-light"><i class="fa fa-sign-language" aria-hidden="true"></i>Its BYE!</span>
+                                                </div>`
+
+
+                                      nonstrikerstar.innerHTML="";
+                                      strikerstar.innerHTML="*";
+                                     
+                                  }
+
+                            currentovertext.innerHTML = "";
+                    }
+                }     
 
 });
  
@@ -5181,7 +6335,7 @@ btnex.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-dark-light" style="font-size: 200%; color: #FF5722;">EX</span><br></em>
                                                 <strong class="demo-color color-white bg-dark-light">${teamaovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-dark-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-dark-light"><i class="fa fa-sign-language" aria-hidden="true"></i>EXTRA runs!</span>
                                                 </div>`
 
 
@@ -5215,7 +6369,7 @@ btnex.addEventListener('click', () =>
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-dark-light" style="font-size: 200%; color: #FF5722;">EX</span><br></em>
                                                 <strong class="demo-color color-white bg-dark-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
-                                                <span class="demo-color color-white bg-dark-light"><i class="fa fa-sign-language" aria-hidden="true"></i>No run</span>
+                                                <span class="demo-color color-white bg-dark-light"><i class="fa fa-sign-language" aria-hidden="true"></i>EXTRA runs!</span>
                                                 </div>`
 
 
@@ -5253,12 +6407,12 @@ if (battingfirst==teamaselected)
                  { 
                      
                     crr = parseInt(document.getElementById("teamascore").innerText)/parseInt(document.getElementById("teamaovers").innerText);
-                    teamcrr.innerText = crr; 
+                    teamcrr.innerText = parseFloat(crr).toFixed(2); 
                 } 
                  if (battingfirst==teambselected)
                  { 
                     crr = parseInt(document.getElementById("teambscore").innerText)/parseInt(document.getElementById("teambovers").innerText);
-                    teamcrr.innerText = crr
+                    teamcrr.innerText = parseFloat(crr).toFixed(2)
                  }
 
       addtoscorecard();
@@ -5291,89 +6445,91 @@ var previousbattername;
                         var previousbowlername;
 
 
-if (battingfirst==teamaselected)
-{
-    getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
-    getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
 
-    
+   /* if (battingfirst==teamaselected)
+    {
+        getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
+        getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
 
-            onValue(getbowlerslist,(snapshot)=>
-                                      {
-                                        snapshot.forEach(snap => 
-                                        {
-                                          
-                                          const issue = snap.val();
-                                     document.getElementById('bowlerlistifcaught').innerHTML +=
-                                    `    <option value="${issue}">${issue}</option> `
-                                        })
-                                     })
+        console.log("i am from main"+getstrikerslist);
+        console.log("i am from main"+getbowlerslist);
 
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaught').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
 
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchange').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
 
-            onValue(getbowlerslist,(snapshot)=>
-                                      {
-                                        snapshot.forEach(snap => 
-                                        {
-                                          
-                                          const issue = snap.val();
-                                     document.getElementById('bowlerlistifcaughtoverchange').innerHTML +=
-                                    `    <option value="${issue}">${issue}</option> `
-                                        })
-                                     })
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+    }
 
-            onValue(getbowlerslist,(snapshot)=>
-                                      {
-                                        snapshot.forEach(snap => 
-                                        {
-                                          
-                                          const issue = snap.val();
-                                     document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML +=
-                                    `    <option value="${issue}">${issue}</option> `
-                                        })
-                                     })
-}
+    else if (battingfirst==teambselected)
+    {
+        getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
+        getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
 
-else
-{
-    getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
-    getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
+        console.log("i am from main"+getstrikerslist);
+        console.log("i am from main"+getbowlerslist);
 
-            onValue(getbowlerslist,(snapshot)=>
-                                      {
-                                        snapshot.forEach(snap => 
-                                        {
-                                          
-                                          const issue = snap.val();
-                                     document.getElementById('bowlerlistifcaught').innerHTML +=
-                                    `    <option value="${issue}">${issue}</option> `
-                                        })
-                                     })
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaught').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
 
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchange').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
 
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+    }  */
 
-            onValue(getbowlerslist,(snapshot)=>
-                                      {
-                                        snapshot.forEach(snap => 
-                                        {
-                                          
-                                          const issue = snap.val();
-                                     document.getElementById('bowlerlistifcaughtoverchange').innerHTML +=
-                                    `    <option value="${issue}">${issue}</option> `
-                                        })
-                                     })
-
-            onValue(getbowlerslist,(snapshot)=>
-                                      {
-                                        snapshot.forEach(snap => 
-                                        {
-                                          
-                                          const issue = snap.val();
-                                     document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML +=
-                                    `    <option value="${issue}">${issue}</option> `
-                                        })
-                                     })
-} 
 
 const getbowlersforb = ref(database,selectedmatch+"/"+"Data/"+"BowlerData/"+bowlingfirst);
 
@@ -5410,6 +6566,9 @@ btnwicket.addEventListener('click', () =>
 
             wickets = parseInt(wickets)+1;
 
+            ballereco = (currentbowlerrunsgiven.innerText)/(currentbowlerovers.innerText);
+            currentbowlerecon.innerHTML = parseFloat(ballereco).toFixed(1);
+
             if (strikerstar.innerText=="*")
             {
                 strikerballs = strikerballs+1;
@@ -5444,6 +6603,43 @@ btnwicket.addEventListener('click', () =>
                 teamaovers.innerHTML = parseFloat(document.getElementById("teamaovers").innerText*10 + 0.1*10 )/10;
 
                
+                getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
+                getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
+
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaught').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchange').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+
+
             
                 if (ball_count%6!=0)   //wicket fell but over not done yet
                 {
@@ -6281,6 +7477,42 @@ document.getElementById("wicketimelinea").innerHTML += `${teamascore.innerText}-
                 teambwickets.innerText = wickets;
                 teambovers.innerHTML = parseFloat(document.getElementById("teambovers").innerText*10 + 0.1*10 )/10 ;
 
+                getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
+                getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
+               
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaught').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchange').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+
+                onValue(getbowlerslist,(snapshot)=>
+                                          {
+                                            snapshot.forEach(snap => 
+                                            {
+                                              
+                                              const issue = snap.val();
+                                         document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML +=
+                                        `    <option value="${issue}">${issue}</option> `
+                                            })
+                                         })
+
                 if (teambwickets.innerHTML==10)
                 {
                     switchteams();
@@ -7027,8 +8259,6 @@ document.getElementById("wicketimelineb").innerHTML += `${teambscore.innerText}-
 });
 
 var lastbatterwicketype;
-
-/* scorecard.clik to be added */
 
  var temp="out";
 
