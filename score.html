@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -6605,6 +6605,10 @@ btnwicket.addEventListener('click', () =>
                
                 getstrikerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teamaselected"+"/");
                 getbowlerslist = ref(database,selectedmatch+"/"+"Data"+"/"+"teambselected"+"/");
+
+                document.getElementById('bowlerlistifcaught').innerHTML="";
+                document.getElementById('bowlerlistifcaughtoverchange').innerHTML="";
+                document.getElementById('bowlerlistifcaughtoverchangelastbatter').innerHTML="";
 
                 onValue(getbowlerslist,(snapshot)=>
                                           {
