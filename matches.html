@@ -12,6 +12,74 @@
 <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+
+
+<style type="text/css">
+    
+
+.stats{
+    text-align: right;
+    color: #101020;
+    font-weight: 500;
+    line-height: 25px;
+}
+.coin{
+    height: 150px;
+    width: 150px;
+    position: relative;
+    margin: 50px auto;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+}
+.coin img{
+    width: 145px;
+}
+.heads,.tails{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+}
+.tails{
+    transform: rotateX(180deg);
+}
+@keyframes spin-tails{
+    0%{
+        transform: rotateX(0);
+    }
+    100%{
+        transform: rotateX(1980deg);
+    }
+}
+@keyframes spin-heads{
+    0%{
+        transform: rotateX(0);
+    }
+    100%{
+        transform: rotateX(2160deg);
+    }
+}
+
+#flip-button{
+    background-color: #424ae0;
+    color: #ffffff;
+}
+#flip-button:disabled{
+    background-color: #e1e0ee;
+    border-color: #e1e0ee;
+    color: #101020;
+}
+#reset-button{
+    background-color: #ffffff;
+    color: #424ae0;
+}
+
+
+
+</style>
+
+
 </head>
 <body class="theme-light">
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
@@ -149,11 +217,31 @@ Fill in the information correctly to save the match information.
         </div>
 
 
+<label for="form5" class="color-highlight">Try Virtual Coin Toss</label>
+<div class="input-style has-borders has-icon validate-field mb-4">   
+        <div class="coin" id="coin">
+            <div class="heads">
+                <img src="images/heads.svg">
+            </div>
+            <div class="tails">
+                <img src="images/tails.svg">
+            </div>
+        </div>
+        <center><h3 id="tossresult"></h3></center>
+        <div class="buttons">
+            <button id="flip-button" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-yellow-light">
+                Flip Coin
+            </button>
+            <button id="reset-button" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-dark-dark">
+                Reset
+            </button>
+        </div>
+</div>
+
 <label for="form5" class="color-highlight">Toss won by</label>
 <div class="form-check" id="displaytwoteams">
 
 </div>
-
 
 <label for="form5" class="color-highlight">Opted to</label>
 <div class="form-check" id="displaychoice">
@@ -169,6 +257,7 @@ Fill in the information correctly to save the match information.
 
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
+<script type="text/javascript" src="scripts/cointoss.js"></script>
 
 <script>
 const form1 = document.getElementById('form1');
