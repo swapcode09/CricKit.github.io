@@ -625,8 +625,17 @@
 
 <div data-bs-parent="#tab-group-1" class="collapse" id="Scorecard">
 
-
-                                                    <table class="table">
+<div class="card card-style shadow-0 bg-green-dark mb-1">
+<button class="btn accordion-btn color-white no-effect" data-bs-toggle="collapse" data-bs-target="#collapse5">
+<i class="fa fa-star me-2"></i>
+<span id="acctema"></span>
+<i class="fa fa-chevron-down font-10 accordion-icon"></i>
+</button>
+<div id="collapse5" class="collapse bg-theme" data-bs-parent="#accordion-2">
+<div class="pt-3 pb-3">
+<p class="mb-0">
+  
+<table class="table">
                                                         <thead>
                                                             <tr>
                                                         
@@ -660,7 +669,8 @@
                                                         <table class="table">
                                                             <tr>
                                                                 <td><strong>Extras</strong></td>
-                                                                <td>b 0, lb 2, w 0, nb 0, p 0</td>
+                                                                <td>b<span id="byecounttb"> 0</span> , wd<span id="widecountb"> 0</span> , nb<span id="noballcountb"> 0</span> , lb<span id="legbyecounttb"> 0</span>   
+                                                                </td>
                                                                 <td class="text-left" colspan="5"><strong>2</strong></td>
                                                             </tr>
                                                             
@@ -672,15 +682,16 @@
                                                         </tbody>
                                                     </table>
 
-                                                         <div class="spell-sum-box px-30 py-20">
-                                                        <h5>Did not bat: <span id="didnotbata"></span></h5>
-                                                        <h5 class="d-sm-flex">
+                                                      <table class="table">
+                                                        <th>Did not bat: <span id="didnotbata"></span></th>
+                                                        <br>
+                                                        <th>
                                                             Fall of Wickets:
                                                             <span class="ml-05" id="wicketimelinea">
                                                                 
                                                             </span>
-                                                        </h5>
-                                                    </div>
+                                                        </th>
+                                                    </table>
 
                                                     <table class="widget-table table table-striped table-medium no-border">
                                                         <thead>
@@ -700,9 +711,22 @@
                                                         </tbody>
                                                     </table>
 
+</p>
+</div>
+</div>
+</div>
 
 
-
+<div class="card card-style shadow-0 bg-green-dark mb-1">
+<button class="btn accordion-btn color-white no-effect" data-bs-toggle="collapse" data-bs-target="#collapse69">
+<i class="fa fa-star me-2"></i>
+<span id="acctemb"></span>
+<i class="fa fa-chevron-down font-10 accordion-icon"></i>
+</button>
+<div id="collapse69" class="collapse bg-theme" data-bs-parent="#accordion-2">
+<div class="pt-3 pb-3">
+<p class="mb-0">
+  
 
                                                     <table class="widget-table table table-striped table-medium no-border">
                                                         <thead>
@@ -732,15 +756,32 @@
                                                         </tbody>
                                                     </table>
 
-                                                     <div class="spell-sum-box px-30 py-20">
-                                                        <h5>Did not bat: <span id="didnotbatb"></span></h5>
-                                                        <h5 class="d-sm-flex">
+                                                    <table class="table">
+                                                            <tr>
+                                                                <td><strong>Extras</strong></td>
+                                                                <td>b<span id="byecountta"> 0</span> , wd<span id="widecounta"> 0</span> , nb<span id="noballcounta"> 0</span> , lb<span id="legbyecountta"> 0</span>   
+                                                                </td>
+                                                                <td class="text-left" colspan="5"><strong>2</strong></td>
+                                                            </tr>
+                                                            
+                                                            <tr class="score-text-bold">
+                                                                <td>Total Score</td>
+                                                                <td>10 wkts, 79.1 Ov</td>
+                                                                <td class="text-left" colspan="5">259</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                     <table class="table">
+                                                        <th>Did not bat: <span id="didnotbatb"></span></th>
+                                                        <br>
+                                                        <th>
                                                             Fall of Wickets:
                                                             <span class="ml-05" id="wicketimelineb">
-
+                                                                
                                                             </span>
-                                                        </h5>
-                                                    </div>
+                                                        </th>
+                                                    </table>
 
                                                      <table class="widget-table table table-striped table-medium no-border">
                                                         <thead>
@@ -757,18 +798,17 @@
                                                         <tbody id="bowlerdetailsforteama">
                                                              
                                               
-                                                        </tbody>
+                                                        </tbody>  
+                                                      </table>
 
 
 
-                                                        
-                                                    </table>
+</p>
+</div>
+</div>
+</div>
 
-
-
-
-
-
+                                      
 </div>
 
 <div data-bs-parent="#tab-group-1" class="collapse" id="Commentary">
@@ -1054,6 +1094,11 @@
     let ballerruncount=0;
     let ballerecon=0;
 
+    let byecount=0;
+    let widecount=0;
+    let noballcount=0;
+    let legbyecount=0;
+
     //team details
 
     let teamaovers = document.getElementById('teamaovers');
@@ -1243,6 +1288,9 @@ function getdetails()
              /* document.getElementById("matchdetails").innerHTML = `<b>${issue.MatchID}</b> at ${issue.Ground}, ${issue.Overs} overs match` */
               
               document.getElementById("tossdetails").innerHTML = `${issue.Toss} won the toss and opted to ${issue.OptedTo}` 
+
+              document.getElementById("acctema").innerHTML = `${issue.Team1}`
+              document.getElementById("acctemb").innerHTML = `${issue.Team2}`
               
               /* document.getElementById("team1pla").innerHTML = `${issue.Team1}` 
               document.getElementById("team2pla").innerHTML = `${issue.Team2}`  */
@@ -1550,7 +1598,7 @@ function openiniup()
                     document.getElementById("initialstrikerteamb").innerHTML +=
                     `
                                                                 <td>${striker}</td>
-                                                                <td><i><h6>not out</h6></i></td>
+                                                                <td>not out</td>
                                                                 <td><strong>0</strong></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
@@ -1562,7 +1610,7 @@ function openiniup()
                     document.getElementById("initialnonstrikerteamb").innerHTML +=
                     `
                                                                 <td>${nonstriker}</td>
-                                                                <td><i><h6>not out</h6>not out</td>
+                                                                <td>not out</td>
                                                                 <td><strong>0</strong></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
@@ -1660,7 +1708,6 @@ function addtoscorecard()
                                           }
     }
 }
-
 
 function switchteams()
 {
@@ -4774,6 +4821,8 @@ btnwide.addEventListener('click', () =>
       val_of_button = "Wd";
       score = score+1;
 
+      widecount = widecount+1;
+
       var donescore = currentbowlerrunsgiven.innerText;
 
       currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
@@ -4781,6 +4830,8 @@ btnwide.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
+
+        document.getElementById("widecounttb").innerHTML = widecount;
 
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Wd</span><br></em>
@@ -4816,6 +4867,8 @@ btnwide.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
+
+        document.getElementById("widecountta").innerHTML = widecount;
 
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Wd</span><br></em>
@@ -4877,6 +4930,8 @@ btnnb.addEventListener('click', () =>
 
     score = score+1;
 
+    noballcount = noballcount+1;
+
     var donescore = currentbowlerrunsgiven.innerText;  //to increment bowler score by 1
 
     currentovertext.insertAdjacentHTML("beforeend"," " +val_of_button);
@@ -4884,6 +4939,8 @@ btnnb.addEventListener('click', () =>
       if (battingfirst==teamaselected)
       {
         teamascore.innerHTML = score;
+
+        document.getElementById("noballcounttb").innerHTML = noballcount;
         
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Nb</span><br></em>
@@ -4918,6 +4975,9 @@ btnnb.addEventListener('click', () =>
       if (battingfirst==teambselected)
       {
         teambscore.innerHTML = score;
+
+        document.getElementById("noballcountta").innerHTML = noballcount;
+
         addcommentary.innerHTML += `<div class="cal-schedule">
                                                 <em><span class="demo-color color-white bg-yellow-light" style="font-size: 200%; color: #FF5722;">Nb</span><br></em>
                                                 <strong class="demo-color color-white bg-yellow-light">${teambovers.innerText}, ${currentbowlernamepara.innerText} to ${batter1namepara.innerText}  </strong>
@@ -5386,6 +5446,8 @@ btnlb.addEventListener('click' , ()=>
 
              balls = balls+1;
 
+             legbyecount = legbyecount+1;
+
             var donescore = currentbowlerrunsgiven.innerText;  //to increment bowler score by 1
 
             var doneballs = currentbowlerovers.innerText;  // to increment bowler ball count by 0.1
@@ -5398,6 +5460,8 @@ btnlb.addEventListener('click' , ()=>
               {
                 teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
                 teamascore.innerHTML = score;
+                document.getElementById("legbyecounttb").innerHTML = legbyecount;
+
 
                 if (strikerstar.innerText=="*")
                 {
@@ -5506,6 +5570,7 @@ btnlb.addEventListener('click' , ()=>
               {
                 teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
                 teambscore.innerHTML = score;
+                document.getElementById("legbyecountta").innerHTML = legbyecount;
             
               if (strikerstar.innerText=="*")
               {
@@ -5923,6 +5988,8 @@ btnb.addEventListener('click' , ()=>
              val_of_button = "B";
              score = score + 1;
 
+             byecount = byecount+1;
+             
              balls = balls+1;
 
             var donescore = currentbowlerrunsgiven.innerText;  //to increment bowler score by 1
@@ -5937,6 +6004,8 @@ btnb.addEventListener('click' , ()=>
               {
                 teamaovers.innerHTML = parseFloat(  document.getElementById("teamaovers").innerText*10 + 0.1*10  )/10 ;
                 teamascore.innerHTML = score;
+
+                document.getElementById("byecounttb").innerHTML = byecount;
 
                 if (strikerstar.innerText=="*")
                 {
@@ -6044,6 +6113,7 @@ btnb.addEventListener('click' , ()=>
               {
                 teambovers.innerHTML = parseFloat(  document.getElementById("teambovers").innerText*10 + 0.1*10  )/10 ;
                 teambscore.innerHTML = score;
+                document.getElementById("byecountta").innerHTML = byecount;
             
               if (strikerstar.innerText=="*")
               {
