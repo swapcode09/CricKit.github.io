@@ -195,7 +195,15 @@ Fill in the information correctly to save the match information.
 <script type="text/javascript" src="scripts/custom.js"></script>
 <script type="text/javascript" src="scripts/cointoss.js"></script>
 
+
 <script>
+
+const reloadUsingLocationHash = () => 
+    {
+      window.location.hash = "reload";
+    }
+    window.onload = reloadUsingLocationHash();
+
 const form1 = document.getElementById('form1');
 const form2 = document.getElementById('form2');
 
