@@ -134,18 +134,40 @@ function readteamsandmatches()
 
         <form action="score.html">
             <button onclick="cr7(this)" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-yellow-light" name="mybees" value="${issue2.MatchID}" type="submit" style="margin-right:20px;float:left">Start Match</button>
-                          </form>
         </form>
 
-
+        <form
+        <button onclick="delmatch(this)" class="btn btn-m btn-full mb-3 rounded-xs text-uppercase font-700 shadow-s bg-orange-light" id="deletematch" value="${issue2.MatchID}" type="submit" style="margin-right:20px;float:right">Delete Match</button>
+        </form>
                 </div>
-                </div>`
+                </div>
+                `  
         }
+
+        
+
+        function delmatch(ele2)
+        {
+            console.log(ele2.value);  
+
+            remove(ref(database,"Matches/"+ele2.value))
+              .then(() => {
+                alert("match deleted");
+              })
+              .catch((error)=>{
+                 alert("error"+error);
+              });
+        } 
 
     })
   })
 
-}        
+      
+
+
+
+}       
+
 
 window.onload = readteamsandmatches;
 </script>
