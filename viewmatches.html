@@ -79,6 +79,12 @@ const matchref = ref(database,"Matches/");
 
 function readteamsandmatches() 
 {
+  
+  if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    } 
+
   onValue(matchref,(snapshot)=>
   {
     snapshot.forEach(snap => 
